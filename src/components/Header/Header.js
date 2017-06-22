@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -7,8 +8,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  Button,
 } from 'reactstrap';
 import { Link } from 'react-router-dom'
+
+import * as authActions from '../../actions/auth';
 
 class Header extends Component {
   static propTypes = {
@@ -31,8 +35,10 @@ class Header extends Component {
 
     const userLinks = (
       <Nav className="ml-auto" navbar>
-        <NavItem>
-          Logout
+        <NavItem onClick={this.props.logout}>
+          <Button color="primary" onClick={this.props.logout}>
+            Logout
+          </Button>
         </NavItem>
       </Nav>
     );
@@ -61,4 +67,12 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const maspDispatchToProps = dispatch => ({
+  logout: () => dispatch(authActions.logout()),
+});
+
+export default connect(mapStateToProps, maspDispatchToProps)(Header);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Button,
   Form,
@@ -9,7 +10,9 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { gql, graphql } from 'react-apollo';
+import PropTypes from 'prop-types';
 
+import * as authActions from '../../actions/auth';
 import Spinner from '../common/Spinner/Spinner';
 import './LoginPage.css';
 
@@ -22,6 +25,10 @@ const login = gql`
 `;
 
 class LoginPage extends Component {
+  static propTypes = {
+    login: PropTypes.func.isRequired,
+  };
+
   state = {
     isLoading: false
   }
@@ -40,8 +47,8 @@ class LoginPage extends Component {
       }
     })
       .then(({ data }) => {
-        localStorage.setItem('token', data.login.token);
         this.setState({ isLoading: false });
+        this.props.login(data.login.token);
         this.props.history.push('/');
       })
       .catch(({ graphQLErrors }) => {
@@ -92,4 +99,10 @@ class LoginPage extends Component {
   }
 }
 
-export default graphql(login)(LoginPage);
+const LoginWithMutations = graphql(login)(LoginPage);
+
+const maspDispatchToProps = dispatch => ({
+  login: token => dispatch(authActions.login(token)),
+});
+
+export default connect(null, maspDispatchToProps)(LoginWithMutations);

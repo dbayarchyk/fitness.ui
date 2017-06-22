@@ -7,15 +7,22 @@ const defaultState = {
 
 const auth = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.SET_CURRENT_USER:
+    case actions.LOGIN:
       return {
         ...state,
         isAuthenticated: true,
         currentUser: action.user
       };
+    case actions.LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        currentUser: null
+      };
     default:
       return state;
   }
 };
+
 
 export default auth;

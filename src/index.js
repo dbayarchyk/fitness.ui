@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import {
@@ -9,6 +10,7 @@ import {
 } from 'react-apollo';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import * as authActions from './actions/auth';
 import config from './config';
 import reducers from './reducers';
 import routes from './Routes';
@@ -26,7 +28,13 @@ networkInterface.use([{
     }
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem('token');
-    req.options.headers.authorization = token ? `Bearer ${token}` : null;
+
+    if (token) {
+      req.options.headers.authorization = `Bearer ${token}`;
+    } else {
+      delete req.options.headers.authorization;
+    }
+
     next();
   }
 }]);
@@ -34,15 +42,20 @@ networkInterface.use([{
 const client = new ApolloClient({
   networkInterface,
 });
-const rootReducer = Object.assign({}, reducers, { apollo: client.reducer() });
 
 const store = createStore(
+  combineReducers(Object.assign(reducers, { apollo: client.reducer() })),
+  {},
   compose(
-      applyMiddleware(client.middleware()),
+      applyMiddleware(client.middleware(), thunk),
       // If you are using the devToolsExtension, you can add it here also
       (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
   )
 );
+
+if (localStorage.token) {
+  store.dispatch(authActions.login(localStorage.token));
+}
 
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
