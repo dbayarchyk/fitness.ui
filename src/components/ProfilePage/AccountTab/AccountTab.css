@@ -1,0 +1,12 @@
+.account__data__field {
+  display: flex;
+  align-items: center;
+}
+
+.account__data__field__key {
+  flex: 30;
+}
+
+.account__data__field__value {
+  flex: 70;
+}

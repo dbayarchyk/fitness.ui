@@ -4,7 +4,7 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
 export const login = token => dispatch => {
-  const user = jwtDecode(token);
+  const user = jwtDecode(token).user;
 
   localStorage.setItem('token', token);
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  Container,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -12,6 +13,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom'
 
+import './Header.css';
 import * as authActions from '../../actions/auth';
 
 class Header extends Component {
@@ -54,15 +56,17 @@ class Header extends Component {
     );
 
     return (
-      <Navbar color="faded" light toggleable>
-        <NavbarToggler right onClick={this.toggle} />
-        <NavbarBrand>
-          <Link to="/">Fitness</Link>
-        </NavbarBrand>
-        <Collapse isOpen={this.state.isOpen} navbar>
-          { isAuthenticated ? userLinks : guestLinks}
-        </Collapse>
-      </Navbar>
+      <header className="header">
+        <Navbar color="faded" light toggleable>
+            <NavbarToggler right onClick={this.toggle} />
+            <NavbarBrand>
+              <Link to="/">Fitness</Link>
+            </NavbarBrand>
+            <Collapse isOpen={this.state.isOpen} navbar>
+              { isAuthenticated ? userLinks : guestLinks}
+            </Collapse>
+        </Navbar>
+      </header>
     )
   }
 }

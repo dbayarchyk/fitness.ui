@@ -16,6 +16,7 @@ import reducers from './reducers';
 import routes from './Routes';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 const networkInterface = createNetworkInterface({
   uri: config.API_URI,

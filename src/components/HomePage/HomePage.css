@@ -1,0 +1,24 @@
+.home {
+  height: calc(100% - 54px);
+}
+
+.home__container,
+.home__container__row {
+  height: 100%;
+  position: relative;
+}
+
+.home__controll-bar,
+.home__content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 2px 1px 2px 0 #bfbfbf;
+}
+
+.home__controll-bar {
+  background: #42a5f5;
+}
+
+.home__content {
+
+}

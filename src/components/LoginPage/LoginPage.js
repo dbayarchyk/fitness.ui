@@ -49,7 +49,7 @@ class LoginPage extends Component {
       .then(({ data }) => {
         this.setState({ isLoading: false });
         this.props.login(data.login.token);
-        this.props.history.push('/');
+        this.props.history.push('/app');
       })
       .catch(({ graphQLErrors }) => {
         alert(graphQLErrors[0].message);
@@ -101,8 +101,8 @@ class LoginPage extends Component {
 
 const LoginWithMutations = graphql(login)(LoginPage);
 
-const maspDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   login: token => dispatch(authActions.login(token)),
 });
 
-export default connect(null, maspDispatchToProps)(LoginWithMutations);
+export default connect(null, mapDispatchToProps)(LoginWithMutations);

@@ -1,18 +1,25 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import { Route } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
 import requireAuth from './utils/requireAuth';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
 import HomePage from './components/HomePage/HomePage';
 
-const App = () => (
+const App = ({ match }) => (
   <div className="App">
     <Header />
-    <Route exact path="/" component={requireAuth(HomePage)} />
-    <Route path="/signin" component={LoginPage} />
-    <Route path="/signup" component={SignUpPage} />
+    <Switch>
+      <Route exact path="/" render={() => <Redirect to="/app"/>} />
+      <Route path="/app" component={requireAuth(HomePage)} />
+      <Route exact path="/signin" component={LoginPage} />
+      <Route exact path="/signup" component={SignUpPage} />
+    </Switch>
   </div>
 );
 

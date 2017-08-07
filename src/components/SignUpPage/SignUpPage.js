@@ -46,6 +46,7 @@ class SignUpPage extends Component {
           name: this.state.name,
           surname: this.state.surname,
           age: this.state.age,
+          height: this.state.height,
           weight: this.state.weight,
         }
       }
@@ -69,7 +70,7 @@ class SignUpPage extends Component {
       <div className="signup">
         <h3>Sign up</h3>
         <Form className="signup__form" onSubmit={this.onSubmit.bind(this)}>
-          <FormGroup row>
+          <FormGroup>
             <Label>Email</Label>
             <Input
               type="email"
@@ -79,7 +80,7 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
             <Label>Password</Label>
             <Input
               type="password"
@@ -89,7 +90,7 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
             <Label>Confirm password</Label>
             <Input
               type="password"
@@ -99,7 +100,7 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
             <Label>Name</Label>
             <Input
               type="text"
@@ -108,7 +109,7 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
             <Label>Surname</Label>
             <Input
               type="text"
@@ -117,7 +118,7 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
             <Label>Age</Label>
             <Input
               type="number"
@@ -127,7 +128,17 @@ class SignUpPage extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <FormGroup row>
+          <FormGroup>
+            <Label>Height (cm)</Label>
+            <Input
+              type="number"
+              name="height"
+              placeholder="Height"
+              required
+              onChange={this.onChange}
+            />
+          </FormGroup>
+          <FormGroup>
             <Label>Weight (kg)</Label>
             <Input
               type="number"
