@@ -16,7 +16,8 @@ const getUserData = gql`
       email,
       name,
       surname,
-      age
+      age,
+      weight
     }
   }
 `;
@@ -27,7 +28,8 @@ const updateUser = gql`
       email,
       name,
       surname,
-      age
+      age,
+      weight
     }
   }
 `;
@@ -82,17 +84,17 @@ class AccountTab extends Component {
                   Name
                 </div>
                 <div className="account__data__field__value">
-                <EditableField
-                  input={{
-                    type: "text",
-                    value: this.props.data.user.name,
-                    placeholder: "Name",
-                    name: "name"
-                  }}
-                  onSubmit={this.onFieldChange}
-                >
-                  {this.props.data.user.name}
-                </EditableField>
+                  <EditableField
+                    input={{
+                      type: "text",
+                      value: this.props.data.user.name,
+                      placeholder: "Name",
+                      name: "name"
+                    }}
+                    onSubmit={this.onFieldChange}
+                  >
+                    {this.props.data.user.name}
+                  </EditableField>
                 </div>
               </div>
               <div className="account__data__field">
@@ -100,17 +102,17 @@ class AccountTab extends Component {
                   Surname
                 </div>
                 <div className="account__data__field__value">
-                <EditableField
-                  input={{
-                    type: "text",
-                    value: this.props.data.user.surname,
-                    placeholder: "Surname",
-                    name: "surname"
-                  }}
-                  onSubmit={this.onFieldChange}
-                >
-                  {this.props.data.user.surname}
-                </EditableField>
+                  <EditableField
+                    input={{
+                      type: "text",
+                      value: this.props.data.user.surname,
+                      placeholder: "Surname",
+                      name: "surname"
+                    }}
+                    onSubmit={this.onFieldChange}
+                  >
+                    {this.props.data.user.surname}
+                  </EditableField>
                 </div>
               </div>
               <div className="account__data__field">
@@ -118,17 +120,35 @@ class AccountTab extends Component {
                   Age
                 </div>
                 <div className="account__data__field__value">
-                <EditableField
-                  input={{
-                    type: "number",
-                    value: this.props.data.user.age,
-                    placeholder: "Age",
-                    name: "age"
-                  }}
-                  onSubmit={this.onFieldChange}
-                >
-                  {this.props.data.user.age}
-                </EditableField>
+                  <EditableField
+                    input={{
+                      type: "number",
+                      value: this.props.data.user.age,
+                      placeholder: "Age",
+                      name: "age"
+                    }}
+                    onSubmit={this.onFieldChange}
+                  >
+                    {this.props.data.user.age}
+                  </EditableField>
+                </div>
+              </div>
+              <div className="account__data__field">
+                <div className="account__data__field__key">
+                  Weight
+                </div>
+                <div className="account__data__field__value">
+                  <EditableField
+                    input={{
+                      type: "number",
+                      value: this.props.data.user.weight,
+                      placeholder: "Weight",
+                      name: "weight"
+                    }}
+                    onSubmit={this.onFieldChange}
+                  >
+                    {this.props.data.user.weight}
+                  </EditableField>
                 </div>
               </div>
             </div>

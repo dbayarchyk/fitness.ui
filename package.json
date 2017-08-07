@@ -16,6 +16,7 @@
     "react-router-dom": "^4.1.1",
     "react-transition-group": "^1.2.0",
     "reactstrap": "^4.6.2",
+    "recharts": "^1.0.0-alpha.2",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {

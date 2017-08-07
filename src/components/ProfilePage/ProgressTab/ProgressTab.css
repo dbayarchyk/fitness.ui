@@ -1,5 +1,9 @@
-.progress__card {
+.progress__card__column {
   margin: 5px 0;
+}
+
+.progress__card {
+  height: 100%;
 }
 
 .characteristics {
