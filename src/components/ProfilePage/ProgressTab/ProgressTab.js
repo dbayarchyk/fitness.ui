@@ -102,7 +102,8 @@ const ProgressTabWithData = graphql(getUserData, {
   options: ({ userID }) => ({
     variables: {
       id: userID
-    }
+    },
+    fetchPolicy: 'network-only'
   })
 })(ProgressTab);
 

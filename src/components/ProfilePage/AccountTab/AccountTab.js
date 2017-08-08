@@ -49,10 +49,6 @@ class AccountTab extends Component {
       .then(() => this.props.data.refetch())
   }
 
-  componentDidMount() {
-    console.log('account');
-  }
-
   render() {
     if (this.props.data.loading) {
       return <Spinner isLoading={this.props.data.loading}/>

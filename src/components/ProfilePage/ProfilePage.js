@@ -54,8 +54,8 @@ class ProfilePage extends Component {
         <TabContent className="profile__tab-content">
            <TabPane>
              <Switch>
-               <Route strict path={`/app/profile/progress`} component={ProgressTab}/>
-               <Route strict path={`/app/profile/account`} component={AccountTab}/>
+               <Route strict exact={true} path={`/app/profile/progress`} component={ProgressTab}/>
+               <Route strict exact={true} path={`/app/profile/account`} component={AccountTab}/>
              </Switch>
            </TabPane>
         </TabContent>
