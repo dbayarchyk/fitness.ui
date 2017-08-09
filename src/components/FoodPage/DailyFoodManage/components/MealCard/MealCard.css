@@ -1,0 +1,12 @@
+.nutrients__field {
+  display: flex;
+  align-items: center;
+}
+
+.nutrients__key {
+  flex: 40;
+}
+
+.nutrients__value {
+  flex: 60;
+}

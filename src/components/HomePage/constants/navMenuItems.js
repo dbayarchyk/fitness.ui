@@ -6,14 +6,18 @@ const NAV_MENU_ITEMS = [
         title: 'Your progress',
         routeTo: '/profile/progress'
       },
+      {
+        title: 'Account',
+        routeTo: '/profile/account'
+      },
     ]
   },
   {
     title: 'Food',
     children: [
       {
-        title: 'Manage',
-        routeTo: '/food/manage'
+        title: 'Daily food contoll',
+        routeTo: '/food/controll/daily'
       },
     ]
   }

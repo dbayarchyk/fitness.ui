@@ -13,6 +13,7 @@ import {
 import './HomePage.css';
 import ControllBar from './components/ControllBar/ControllBar';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import FoodPage from '../FoodPage/FoodPage';
 
 class HomePage extends Component {
   render() {
@@ -28,9 +29,8 @@ class HomePage extends Component {
               <Switch>
                 <Route exact path={`${this.props.match.url}/`} render={() => <Redirect to={`${this.props.match.url}/profile`} />} />
                 <Route path={`${this.props.match.url}/profile/:tab`} component={ProfilePage}/>
-                <Route exact path={`${this.props.match.url}/trainings`} render={() => <div>Trainings</div>}/>
-                <Route exact path={`${this.props.match.url}/diet`} render={() => <div>Diet</div>}/>
-            </Switch>
+                <Route path={`${this.props.match.url}/food`} component={FoodPage}/>
+              </Switch>
             </Col>
           </Row>
         </Container>
