@@ -13,7 +13,7 @@ import dateFormat from 'dateformat';
 
 import './MealCard.css';
 
-const MealCard = ({ meal }) => (
+const MealCard = ({ meal, onEditClick }) => (
   <Card block>
     <CardTitle>{dateFormat(meal.date, 'mmmm dS yyyy h:MM: TT')}</CardTitle>
     <CardSubtitle>Calorific value: {meal.calorificValue}</CardSubtitle>
@@ -42,11 +42,16 @@ const MealCard = ({ meal }) => (
         </div>
       </div>
     </CardBlock>
+
+    <CardBlock>
+      <Button color="primary" block onClick={() => onEditClick(meal)}>Edit</Button>
+    </CardBlock>
   </Card>
 );
 
 MealCard.propTypes = {
   meal: PropTypes.object.isRequired,
+  onEditClick: PropTypes.func.isRequired
 };
 
 export default MealCard;
