@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 import {
   Row,
   Col,
@@ -37,6 +37,24 @@ const dailyUserFoodHistory = gql`
   }
 `;
 
+const addUserFoodHistoryItem = gql`
+  mutation addUserFoodHistoryItem($userId: ID!, $data: FoodHistoryInput!) {
+    addUserFoodHistoryItem(userId: $userId, data: $data) {
+      _id
+    }
+  }
+`;
+
+const updateUserFoodHistoryItem = gql`
+  mutation updateUserFoodHistoryItem($userId: ID!, $data: FoodHistoryInput!) {
+    updateUserFoodHistoryItem(userId: $userId, data: $data) {
+      _id
+    }
+  }
+`;
+
+const normalizeMutationObject = ({ __typename, ...normalized = {} }) => normalized;
+
 class DailyFoodManage extends Component {
   state = {
     isFoodModalOpen: false,
@@ -50,7 +68,28 @@ class DailyFoodManage extends Component {
 
   submitMealModal = meal => {
     this.toggleMealModal();
-    console.log(meal);
+
+    meal.foods = meal.foods.map(meal => ({
+      food: meal.food._id,
+      weight: meal.weight
+    }));
+
+    const mutationOptions = {
+      variables: {
+        userId: this.props.userId,
+        data: {
+          ...normalizeMutationObject(meal),
+          nutrients: normalizeMutationObject(meal.nutrients)
+        }
+      }
+    };
+
+    const mutate = this.state.selectedMeal 
+      ? this.props.addUserFoodHistoryItem 
+      : this.props.updateUserFoodHistoryItem;
+
+    mutate(mutationOptions)
+      .then(data => this.props.data.refetch())
   }
 
   render() {
@@ -68,7 +107,7 @@ class DailyFoodManage extends Component {
               </Col>
             ))
           }
-          <Col sm="12" md="6">
+          <Col style={{ flex: 1 }}>
             <Button outline color="primary" className="add-new-meal-button" onClick={() => this.toggleMealModal()}>
               <FontAwesome name="plus-square"/>
             </Button>
@@ -95,8 +134,13 @@ const DailyFoodManageWithData = graphql(dailyUserFoodHistory, {
   })
 })(DailyFoodManage);
 
+const DailyFoodManageWithDataAndMutations = compose(
+  graphql(addUserFoodHistoryItem, { name: 'addUserFoodHistoryItem' }),
+  graphql(updateUserFoodHistoryItem, { name: 'updateUserFoodHistoryItem' })
+)(DailyFoodManageWithData);
+
 const mapStateToProps = state => ({
   userId: state.auth.currentUser._id
 });
 
-export default connect(mapStateToProps)(DailyFoodManageWithData);
+export default connect(mapStateToProps)(DailyFoodManageWithDataAndMutations);

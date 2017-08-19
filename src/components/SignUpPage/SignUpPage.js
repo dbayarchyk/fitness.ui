@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import './SignUpPage.css';
+
 import {
   Button,
+  Col,
   Form,
   FormGroup,
-  Label,
   Input,
-  Col
+  Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
 
+import { Link } from 'react-router-dom';
 import Spinner from '../common/Spinner/Spinner';
-import './SignUpPage.css';
 
 const signup = gql`
   mutation addUser($data: UserInput!) {

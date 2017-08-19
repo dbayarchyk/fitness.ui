@@ -20,5 +20,6 @@
 }
 
 .home__content {
-
+  overflow-y: auto;
+  overflow-x: hidden;
 }

@@ -15,13 +15,17 @@ import './MealCard.css';
 
 const MealCard = ({ meal, onEditClick }) => (
   <Card block>
-    <CardTitle>{dateFormat(meal.date, 'mmmm dS yyyy h:MM: TT')}</CardTitle>
+    <CardTitle>{dateFormat(meal.date, 'mmmm dS yyyy h:MM TT')}</CardTitle>
     <CardSubtitle>Calorific value: {meal.calorificValue}</CardSubtitle>
 
     <CardBlock>
       <ListGroup>
         {
-          meal.foods.map(meal => <ListGroupItem key={meal.food.name}>{meal.food.name}: {meal.weight}g</ListGroupItem>)
+          meal.foods.map((meal, mealIndex) => (
+            <ListGroupItem key={mealIndex}>
+              <img className="meal-item__avatar" src={meal.food.avatarUrl}/> {meal.food.name}: {meal.weight}g
+            </ListGroupItem>)
+          )
         }
       </ListGroup>
     </CardBlock>
