@@ -21,7 +21,7 @@ const dailyUserFoodHistory = gql`
       _id,
       date,
       foods {
-        food {
+        product {
           _id,
           name,
           avatarUrl
@@ -39,16 +39,16 @@ const dailyUserFoodHistory = gql`
 `;
 
 const addUserFoodHistoryItem = gql`
-  mutation addUserFoodHistoryItem($userId: ID!, $data: FoodHistoryInput!) {
-    addUserFoodHistoryItem(userId: $userId, data: $data) {
+  mutation addUserFoodHistoryItem($data: FoodHistoryInput!) {
+    addUserFoodHistoryItem(data: $data) {
       _id
     }
   }
 `;
 
 const updateUserFoodHistoryItem = gql`
-  mutation updateUserFoodHistoryItem($userId: ID!, $data: FoodHistoryInput!) {
-    updateUserFoodHistoryItem(userId: $userId, data: $data) {
+  mutation updateUserFoodHistoryItem($id: ID!, $data: FoodHistoryInput!) {
+    updateUserFoodHistoryItem(_id: $id, data: $data) {
       _id
     }
   }
@@ -70,15 +70,16 @@ class DailyFoodManage extends Component {
   submitMealModal = meal => {
     this.toggleMealModal();
 
-    meal.foods = meal.foods.map(meal => ({
-      food: meal.food._id,
-      weight: meal.weight
+    meal.foods = meal.foods.map(food => ({
+      product: food.product._id,
+      weight: food.weight
     }));
 
     const mutationOptions = {
       variables: {
-        userId: this.props.userId,
+        id: meal._id,
         data: {
+          userId: this.props.userId,
           ...normalizeMutationObject(meal),
           nutrients: meal.nutrients ? normalizeMutationObject(meal.nutrients) : meal.nutrients
         }

@@ -23,7 +23,7 @@ const MealCard = ({ meal, onEditClick }) => (
         {
           meal.foods.map((meal, mealIndex) => (
             <ListGroupItem key={mealIndex}>
-              <img className="meal-item__avatar" src={meal.food.avatarUrl}/> {meal.food.name}: {meal.weight}g
+              <img className="meal-item__avatar" src={meal.product.avatarUrl}/> {meal.product.name}: {meal.weight}g
             </ListGroupItem>)
           )
         }

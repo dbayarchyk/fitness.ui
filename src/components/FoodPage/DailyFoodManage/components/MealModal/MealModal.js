@@ -24,14 +24,14 @@ const emptyMealModel = {
   foods: []
 }
 
-const emptyFoodModel = {
+const emptyProductModel = {
   _id: null,
   name: '',
   avatarUrl: ''
 };
 
 const emptyNewMealModel = {
-  food: emptyFoodModel,
+  product: emptyProductModel,
   weight: 100
 };
 
@@ -57,7 +57,7 @@ class MealModal extends Component {
     };
   }
 
-  updateMealItemFood = (food, mealItemIndex) => this.setState(oldState => {
+  updateMealItemFood = (product, mealItemIndex) => this.setState(oldState => {
     const newState = {
       meal: {
         ...oldState.meal,
@@ -65,7 +65,7 @@ class MealModal extends Component {
           ...oldState.meal.foods.slice(0, mealItemIndex),
           {
             ...oldState.meal.foods[mealItemIndex],
-            food: food || emptyFoodModel
+            product: product || emptyProductModel
           },
           ...oldState.meal.foods.slice(mealItemIndex + 1)
         ]
@@ -108,7 +108,7 @@ class MealModal extends Component {
   });
 
   addNewMealItem = () => this.setState(oldState => {
-    const theSameFoodIndex = oldState.meal.foods.findIndex(meal => oldState.newMealItem.food._id === meal.food._id);
+    const theSameFoodIndex = oldState.meal.foods.findIndex(meal => oldState.newMealItem.product._id === meal.product._id);
     const foods = theSameFoodIndex >= 0 
       ? [ ...oldState.meal.foods.slice(0, theSameFoodIndex),
           { ...oldState.meal.foods[theSameFoodIndex], weight: oldState.meal.foods[theSameFoodIndex].weight + oldState.newMealItem.weight },
@@ -130,10 +130,10 @@ class MealModal extends Component {
     };
   });
 
-  updateNewMealFood = (food) => this.setState(oldState => {
+  updateNewMealFood = (product) => this.setState(oldState => {
     const newMealItem = {
       ...oldState.newMealItem,
-      food: food || emptyFoodModel
+      product: product || emptyProductModel
     };
 
     return {
@@ -155,7 +155,7 @@ class MealModal extends Component {
   isSubmitButtonDisabled = () => {
     let isDisabled = !this.state.meal.foods.length;
 
-    this.state.meal.foods.forEach(meal => isDisabled = !meal.food._id || !meal.weight);
+    this.state.meal.foods.forEach(meal => isDisabled = !meal.product._id || !meal.weight);
 
     return isDisabled;
   };
@@ -178,16 +178,16 @@ class MealModal extends Component {
             <div>
               <ListGroup>
                 {
-                  this.state.meal.foods.map((meal, mealIndex) => (
+                  this.state.meal.foods.map((food, mealIndex) => (
                     <ListGroupItem key={mealIndex}>
                       <MealInputField 
-                        avatarUrl={meal.food.avatarUrl}
+                        avatarUrl={food.product.avatarUrl}
                         foodAutoCompleteConfig={{
-                          onChange: food => this.updateMealItemFood(food, mealIndex),
-                          selected: [ meal.food ]
+                          onChange: product => this.updateMealItemFood(product, mealIndex),
+                          selected: [ food.product ]
                         }}
                         weightInputConfig={{
-                          value: meal.weight,
+                          value: food.weight,
                           onChange: event => this.updateMealItemWeight(parseFloat(event.target.value), mealIndex)
                         }}
                         buttonConfig={{
@@ -201,7 +201,7 @@ class MealModal extends Component {
                 }
                 <ListGroupItem>
                   <MealInputField 
-                    avatarUrl={this.state.newMealItem.food.avatarUrl}
+                    avatarUrl={this.state.newMealItem.product.avatarUrl}
                     foodAutoCompleteConfig={{
                       onChange: this.updateNewMealFood,
                       ref: foodAutoComplete => this.foodAutoComplete = foodAutoComplete
@@ -214,7 +214,7 @@ class MealModal extends Component {
                       color: "success",
                       children:  <FontAwesome name='plus'/>,
                       onClick: this.addNewMealItem,
-                      disabled: !this.state.newMealItem.food._id || !this.state.newMealItem.weight
+                      disabled: !this.state.newMealItem.product._id || !this.state.newMealItem.weight
                     }}
                   />
                 </ListGroupItem>
