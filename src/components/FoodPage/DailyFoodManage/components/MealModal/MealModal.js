@@ -57,75 +57,53 @@ class MealModal extends Component {
     };
   }
 
-  updateMealItemFood = (product, mealItemIndex) => this.setState(oldState => {
-    const newState = {
-      meal: {
-        ...oldState.meal,
-        foods: [
-          ...oldState.meal.foods.slice(0, mealItemIndex),
-          {
-            ...oldState.meal.foods[mealItemIndex],
-            product: product || emptyProductModel
-          },
-          ...oldState.meal.foods.slice(mealItemIndex + 1)
-        ]
-      }
-    };
+  updateMealItemFood = (product, mealItemIndex) => this.setState(oldState => ({
+    meal: {
+      ...oldState.meal,
+      foods: [
+        ...oldState.meal.foods.slice(0, mealItemIndex),
+        {
+          ...oldState.meal.foods[mealItemIndex],
+          product: product || emptyProductModel
+        },
+        ...oldState.meal.foods.slice(mealItemIndex + 1)
+      ]
+    }
+  }));
 
-    return newState;
-  });
+  updateMealItemWeight = (weight, mealItemIndex) => this.setState(oldState => ({
+    meal: {
+      ...oldState.meal,
+      foods: [
+        ...oldState.meal.foods.slice(0, mealItemIndex),
+        {
+          ...oldState.meal.foods[mealItemIndex],
+          weight: weight
+        },
+        ...oldState.meal.foods.slice(mealItemIndex + 1)
+      ]
+    }
+  }));
 
-  updateMealItemWeight = (weight, mealItemIndex) => this.setState(oldState => {
-    const newState = {
-      meal: {
-        ...oldState.meal,
-        foods: [
-          ...oldState.meal.foods.slice(0, mealItemIndex),
-          {
-            ...oldState.meal.foods[mealItemIndex],
-            weight: weight
-          },
-          ...oldState.meal.foods.slice(mealItemIndex + 1)
-        ]
-      }
-    };
-
-    return newState;
-  });
-
-  removeMealItem = mealItemIndex => this.setState(oldState => {
-    const foods = [ ...oldState.meal.foods.slice(0, mealItemIndex), ...oldState.meal.foods.slice(mealItemIndex + 1) ];
-    const newMeal = {
+  removeMealItem = mealItemIndex => this.setState(oldState => ({
+    meal: {
       ...oldState.meal,
       ... {
-        foods,
+        foods: [ ...oldState.meal.foods.slice(0, mealItemIndex), ...oldState.meal.foods.slice(mealItemIndex + 1) ]
       }
-    };
-
-    return {
-      meal: newMeal
-    };
-  });
+    }
+  }));
 
   addNewMealItem = () => this.setState(oldState => {
-    const theSameFoodIndex = oldState.meal.foods.findIndex(meal => oldState.newMealItem.product._id === meal.product._id);
-    const foods = theSameFoodIndex >= 0 
-      ? [ ...oldState.meal.foods.slice(0, theSameFoodIndex),
-          { ...oldState.meal.foods[theSameFoodIndex], weight: oldState.meal.foods[theSameFoodIndex].weight + oldState.newMealItem.weight },
-          ...oldState.meal.foods.slice(theSameFoodIndex + 1) 
-      ]
-      : [ ...oldState.meal.foods, oldState.newMealItem ];
-    const newMeal = {
-      ...oldState.meal,
-      ... {
-        foods,
-      }
-    };
-
     this.foodAutoComplete.refs.wrappedInstance.clear();
 
     return {
-      meal: newMeal,
+      meal: {
+        ...oldState.meal,
+        ... {
+          foods: [ ...oldState.meal.foods, oldState.newMealItem ],
+        }
+      },
       newMealItem: emptyNewMealModel
     };
   });
@@ -141,16 +119,10 @@ class MealModal extends Component {
     }
   });
 
-  updateNewMealWeight = weight => this.setState(oldState => {
-    const newMealItem = {
-      ...oldState.newMealItem,
-      weight,
-    };
-
-    return {
-      newMealItem
-    }
-  });
+  updateNewMealWeight = weight => this.setState(oldState => ({
+    ...oldState.newMealItem,
+    weight,
+  }));
 
   isSubmitButtonDisabled = () => {
     let isDisabled = !this.state.meal.foods.length;
@@ -159,6 +131,10 @@ class MealModal extends Component {
 
     return isDisabled;
   };
+
+  excludeProductsDuplication = product =>
+    !this.state.meal.foods.find(food => food.product._id === product._id);
+    
 
   render() {
     return (
@@ -184,6 +160,7 @@ class MealModal extends Component {
                         avatarUrl={food.product.avatarUrl}
                         foodAutoCompleteConfig={{
                           onChange: product => this.updateMealItemFood(product, mealIndex),
+                          filterBy: this.excludeProductsDuplication,
                           selected: [ food.product ]
                         }}
                         weightInputConfig={{
@@ -204,6 +181,7 @@ class MealModal extends Component {
                     avatarUrl={this.state.newMealItem.product.avatarUrl}
                     foodAutoCompleteConfig={{
                       onChange: this.updateNewMealFood,
+                      filterBy: this.excludeProductsDuplication,
                       ref: foodAutoComplete => this.foodAutoComplete = foodAutoComplete
                     }}
                     weightInputConfig={{

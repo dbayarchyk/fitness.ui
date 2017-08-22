@@ -28,6 +28,7 @@ class FoodAutoComplete extends Component {
         onChange={items => this.props.onChange(items[0])}
         placeholder="Strat typing"
         selected={this.props.selected}
+        filterBy={this.props.filterBy}
       />
     );
   }
