@@ -54,6 +54,14 @@ const updateUserFoodHistoryItem = gql`
   }
 `;
 
+const removeUserFoodHistoryItem = gql`
+  mutation removeUserFoodHistoryItem($id: ID!) {
+    removeUserFoodHistoryItem(_id: $id) {
+      _id
+    }
+  }
+`;
+
 const normalizeMutationObject = ({ __typename, ...normalized = {} }) => normalized;
 
 class DailyFoodManage extends Component {
@@ -93,6 +101,10 @@ class DailyFoodManage extends Component {
     mutate(mutationOptions)
       .then(data => this.props.data.refetch())
   }
+
+  removeFoodHistoryItem = meal => 
+    this.props.removeUserFoodHistoryItem({ variables: { id: meal._id }})
+      .then(data => this.props.data.refetch());
 
   getDailyCalorificValue() {
     let calorificValue = 0;
@@ -135,7 +147,11 @@ class DailyFoodManage extends Component {
           {
             this.props.data.dailyUserFoodHistory.map(foodHistoryItem => (
               <Col key={foodHistoryItem._id} sm="12" md="6">
-                <MealCard meal={foodHistoryItem} onEditClick={this.toggleMealModal}/>
+                <MealCard 
+                  meal={foodHistoryItem} 
+                  onEditClick={this.toggleMealModal}
+                  onCloseClick={this.removeFoodHistoryItem}
+                />
               </Col>
             ))
           }
@@ -168,7 +184,8 @@ const DailyFoodManageWithData = graphql(dailyUserFoodHistory, {
 
 const DailyFoodManageWithDataAndMutations = compose(
   graphql(addUserFoodHistoryItem, { name: 'addUserFoodHistoryItem' }),
-  graphql(updateUserFoodHistoryItem, { name: 'updateUserFoodHistoryItem' })
+  graphql(updateUserFoodHistoryItem, { name: 'updateUserFoodHistoryItem' }),
+  graphql(removeUserFoodHistoryItem, { name: 'removeUserFoodHistoryItem' })
 )(DailyFoodManageWithData);
 
 const mapStateToProps = state => ({

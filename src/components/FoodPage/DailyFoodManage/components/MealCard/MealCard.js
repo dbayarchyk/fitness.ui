@@ -10,12 +10,24 @@ import {
   Button
 } from 'reactstrap';
 import dateFormat from 'dateformat';
+import FontAwesome from 'react-fontawesome';
 
 import './MealCard.css';
 
-const MealCard = ({ meal, onEditClick }) => (
+const MealCard = ({ meal, onEditClick, onCloseClick }) => (
   <Card block>
-    <CardTitle>{dateFormat(meal.date, 'mmmm dS yyyy h:MM TT')}</CardTitle>
+    <CardTitle className="meal__card__title">
+      <div className="meal__card__title__date">
+        {dateFormat(meal.date, 'mmmm dS yyyy h:MM TT')}
+      </div>
+      {
+        onCloseClick ? (
+          <div className="meal__card__title__close-button">
+            <FontAwesome name="close" onClick={() => onCloseClick(meal)}/>
+          </div>
+        ) : null
+      }
+    </CardTitle>
     <CardSubtitle>Calorific value: {meal.calorificValue}</CardSubtitle>
 
     <CardBlock>
@@ -55,7 +67,8 @@ const MealCard = ({ meal, onEditClick }) => (
 
 MealCard.propTypes = {
   meal: PropTypes.object.isRequired,
-  onEditClick: PropTypes.func.isRequired
+  onEditClick: PropTypes.func.isRequired,
+  onCloseClick: PropTypes.func
 };
 
 export default MealCard;

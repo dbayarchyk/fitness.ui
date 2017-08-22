@@ -16,3 +16,11 @@
   width: 25px;
   border-radius: 50%;
 }
+
+.meal__card__title {
+  display: flex;
+}
+
+.meal__card__title__date {
+  flex: 1;
+}
