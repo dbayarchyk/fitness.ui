@@ -47,6 +47,7 @@ class SignUpPage extends Component {
           name: this.state.name,
           surname: this.state.surname,
           age: this.state.age,
+          sex: this.state.sex,
           height: this.state.height,
           weight: this.state.weight,
         }
@@ -128,6 +129,19 @@ class SignUpPage extends Component {
               required
               onChange={this.onChange}
             />
+          </FormGroup>
+          <FormGroup>
+            <Label>Sex</Label>
+            <Input
+              type="select"
+              name="sex"
+              placeholder="Sex"
+              required
+              onChange={this.onChange}
+            >
+              <option>male</option>
+              <option>female</option>
+            </Input>
           </FormGroup>
           <FormGroup>
             <Label>Height (cm)</Label>

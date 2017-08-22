@@ -13,6 +13,7 @@ import './DailyFoodManage.css';
 import Spinner from '../../common/Spinner/Spinner';
 import MealCard from './components/MealCard/MealCard';
 import MealModal from './components/MealModal/MealModal';
+import CommonFoodStatistic from './components/CommonFoodStatistic/CommonFoodStatistic';
 
 const dailyUserFoodHistory = gql`
   query dailyUserFoodHistory($userId: ID!) {
@@ -79,17 +80,41 @@ class DailyFoodManage extends Component {
         userId: this.props.userId,
         data: {
           ...normalizeMutationObject(meal),
-          nutrients: normalizeMutationObject(meal.nutrients)
+          nutrients: meal.nutrients ? normalizeMutationObject(meal.nutrients) : meal.nutrients
         }
       }
     };
 
     const mutate = this.state.selectedMeal 
-      ? this.props.addUserFoodHistoryItem 
-      : this.props.updateUserFoodHistoryItem;
+      ? this.props.updateUserFoodHistoryItem
+      : this.props.addUserFoodHistoryItem;
 
     mutate(mutationOptions)
       .then(data => this.props.data.refetch())
+  }
+
+  getDailyCalorificValue() {
+    let calorificValue = 0;
+
+    this.props.data.dailyUserFoodHistory.forEach(foodHistoryItem => calorificValue += foodHistoryItem.calorificValue);
+
+    return calorificValue;
+  }
+
+  getDailyNutrients() {
+    let nutrients = {
+      proteins: 0,
+      carbohydrates: 0,
+      fats: 0
+    };
+
+    this.props.data.dailyUserFoodHistory.forEach(foodHistoryItem => {
+      nutrients.proteins += foodHistoryItem.nutrients.proteins;
+      nutrients.carbohydrates += foodHistoryItem.nutrients.carbohydrates;
+      nutrients.fats += foodHistoryItem.nutrients.fats;
+    });
+
+    return nutrients;
   }
 
   render() {
@@ -100,6 +125,12 @@ class DailyFoodManage extends Component {
     return (
       <div>
         <Row>
+          <Col sm="12" md="6">
+            <CommonFoodStatistic 
+              calorificValue={this.getDailyCalorificValue()}
+              nutrients={this.getDailyNutrients()}
+            />
+          </Col>
           {
             this.props.data.dailyUserFoodHistory.map(foodHistoryItem => (
               <Col key={foodHistoryItem._id} sm="12" md="6">

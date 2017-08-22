@@ -108,7 +108,13 @@ class MealModal extends Component {
   });
 
   addNewMealItem = () => this.setState(oldState => {
-    const foods = [ ...oldState.meal.foods, oldState.newMealItem ];
+    const theSameFoodIndex = oldState.meal.foods.findIndex(meal => oldState.newMealItem.food._id === meal.food._id);
+    const foods = theSameFoodIndex >= 0 
+      ? [ ...oldState.meal.foods.slice(0, theSameFoodIndex),
+          { ...oldState.meal.foods[theSameFoodIndex], weight: oldState.meal.foods[theSameFoodIndex].weight + oldState.newMealItem.weight },
+          ...oldState.meal.foods.slice(theSameFoodIndex + 1) 
+      ]
+      : [ ...oldState.meal.foods, oldState.newMealItem ];
     const newMeal = {
       ...oldState.meal,
       ... {
