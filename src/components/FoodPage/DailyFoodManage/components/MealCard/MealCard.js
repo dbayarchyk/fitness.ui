@@ -28,7 +28,7 @@ const MealCard = ({ meal, onEditClick, onCloseClick }) => (
         ) : null
       }
     </CardTitle>
-    <CardSubtitle>Calorific value: {meal.calorificValue}</CardSubtitle>
+    <CardSubtitle>Calorific value: {meal.calorificValue} kcal</CardSubtitle>
 
     <CardBlock>
       <ListGroup>
@@ -46,15 +46,15 @@ const MealCard = ({ meal, onEditClick, onCloseClick }) => (
       <div className="nutrients">
         <div className="nutrients__field">
           <div className="nutrients__key">Proteins</div>
-          <div className="nutrients__value">{meal.nutrients.proteins}</div>
+          <div className="nutrients__value">{meal.nutrients.proteins}g</div>
         </div>
         <div className="nutrients__field">
           <div className="nutrients__key">Carbohydrates</div>
-          <div className="nutrients__value">{meal.nutrients.carbohydrates}</div>
+          <div className="nutrients__value">{meal.nutrients.carbohydrates}g</div>
         </div>
         <div className="nutrients__field">
           <div className="nutrients__key">Fats</div>
-          <div className="nutrients__value">{meal.nutrients.fats}</div>
+          <div className="nutrients__value">{meal.nutrients.fats}g</div>
         </div>
       </div>
     </CardBlock>

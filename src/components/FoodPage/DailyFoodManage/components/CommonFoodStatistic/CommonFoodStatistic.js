@@ -45,49 +45,63 @@ const getBMR = ({ sex, weight, height, age }) =>
   + BMR_CONSTANTS_BY_SEX[sex].height * height
   - BMR_CONSTANTS_BY_SEX[sex].age * age;
 
-const getRelativeValorificValue = (calorificValue, commonCalorificValue) =>
-  Math.round(calorificValue * 100 / commonCalorificValue);
+const getRelativeValue = (value, commonValue) =>
+  Math.round(value * 100 / commonValue);
 
-const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => data.loading ? null : (
-  <Card block>
-    <CardTitle>Statistic</CardTitle>
-    <CardSubtitle>
-      Daily Calorific Value: 
-      <Progress value={getRelativeValorificValue(calorificValue, Math.round(getBMR(data.user) * ACTIVITY_COEFFICIENT))}>
-        {calorificValue} / {Math.round(getBMR(data.user) * ACTIVITY_COEFFICIENT)}
-      </Progress>
-    </CardSubtitle>
+const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
+  if (data.loading) {
+    return null;
+  }
 
-    <CardBlock>
-      <div className="nutrients">
-        <div className="nutrients__field">
-          <div className="nutrients__key">Proteins</div>
-          <div className="nutrients__value">
-            <Progress value={nutrients.fats}>
-              {nutrients.proteins} / 
-            </Progress>
+  const commonCalorificValue = Math.round(getBMR(data.user) * ACTIVITY_COEFFICIENT);
+  
+  const commonNutrients = {
+    proteins: Math.round(commonCalorificValue / 24),
+    carbohydrates: Math.round(commonCalorificValue / 6),
+    fats: Math.round(commonCalorificValue / 54)
+  };
+
+  return (
+    <Card block>
+      <CardTitle>Statistic</CardTitle>
+      <CardSubtitle>
+        Daily Calorific Value: 
+        <Progress value={getRelativeValue(calorificValue, commonCalorificValue)}>
+          {calorificValue} / {commonCalorificValue} kcal
+        </Progress>
+      </CardSubtitle>
+
+      <CardBlock>
+        <div className="nutrients">
+          <div>
+            <div>Proteins ({commonNutrients.proteins}g)</div>
+            <div>
+              <Progress value={getRelativeValue(nutrients.proteins, commonNutrients.proteins)}>
+                {nutrients.proteins}g
+              </Progress>
+            </div>
+          </div>
+          <div>
+            <div>Carbohydrates ({commonNutrients.carbohydrates}g)</div>
+            <div>
+              <Progress value={getRelativeValue(nutrients.carbohydrates, commonNutrients.carbohydrates)}>
+                {nutrients.carbohydrates}g
+              </Progress>
+            </div>
+          </div>
+          <div>
+            <div>Fats ({commonNutrients.fats}g)</div>
+            <div>
+              <Progress value={getRelativeValue(nutrients.fats, commonNutrients.fats)}>
+                {nutrients.fats}g
+              </Progress>
+            </div>
           </div>
         </div>
-        <div className="nutrients__field">
-          <div className="nutrients__key">Carbohydrates</div>
-          <div className="nutrients__value">
-            <Progress value={nutrients.fats}>
-            {nutrients.carbohydrates} / 
-            </Progress>
-          </div>
-        </div>
-        <div className="nutrients__field">
-          <div className="nutrients__key">Fats</div>
-          <div className="nutrients__value">
-            <Progress value={nutrients.fats}>
-              {nutrients.fats} / 
-            </Progress>
-          </div>
-        </div>
-      </div>
-    </CardBlock>
-  </Card>
-);
+      </CardBlock>
+    </Card>
+  );
+};
 
 const CommonFoodStatisticWithData = graphql(getUserData, {
   options: ({ userId }) => ({
