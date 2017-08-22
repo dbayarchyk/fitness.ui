@@ -10,6 +10,8 @@ import {
   Progress
 } from 'reactstrap';
 
+import MultiProgress from './components/MultiProgress/MultiProgress';
+
 const getUserData = gql`
   query user($id: ID!) {
     user(_id: $id) {
@@ -45,9 +47,6 @@ const getBMR = ({ sex, weight, height, age }) =>
   + BMR_CONSTANTS_BY_SEX[sex].height * height
   - BMR_CONSTANTS_BY_SEX[sex].age * age;
 
-const getRelativeValue = (value, commonValue) =>
-  Math.round(value * 100 / commonValue);
-
 const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
   if (data.loading) {
     return null;
@@ -66,35 +65,27 @@ const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
       <CardTitle>Statistic</CardTitle>
       <CardSubtitle>
         Daily Calorific Value: 
-        <Progress value={getRelativeValue(calorificValue, commonCalorificValue)}>
-          {calorificValue} / {commonCalorificValue} kcal
-        </Progress>
+        <MultiProgress value={calorificValue} commonValue={commonCalorificValue} units="kcal"/>
       </CardSubtitle>
 
       <CardBlock>
         <div className="nutrients">
-          <div>
-            <div>Proteins ({commonNutrients.proteins}g)</div>
-            <div>
-              <Progress value={getRelativeValue(nutrients.proteins, commonNutrients.proteins)}>
-                {nutrients.proteins}g
-              </Progress>
+          <div className="nutrients__field">
+            <div className="nutrients__key">Proteins ({commonNutrients.proteins}g)</div>
+            <div className="nutrients__value">
+              <MultiProgress value={nutrients.proteins} commonValue={commonNutrients.proteins} units="g"/>
             </div>
           </div>
-          <div>
-            <div>Carbohydrates ({commonNutrients.carbohydrates}g)</div>
-            <div>
-              <Progress value={getRelativeValue(nutrients.carbohydrates, commonNutrients.carbohydrates)}>
-                {nutrients.carbohydrates}g
-              </Progress>
+          <div className="nutrients__field">
+            <div className="nutrients__key">Carbohydrates ({commonNutrients.carbohydrates}g)</div>
+            <div className="nutrients__value">
+              <MultiProgress value={nutrients.carbohydrates} commonValue={commonNutrients.carbohydrates} units="g"/>
             </div>
           </div>
-          <div>
-            <div>Fats ({commonNutrients.fats}g)</div>
-            <div>
-              <Progress value={getRelativeValue(nutrients.fats, commonNutrients.fats)}>
-                {nutrients.fats}g
-              </Progress>
+          <div className="nutrients__field">
+            <div className="nutrients__key">Fats ({commonNutrients.fats}g)</div>
+            <div className="nutrients__value">
+              <MultiProgress value={nutrients.fats} commonValue={commonNutrients.fats} units="g"/>
             </div>
           </div>
         </div>
