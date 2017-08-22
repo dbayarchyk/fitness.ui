@@ -120,8 +120,10 @@ class MealModal extends Component {
   });
 
   updateNewMealWeight = weight => this.setState(oldState => ({
-    ...oldState.newMealItem,
-    weight,
+    newMealItem: {
+      ...oldState.newMealItem,
+      weight,
+    }
   }));
 
   isSubmitButtonDisabled = () => {
