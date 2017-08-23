@@ -1,7 +1,8 @@
 .login {
+  padding: 15px 20px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 54px);
   justify-content: center;
   align-items: center;
 }

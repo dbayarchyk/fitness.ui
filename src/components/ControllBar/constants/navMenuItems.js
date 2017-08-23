@@ -4,11 +4,11 @@ const NAV_MENU_ITEMS = [
     children: [
       {
         title: 'Your progress',
-        routeTo: '/profile/progress'
+        routeTo: 'app/profile/progress'
       },
       {
         title: 'Account',
-        routeTo: '/profile/account'
+        routeTo: 'app/profile/account'
       },
     ]
   },
@@ -17,7 +17,7 @@ const NAV_MENU_ITEMS = [
     children: [
       {
         title: 'Daily food contoll',
-        routeTo: '/food/controll/daily'
+        routeTo: 'app/food/controll/daily'
       },
     ]
   }

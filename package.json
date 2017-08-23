@@ -16,6 +16,7 @@
     "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "react-sidebar": "^2.3.2",
     "react-transition-group": "^1.2.0",
     "reactstrap": "^4.6.2",
     "recharts": "^1.0.0-alpha.2",
