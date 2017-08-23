@@ -4,6 +4,8 @@ import {
   Progress
 } from 'reactstrap';
 
+import './MultiProgress.css';
+
 const getRelativeValue = (value, commonValue) =>
   Math.round(value * 100 / commonValue);
 
@@ -17,7 +19,7 @@ const MultiProgress = ({ value, commonValue, units }) => {
       >
         {Math.round(isFit ? value : commonValue)} {units}
       </Progress>
-      <Progress bar color={isFit ? 'warning' : 'danger'} 
+      <Progress bar color={isFit ? 'gray' : 'danger'} 
                 value={getRelativeValue(Math.round(Math.abs(commonValue - value)), isFit ? commonValue : (commonValue + value))}
       >
         {Math.round(Math.abs(commonValue - value))} {units}
