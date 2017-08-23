@@ -19,9 +19,9 @@ import './Header.css';
 class Header extends Component {
   render() {
     return (
-      <header className="header" color="faded" light>
+      <header className="header" color="faded">
         <div className="header__content">
-          <span className="header__sidebar-trigger" onClick={this.props.toggleMenu}>
+          <span className="header__sidebar-trigger">
             <FontAwesome name="bars"/>
           </span>      
           <NavbarBrand>

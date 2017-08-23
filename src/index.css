@@ -17,3 +17,14 @@ body {
 a:hover {
   text-decoration: none;
 }
+
+
+/* Needed to ovveride sidebar button behavior */
+.side-bar-trigger-button {
+  height: 54px;
+  width: 54px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
