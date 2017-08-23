@@ -16,12 +16,17 @@ import ControllBar from './components/ControllBar/ControllBar';
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 class App extends Component {
+  closeSideBar = () => {
+    console.log('closed');
+    this.sidebar.setState({ isOpen: false });
+  }
+
   render() {
     return (
       <div className="App">
         <Header/>
-        <SideBar burgerButtonClassName="side-bar-trigger-button">
-          <ControllBar match={this.props.match}/>
+        <SideBar burgerButtonClassName="side-bar-trigger-button" ref={sidebar => this.sidebar = sidebar}>
+          <ControllBar match={this.props.match} close={this.closeSideBar}/>
         </SideBar>
         <main className="main">
           <Switch>

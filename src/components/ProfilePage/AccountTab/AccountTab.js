@@ -55,7 +55,7 @@ class AccountTab extends Component {
     } else return (
       <div className="account">
         <Row>
-          <Col sm="12" md="6">
+          <Col xs="12" sm="12" md="6">
             <div className="account___data">
               <div className="account__data__field">
                 <div className="account__data__field__key">
@@ -148,10 +148,6 @@ class AccountTab extends Component {
                 </div>
               </div>
             </div>
-          </Col>
-
-          <Col sm="12" md="6">
-            avatar
           </Col>
         </Row>
       </div>

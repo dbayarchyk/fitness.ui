@@ -69,22 +69,22 @@ const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
       </CardSubtitle>
 
       <CardBlock>
-        <div className="nutrients">
-          <div className="nutrients__field">
-            <div className="nutrients__key">Proteins ({commonNutrients.proteins}g)</div>
-            <div className="nutrients__value">
+        <div>
+          <div>
+            <div>Proteins ({commonNutrients.proteins}g)</div>
+            <div>
               <MultiProgress value={nutrients.proteins} commonValue={commonNutrients.proteins} units="g"/>
             </div>
           </div>
-          <div className="nutrients__field">
-            <div className="nutrients__key">Carbohydrates ({commonNutrients.carbohydrates}g)</div>
-            <div className="nutrients__value">
+          <div>
+            <div>Carbohydrates ({commonNutrients.carbohydrates}g)</div>
+            <div>
               <MultiProgress value={nutrients.carbohydrates} commonValue={commonNutrients.carbohydrates} units="g"/>
             </div>
           </div>
-          <div className="nutrients__field">
-            <div className="nutrients__key">Fats ({commonNutrients.fats}g)</div>
-            <div className="nutrients__value">
+          <div>
+            <div>Fats ({commonNutrients.fats}g)</div>
+            <div>
               <MultiProgress value={nutrients.fats} commonValue={commonNutrients.fats} units="g"/>
             </div>
           </div>

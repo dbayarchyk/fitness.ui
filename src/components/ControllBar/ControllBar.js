@@ -26,20 +26,20 @@ class ControllBar extends Component {
   }
 
   render() {
-    const { match, isAuthenticated, logout } = this.props;
+    const { match, isAuthenticated, logout, close } = this.props;
 
     const userLinks = (
       <Link to="/signin">
-        <MenuItemButton color="primary" onClick={logout} title="Logout" />
+        <MenuItemButton color="primary" onClick={() => {logout(); close()}} title="Logout"/>
       </Link>
     );
     const guestLinks = (
       <div>
         <Link to="/signin">
-          <MenuItemButton title="Sign in"/>
+          <MenuItemButton title="Sign in" onClick={close}/>
         </Link>
         <Link to="/signup">
-          <MenuItemButton title="Sign up"/>
+          <MenuItemButton title="Sign up" onClick={close}/>
         </Link>
       </div>
     );
@@ -55,7 +55,7 @@ class ControllBar extends Component {
                   trigger={<MenuItemButton title={menuItem.title}/>}
                   children={menuItem.children.map(child => (
                     <Link key={child.title} to={`${match.url}${child.routeTo}`}>
-                      <MenuItemButton title={child.title}/>
+                      <MenuItemButton title={child.title} onClick={close}/>
                     </Link>
                   ))}
                   activeClassName="btn-secondary"
@@ -63,7 +63,7 @@ class ControllBar extends Component {
               )
               : (
                   <Link key={menuItem.title} to={`${match.url}${menuItem.routeTo}`}>
-                    <MenuItemButton title={menuItem.title}/>
+                    <MenuItemButton title={menuItem.title} onClick={close}/>
                   </Link>
                 )
           })
