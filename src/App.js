@@ -16,10 +16,7 @@ import ControllBar from './components/ControllBar/ControllBar';
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 class App extends Component {
-  closeSideBar = () => {
-    console.log('closed');
-    this.sidebar.setState({ isOpen: false });
-  }
+  closeSideBar = () => this.sidebar.setState({ isOpen: false });
 
   render() {
     return (
