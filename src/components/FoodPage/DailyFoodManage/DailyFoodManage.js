@@ -138,7 +138,7 @@ class DailyFoodManage extends Component {
     return (
       <div>
         <Row>
-          <Col sm="12" md="6">
+          <Col sm="12" md="4" lg="4">
             <CommonFoodStatistic 
               calorificValue={this.getDailyCalorificValue()}
               nutrients={this.getDailyNutrients()}
@@ -146,7 +146,7 @@ class DailyFoodManage extends Component {
           </Col>
           {
             this.props.data.dailyUserFoodHistory.map(foodHistoryItem => (
-              <Col key={foodHistoryItem._id} sm="12" md="6">
+              <Col key={foodHistoryItem._id} sm="12" md="4" lg="4">
                 <MealCard 
                   meal={foodHistoryItem} 
                   onEditClick={this.toggleMealModal}
@@ -155,7 +155,7 @@ class DailyFoodManage extends Component {
               </Col>
             ))
           }
-          <Col style={{ flex: 1 }}>
+          <Col sm="12" md="4" lg="4">
             <Button outline color="primary" className="add-new-meal-button" onClick={() => this.toggleMealModal()}>
               <FontAwesome name="plus-square"/>
             </Button>

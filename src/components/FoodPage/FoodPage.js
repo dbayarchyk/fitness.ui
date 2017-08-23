@@ -18,6 +18,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
+import './FoodPage.css';
 import DailyFoodManage from './DailyFoodManage/DailyFoodManage';
 
 class ProfilePage extends Component {

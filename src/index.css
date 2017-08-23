@@ -7,17 +7,23 @@ body {
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 #root,
 .App {
   height: 100%;
+  overflow: hidden;
 }
 
 a:hover {
   text-decoration: none;
 }
 
+.main {
+  height: calc(100% - 54px);
+  overflow: auto;
+}
 
 /* Needed to ovveride sidebar button behavior */
 .side-bar-trigger-button {

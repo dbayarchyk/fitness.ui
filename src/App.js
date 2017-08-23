@@ -23,12 +23,14 @@ class App extends Component {
         <SideBar burgerButtonClassName="side-bar-trigger-button">
           <ControllBar match={this.props.match}/>
         </SideBar>
-        <Switch>
+        <main className="main">
+          <Switch>
             <Route exact path="/" render={() => <Redirect to="/app"/>} />
             <Route path="/app" component={requireAuth(HomePage)} />
             <Route exact path="/signin" component={LoginPage} />
             <Route exact path="/signup" component={SignUpPage} />
           </Switch>
+        </main>
       </div>
     );
   }
