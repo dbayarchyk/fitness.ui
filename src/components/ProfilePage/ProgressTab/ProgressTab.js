@@ -39,7 +39,7 @@ class ProgressTab extends Component {
     return this.props.data.loading ? <Spinner isLoading={this.props.data.loading} /> : (
       <div>
         <Row>
-          <Col sm="12" md="6" className="progress__card__column">
+          <Col xs="12" sm="12" md="6" className="progress__card__column">
             <Card block className="progress__card characteristics">
               <CardTitle className="characteristics__title">Your characteristics</CardTitle>
               <CardText>
@@ -78,7 +78,7 @@ class ProgressTab extends Component {
               </CardText>
             </Card>
           </Col>
-          <Col sm="12" md="6" className="progress__card__column">
+          <Col xs="12" sm="12" md="6" className="progress__card__column">
             <Card block className="progress__card">
               <CardTitle>Your weight progress</CardTitle>
               <WeightChart data={this.props.data.user.weightHistory}/>
@@ -86,7 +86,7 @@ class ProgressTab extends Component {
           </Col>
         </Row>
         <Row>
-          <Col sm="12" className="progress__card__column">
+          <Col xs="12" sm="12" className="progress__card__column">
             <Card block className="progress__card">
               <CardTitle>Your trainings</CardTitle>
               <CardText>Your last 5 trainings ...</CardText>
