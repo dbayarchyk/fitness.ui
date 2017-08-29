@@ -1,0 +1,29 @@
+.food-plan__card {
+  cursor: pointer;
+}
+
+.food-plan__card:hover {
+  background: rgba(66, 165, 245, .3)
+}
+
+.food-plan__card__avatar-container {
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.food-plan__card__avatar {
+  height: 100%;
+  width: 100%;
+}
+
+.food-plan__card__daily-nutrition-rate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.food-plan__card__daily-nutrition-rate__pill {
+  padding: 5px 10px;
+  margin: 1px 2px;
+}

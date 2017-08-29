@@ -20,6 +20,7 @@ import {
 
 import './FoodPage.css';
 import DailyFoodManage from './DailyFoodManage/DailyFoodManage';
+import FoodPlans from './FoodPlans/FoodPlans';
 
 class ProfilePage extends Component {
 
@@ -29,6 +30,7 @@ class ProfilePage extends Component {
         Food
         <Switch>
           <Route exact path={`${this.props.match.url}/controll/daily`} component={DailyFoodManage} />
+          <Route exact path={`${this.props.match.url}/food-plans`} component={FoodPlans} />
         </Switch>
       </div>
     )

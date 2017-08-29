@@ -3,7 +3,7 @@ const NAV_MENU_ITEMS = [
     title: 'Profile',
     children: [
       {
-        title: 'Your progress',
+        title: 'Your Progress',
         routeTo: 'app/profile/progress'
       },
       {
@@ -16,8 +16,12 @@ const NAV_MENU_ITEMS = [
     title: 'Food',
     children: [
       {
-        title: 'Daily food contoll',
+        title: 'Daily Food Contoll',
         routeTo: 'app/food/controll/daily'
+      },
+      {
+        title: 'Food Plans',
+        routeTo: 'app/food/food-plans'
       },
     ]
   }
