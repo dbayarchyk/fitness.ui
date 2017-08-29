@@ -12,80 +12,52 @@ import {
 
 import MultiProgress from './components/MultiProgress/MultiProgress';
 
-const getUserData = gql`
-  query user($id: ID!) {
-    user(_id: $id) {
-      age,
-      weight,
-      sex,
-      height
+const getUserDailyNutritionRate = gql`
+  query userDailyNutritionRate($id: ID!) {
+    userDailyNutritionRate(_id: $id) {
+      calorificValue,
+      nutrients {
+        proteins,
+        carbohydrates,
+        fats
+      }
     }
   }
 `;
-
-const BMR_CONSTANTS_BY_SEX = {
-  male: {
-    coefficient: 88.36,
-    weight: 13.4,
-    height: 4.8,
-    age: 5.7
-  },
-  female: {
-    coefficient: 447.6,
-    weight: 9.2,
-    height: 3.1,
-    age: 4.3
-  }
-};
-
-// TODO: get this data from server.
-const ACTIVITY_COEFFICIENT = 1.55;
-
-const getBMR = ({ sex, weight, height, age }) =>
-  BMR_CONSTANTS_BY_SEX[sex].coefficient 
-  + BMR_CONSTANTS_BY_SEX[sex].weight * weight 
-  + BMR_CONSTANTS_BY_SEX[sex].height * height
-  - BMR_CONSTANTS_BY_SEX[sex].age * age;
 
 const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
   if (data.loading) {
     return null;
   }
 
-  const commonCalorificValue = Math.round(getBMR(data.user) * ACTIVITY_COEFFICIENT);
-  
-  const commonNutrients = {
-    proteins: Math.round(commonCalorificValue / 24),
-    carbohydrates: Math.round(commonCalorificValue / 6),
-    fats: Math.round(commonCalorificValue / 54)
-  };
+  const userDailyNutritionRate = data.userDailyNutritionRate;  
 
   return (
     <Card block>
       <CardTitle>Statistic</CardTitle>
       <CardSubtitle>
         Daily Calorific Value: 
-        <MultiProgress value={calorificValue} commonValue={commonCalorificValue} units="kcal"/>
+        <MultiProgress value={calorificValue} commonValue={userDailyNutritionRate.calorificValue} units="kcal"/>
       </CardSubtitle>
 
       <CardBlock>
         <div>
           <div>
-            <div>Proteins ({commonNutrients.proteins}g)</div>
+            <div>Proteins ({userDailyNutritionRate.nutrients.proteins}g)</div>
             <div>
-              <MultiProgress value={nutrients.proteins} commonValue={commonNutrients.proteins} units="g"/>
+              <MultiProgress value={nutrients.proteins} commonValue={userDailyNutritionRate.nutrients.proteins} units="g"/>
             </div>
           </div>
           <div>
-            <div>Carbohydrates ({commonNutrients.carbohydrates}g)</div>
+            <div>Carbohydrates ({userDailyNutritionRate.nutrients.carbohydrates}g)</div>
             <div>
-              <MultiProgress value={nutrients.carbohydrates} commonValue={commonNutrients.carbohydrates} units="g"/>
+              <MultiProgress value={nutrients.carbohydrates} commonValue={userDailyNutritionRate.nutrients.carbohydrates} units="g"/>
             </div>
           </div>
           <div>
-            <div>Fats ({commonNutrients.fats}g)</div>
+            <div>Fats ({userDailyNutritionRate.nutrients.fats}g)</div>
             <div>
-              <MultiProgress value={nutrients.fats} commonValue={commonNutrients.fats} units="g"/>
+              <MultiProgress value={nutrients.fats} commonValue={userDailyNutritionRate.nutrients.fats} units="g"/>
             </div>
           </div>
         </div>
@@ -94,7 +66,7 @@ const CommonFoodStatistic = ({ calorificValue, nutrients , data }) => {
   );
 };
 
-const CommonFoodStatisticWithData = graphql(getUserData, {
+const CommonFoodStatisticWithData = graphql(getUserDailyNutritionRate, {
   options: ({ userId }) => ({
     variables: {
       id: userId
