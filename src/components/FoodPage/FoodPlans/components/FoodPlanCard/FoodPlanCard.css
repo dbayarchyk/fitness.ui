@@ -2,10 +2,6 @@
   cursor: pointer;
 }
 
-.food-plan__card:hover {
-  background: rgba(66, 165, 245, .3)
-}
-
 .food-plan__card__avatar-container {
   max-height: 250px;
   overflow: hidden;

@@ -11,7 +11,7 @@ import FontAwesome from 'react-fontawesome';
 
 import './FoodPlanCard.css';
 
-const FoodPlanCard = ({ foodPlan }) => (
+const FoodPlanCard = ({ foodPlan, data }) => (
   <Card block className="food-plan__card">
     <CardTitle className="food-plan__card__title">
       {foodPlan.name}
