@@ -2,6 +2,18 @@
   cursor: pointer;
 }
 
+.food-plan__card--selected {
+  box-shadow: 0 0 2px 2px #96C5FF;
+  border-color: #96C5FF;
+  background-color: rgba(150, 197, 255, .2);
+}
+
+.food-plan__card__title {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .food-plan__card__avatar-container {
   max-height: 250px;
   overflow: hidden;

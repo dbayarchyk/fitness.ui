@@ -1,4 +1,5 @@
 import React from 'react';
+import { gql, graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -6,15 +7,18 @@ import {
   CardTitle,
   Badge
 } from 'reactstrap';
-import dateFormat from 'dateformat';
-import FontAwesome from 'react-fontawesome';
 
 import './FoodPlanCard.css';
 
-const FoodPlanCard = ({ foodPlan, data }) => (
-  <Card block className="food-plan__card">
+const FoodPlanCard = ({ foodPlan, titleRightIcon, className }) => (
+  <Card block className="food-plan__card" className={className}>
     <CardTitle className="food-plan__card__title">
-      {foodPlan.name}
+      <div className="food-plan__card__title__header">
+        {foodPlan.name}
+      </div>
+      <div>
+        { titleRightIcon }
+      </div>
     </CardTitle>
 
     <CardBlock className="food-plan__card__avatar-container">
@@ -33,7 +37,9 @@ const FoodPlanCard = ({ foodPlan, data }) => (
 );
 
 FoodPlanCard.propTypes = {
+  className: PropTypes.string,
   foodPlan: PropTypes.object.isRequired,
+  titleRightIcon: PropTypes.node.isRequired
 };
 
 export default FoodPlanCard;

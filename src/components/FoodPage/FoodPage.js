@@ -27,7 +27,6 @@ class ProfilePage extends Component {
   render() {
     return (
       <div className="food">
-        Food
         <Switch>
           <Route exact path={`${this.props.match.url}/controll/daily`} component={DailyFoodManage} />
           <Route exact path={`${this.props.match.url}/food-plans`} component={FoodPlans} />
