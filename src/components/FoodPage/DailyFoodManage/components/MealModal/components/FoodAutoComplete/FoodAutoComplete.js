@@ -29,6 +29,7 @@ class FoodAutoComplete extends Component {
         placeholder="Strat typing"
         selected={this.props.selected}
         filterBy={this.props.filterBy}
+        disabled={this.props.disabled}
       />
     );
   }

@@ -30,13 +30,15 @@ const MealInputField = ({ avatarUrl, foodAutoCompleteConfig, weightInputConfig, 
 MealInputField.propTypes = {
   avatarUrl: PropTypes.string,
   foodAutoCompleteConfig: PropTypes.shape({
-    onChange: PropTypes.func.isRequired
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func
   }),
   weightInputConfig: PropTypes.shape({
     placeholder: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.number,
-    onChange: PropTypes.func.isRequired
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func
   }),
   buttonConfig: PropTypes.shape({
     children: PropTypes.node,

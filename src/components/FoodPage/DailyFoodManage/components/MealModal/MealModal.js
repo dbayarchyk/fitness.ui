@@ -19,6 +19,7 @@ import Typeahead from 'react-bootstrap-typeahead';
 import './MealModal.css';
 import FoodAutoComplete from './components/FoodAutoComplete/FoodAutoComplete';
 import MealInputField from './components/MealInputField/MealInputField';
+import MealPlan from './components/MealPlan/MealPlan';
 
 const emptyMealModel = {
   foods: []
@@ -39,6 +40,7 @@ class MealModal extends Component {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
     meal: PropTypes.object,
+    mealPlan: PropTypes.object,
     className: PropTypes.string,
     toggle: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
@@ -144,10 +146,18 @@ class MealModal extends Component {
         <ModalHeader toggle={this.props.toggle}>{`${this.props.meal ? 'Edit' : 'New'} meal`}</ModalHeader>
 
         <ModalBody>
-          <div>
-            <h5>Time:</h5>
-            <span>now</span>
-          </div>
+          {
+            this.props.mealPlan && (
+              <div>
+                <div>
+                  <h5>Foods by your food plan</h5>
+                </div>
+                <div>
+                  <MealPlan mealPlan={this.props.mealPlan} foods={this.state.meal.foods}/>
+                </div>
+              </div>
+            )
+          }
 
           <div>
             <div>

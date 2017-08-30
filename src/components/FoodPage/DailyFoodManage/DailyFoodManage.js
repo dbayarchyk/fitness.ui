@@ -35,6 +35,21 @@ const dailyUserFoodHistory = gql`
       },
       calorificValue
     }
+    user(_id: $userId) {
+      foodPlan {
+        _id,
+        meals {
+          foods {
+            product {
+              _id,
+              avatarUrl,
+              name
+            },
+            weight
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -135,6 +150,13 @@ class DailyFoodManage extends Component {
       return <Spinner isLoading={this.props.data.loading} />
     }
 
+    const mealIndex = this.state.selectedMeal
+      ? this.props.data.dailyUserFoodHistory
+          .findIndex(foodHistoryItem => foodHistoryItem._id == this.state.selectedMeal._id)
+      : this.props.data.dailyUserFoodHistory.length;
+
+    const mealPlan = this.props.data.user.foodPlan && this.props.data.user.foodPlan.meals[mealIndex];
+
     return (
       <div>
         <Row>
@@ -148,7 +170,7 @@ class DailyFoodManage extends Component {
             this.props.data.dailyUserFoodHistory.map(foodHistoryItem => (
               <Col key={foodHistoryItem._id} xs="12" sm="12" md="6" lg="4">
                 <MealCard 
-                  meal={foodHistoryItem} 
+                  meal={foodHistoryItem}
                   onEditClick={this.toggleMealModal}
                   onCloseClick={this.removeFoodHistoryItem}
                 />
@@ -165,6 +187,7 @@ class DailyFoodManage extends Component {
         <MealModal
           isOpen={this.state.isFoodModalOpen}
           meal={this.state.selectedMeal}
+          mealPlan={mealPlan}
           onSubmit={this.submitMealModal}
           toggle={() => this.toggleMealModal()}
         />

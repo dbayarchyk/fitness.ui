@@ -1,0 +1,20 @@
+.meal-plan {
+  margin: 10px 0;
+}
+
+.meal-plan__food {
+  display: flex;
+  align-items: center;
+}
+
+.meal-plan__food__name:disabled {
+  background: inherit;
+  cursor: default;
+}
+
+.meal-plan__food__marker {
+  width: 46.58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
