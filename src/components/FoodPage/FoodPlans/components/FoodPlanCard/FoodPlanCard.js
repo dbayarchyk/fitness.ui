@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, graphql, compose } from 'react-apollo';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -14,7 +15,7 @@ const FoodPlanCard = ({ foodPlan, titleRightIcon, className }) => (
   <Card block className="food-plan__card" className={className}>
     <CardTitle className="food-plan__card__title">
       <div className="food-plan__card__title__header">
-        {foodPlan.name}
+        <Link to={`/app/food/food-plan/${foodPlan._id}`}>{foodPlan.name}</Link>
       </div>
       <div>
         { titleRightIcon }

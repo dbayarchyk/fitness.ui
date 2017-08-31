@@ -1,0 +1,32 @@
+.meal-item__nutrition-rate {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.meal-item {
+  display: block;
+}
+
+.meal-item__food {
+  display: flex;
+  align-items: center;
+}
+
+.meal-item__food__avatar {
+  height: 50px;
+}
+
+.meal-item__nutrition-rate {
+  padding: 5px 10px;
+}
+
+.meal-item__food__info {
+  margin-left: 20px;
+}
+
+.meal-item__nutrition-rate__pill {
+  font-size: 14px;
+  margin: 3px 5px;
+}
