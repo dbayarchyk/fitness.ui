@@ -14,6 +14,7 @@ import './HomePage.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import FoodPage from '../FoodPage/FoodPage';
 import TrainingPlans from '../TrainingPlans/TrainingPlans';
+import TrainingPlan from '../TrainingPlan/TrainingPlan';
 
 class HomePage extends Component {
   render() {
@@ -25,6 +26,7 @@ class HomePage extends Component {
             <Route path={`${this.props.match.url}/profile/:tab`} component={ProfilePage}/>
             <Route path={`${this.props.match.url}/food`} component={FoodPage}/>
             <Route path={`${this.props.match.url}/training-plans`} component={TrainingPlans}/>
+            <Route path={`${this.props.match.url}/training-plan/:id`} component={TrainingPlan}/>
           </Switch>
         </Container>
       </div>

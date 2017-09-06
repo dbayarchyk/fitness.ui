@@ -1,0 +1,39 @@
+.training-plan__avatar-container{
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.training-plan__avatar {
+  width: 100%;
+}
+
+.training-plan__trainings {
+  margin-top: 25px;
+}
+
+
+.training__exercise-aproaches__item:nth-child(2n) {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.training__exercise-aproaches__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.training__exercise-aproaches__item__exercise-avatar-container {
+  height: 50px;
+  flex: 30;
+}
+
+.training__exercise-aproaches__item__exercise-avatar {
+  height: 100%;
+}
+
+.training__exercise-aproaches__item__exercise-name {
+  flex: 50;
+}
+
+.training__exercise-aproaches__info {
+  flex: 20;
+}
