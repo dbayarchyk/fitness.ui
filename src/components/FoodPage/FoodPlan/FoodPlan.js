@@ -75,6 +75,10 @@ class FoodPlan extends Component {
     return (
       <div className="food-plan">
 
+        <div className="food-plan__name-container">
+          <h1 className="food-plan__name">{foodPlan.name}</h1>
+        </div>
+
         <div className="food-plan__avatar-container">
           <img src={foodPlan.avatarUrl} className="food-plan__avatar"/>
         </div>
