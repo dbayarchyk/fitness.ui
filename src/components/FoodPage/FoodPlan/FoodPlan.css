@@ -1,3 +1,14 @@
+.food-plan__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.food-plan__title__icon-container {
+  font-size: 30px;
+  cursor: pointer;
+}
+
 .food-plan__avatar-container{
   max-height: 500px;
   overflow: hidden;

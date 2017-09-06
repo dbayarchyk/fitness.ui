@@ -74,9 +74,19 @@ class FoodPlan extends Component {
     
     return (
       <div className="food-plan">
-
-        <div className="food-plan__name-container">
-          <h1 className="food-plan__name">{foodPlan.name}</h1>
+        
+        <div className="food-plan__title">
+          <div className="food-plan__title__name-container">
+            <h1 className="food-plan__title__name">{foodPlan.name}</h1>
+          </div>
+          
+          <div className="food-plan__title__icon-container">
+            {
+              !!this.props.data.user.foodPlan && this.props.data.user.foodPlan._id === foodPlan._id 
+                ? <FontAwesome name="minus-square" onClick={() => this.changeUserFoodPlan(null)}/> 
+                : <FontAwesome name="plus-square" onClick={() => this.changeUserFoodPlan(foodPlan._id)}/>
+            }
+          </div>
         </div>
 
         <div className="food-plan__avatar-container">

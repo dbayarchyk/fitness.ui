@@ -67,8 +67,18 @@ class TrainingPlan extends Component {
     return (
       <div className="training-plan">
 
-        <div className="training-plan__name-container">
-          <h1 className="training-plan__name">{trainingPlan.name}</h1>
+        <div className="training-plan__title">
+          <div className="training-plan__title__name-container">
+            <h1 className="training-plan__title__name">{trainingPlan.name}</h1>
+          </div>
+          
+          <div className="training-plan__title__icon-container">
+            {
+              !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id 
+                ? <FontAwesome name="minus-square" onClick={() => this.changeUserTrainingPlan(null)}/> 
+                : <FontAwesome name="plus-square" onClick={() => this.changeUserTrainingPlan(trainingPlan._id)}/>
+            }
+          </div>
         </div>
 
         <div className="training-plan__avatar-container">
