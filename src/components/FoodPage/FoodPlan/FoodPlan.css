@@ -1,5 +1,9 @@
-.food-plan__avatar {
+.food-plan__avatar-container{
   max-height: 500px;
+  overflow: hidden;
+}
+
+.food-plan__avatar {
   width: 100%;
 }
 

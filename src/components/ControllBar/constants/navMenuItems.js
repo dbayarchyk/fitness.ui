@@ -13,6 +13,15 @@ const NAV_MENU_ITEMS = [
     ]
   },
   {
+    title: 'Training',
+    children: [
+      {
+        title: 'Training Plans',
+        routeTo: 'app/training-plans'
+      },
+    ]
+  },
+  {
     title: 'Food',
     children: [
       {

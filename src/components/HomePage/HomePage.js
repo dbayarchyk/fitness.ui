@@ -13,6 +13,7 @@ import {
 import './HomePage.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import FoodPage from '../FoodPage/FoodPage';
+import TrainingPlans from '../TrainingPlans/TrainingPlans';
 
 class HomePage extends Component {
   render() {
@@ -20,9 +21,10 @@ class HomePage extends Component {
       <div className="home">
         <Container className="home__container" fluid={true}>
           <Switch>
-            <Route exact path={`${this.props.match.url}/`} render={() => <Redirect to={`${this.props.match.url}/profile`} />} />
+            <Route exact path={`${this.props.match.url}/`} render={() => <Redirect to={`${this.props.match.url}/profile/progress`} />} />
             <Route path={`${this.props.match.url}/profile/:tab`} component={ProfilePage}/>
             <Route path={`${this.props.match.url}/food`} component={FoodPage}/>
+            <Route path={`${this.props.match.url}/training-plans`} component={TrainingPlans}/>
           </Switch>
         </Container>
       </div>

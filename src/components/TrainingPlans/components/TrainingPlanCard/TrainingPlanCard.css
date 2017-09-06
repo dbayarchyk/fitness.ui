@@ -1,0 +1,31 @@
+.training-plan__card {
+  cursor: pointer;
+  padding: 0;
+}
+
+.training-plan__card__title {
+  padding: 1.25em 1.25em 0;
+}
+
+.training-plan__card--selected {
+  box-shadow: 0 0 2px 2px #96C5FF;
+  border-color: #96C5FF;
+  background-color: rgba(150, 197, 255, .2);
+}
+
+.training-plan__card__title {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.training-plan__card__avatar-container {
+  max-height: 250px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.training-plan__card__avatar {
+  height: 100%;
+  width: 100%;
+}
