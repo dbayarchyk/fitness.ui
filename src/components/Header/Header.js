@@ -14,6 +14,7 @@ import {
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
+import logo from './fitness-logo.png'
 import './Header.css';
 
 class Header extends Component {
@@ -25,7 +26,9 @@ class Header extends Component {
             <FontAwesome name="bars"/>
           </span>      
           <NavbarBrand>
-            <Link to="/">Fitness</Link>
+            <Link to="/">
+              <img src={logo} alt="Fitness" height="50"/>
+            </Link>
           </NavbarBrand>
         </div>
       </header>
