@@ -1,0 +1,63 @@
+.training__current-exercise {
+  height: 100%;
+  position: relative;
+}
+
+.training__current-exercise__title {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+}
+
+.training__exercises {
+  height: 100%;
+}
+
+.training__exercises__list-container {
+  padding: 0;
+}
+
+.training__exercises__list__item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.training__exercises__list__item--completed {
+  background: rgba(0, 0, 0, .2);
+}
+
+.training__exercises__list__item--current {
+  background: rgba(2, 117, 216, .2);
+}
+
+.training__exercises__list__item__avatar-container {
+  height: 50px;
+  flex: 30;
+}
+
+.training__exercises__list__item__avatar {
+  height: 100%;
+  width: 100%;
+}
+
+.training__exercises__list__item__name {
+  flex: 50;
+}
+
+.training__exercises__list__item__info {
+  flex: 20;
+}
+
+.training__start__button-container {
+  align-items: center;
+  background: rgba(0, 0, 0, .2);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

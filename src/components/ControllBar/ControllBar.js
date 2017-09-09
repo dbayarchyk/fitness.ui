@@ -12,7 +12,7 @@ import * as authActions from '../../actions/auth';
 import './ControllBar.css';
 
 const MenuItemButton = (props) => (
-  <Button {...props} color="secondary" block>{props.title}</Button>
+  <Button {...props} color="primary" block>{props.title}</Button>
 );
 
 class ControllBar extends Component {
@@ -36,10 +36,10 @@ class ControllBar extends Component {
     const guestLinks = (
       <div>
         <Link to="/signin">
-          <MenuItemButton title="Sign in" onClick={close}/>
+          <MenuItemButton color="primary" title="Sign in" onClick={close}/>
         </Link>
         <Link to="/signup">
-          <MenuItemButton title="Sign up" onClick={close}/>
+          <MenuItemButton color="primary" title="Sign up" onClick={close}/>
         </Link>
       </div>
     );
