@@ -35,16 +35,28 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
             </div>
           </CardTitle>
 
-          <Row>
-            <Col xs="12" sm="12" md="4" lg="3">
+          <Row style={{ alignItems: 'center'}}>
+            <Col xs="12" sm="12" md="4" lg="3" className="no-float">
               <CardBlock> 
                 <CounterContainer />
               </CardBlock>       
             </Col>
 
-            <Col xs="12" sm="12" md="8" lg="9">
-              <CardBlock>
-                bla bla bla
+            <Col xs="12" sm="12" md="8" lg="9" className="no-float">
+              <CardBlock className="training__current-exercise__info">
+                <Row>
+                  <Col xs="12" sm="12" md="6" lg="4" className="no-float">
+                    <div className="training__current-exercise__info__avatar">
+                      <img src={currentExerciseApproach.exercise.avatarUrl} className="training__current-exercise__info__avatar__img" />
+                    </div>
+                  </Col>
+
+                  <Col xs="12" sm="12" md="6" lg="8" className="no-float">
+                    <div className="training__current-exercise__info__description">
+                      {currentExerciseApproach.exercise.description}
+                    </div>
+                  </Col>
+                </Row>
               </CardBlock>
             </Col>
           </Row>
@@ -66,7 +78,6 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
               <CardTitle className="training__exercises__title">
                 Exercises for this training
               </CardTitle>
-              
 
               <CardBlock className="training__exercises__list-container">
                 <ListGroup className="training__exercises__list">
