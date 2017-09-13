@@ -5,7 +5,8 @@ const defaultState = {
   currentExerciseApproach: null,
   completedExercses: [],
   isApproachStarted: false,
-  isApproachStopped: false
+  isApproachStopped: false,
+  isTrainingFinished: false
 };
 
 const training = (state = defaultState, action) => {
@@ -32,13 +33,19 @@ const training = (state = defaultState, action) => {
         ...state,
         isApproachStopped: true
       };
-    case actions.FINISH_APPROACH:
+    case actions.FINISH_APPROACH: {
+      let isTrainingFinished = state.currentExerciseApproachIndex === state.trainingData.exerciseAproaches.length - 1;
+
       return {
         ...state,
         isApproachStarted: false,
-        isApproachStopped: false,
-        currentExerciseApproach: state.currentExerciseApproachIndex + 1
+        isApproachStopped: true,
+        currentExerciseApproach: isTrainingFinished ? state.currentExerciseApproachIndex + 1 : state.currentExerciseApproachIndex,
+        isTrainingFinished: isTrainingFinished
       };
+    }
+    case actions.RESET_TRAINING: 
+      return defaultState
     default:
       return state;
   }

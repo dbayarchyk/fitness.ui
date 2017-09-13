@@ -6,9 +6,12 @@ import {
   Card,
   Button,
   CardTitle,
+  CardBlock,
   CardText,
   Row,
-  Col
+  Col,
+  ListGroup,
+  ListGroupItem
 } from 'reactstrap';
 
 import Spinner from '../../common/Spinner/Spinner';
@@ -25,6 +28,17 @@ const getUserData = gql`
       weightHistory {
         date,
         weight
+      }
+    },
+    trainingHistoryItems(query: { userId: $id }) {
+      _id,
+      date,
+      exerciseAproaches {
+        _id,
+        exercise {
+          name
+        },
+        count
       }
     }
   }
@@ -78,6 +92,7 @@ class ProgressTab extends Component {
               </CardText>
             </Card>
           </Col>
+
           <Col xs="12" sm="12" md="6" className="progress__card__column">
             <Card block className="progress__card">
               <CardTitle>Your weight progress</CardTitle>
@@ -85,11 +100,33 @@ class ProgressTab extends Component {
             </Card>
           </Col>
         </Row>
+
         <Row>
           <Col xs="12" sm="12" className="progress__card__column">
             <Card block className="progress__card">
-              <CardTitle>Your trainings</CardTitle>
-              <CardText>Your last 5 trainings ...</CardText>
+              <CardTitle>Your last 5 trainings</CardTitle>
+
+              <ListGroup>
+                {
+                  this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
+                    <ListGroupItem key={trainingHistoryItem._id}>
+                      <div>
+                        {trainingHistoryItem.date}
+                      </div>
+
+                      <div>
+                        {
+                          trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
+                            <span>
+                              {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
+                            </span>
+                          ))
+                        }
+                      </div>
+                    </ListGroupItem>
+                  ))
+                }
+              </ListGroup>
             </Card>
           </Col>
         </Row>

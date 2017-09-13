@@ -4,31 +4,35 @@ import { gql, graphql, withApollo } from 'react-apollo';
 
 import Spinner from '../common/Spinner/Spinner';
 import Training from './components/Training/Training';
+import NoTraining from './components/NoTraining/NoTraining'
 import * as actions from '../../actions/training';
 
 const userTrainingPlan = gql`
-  query userTrainingPlan($userId: ID!) {
-    user(_id: $userId) {
-      trainingPlan {
-        _id,
-        name,
-        avatarUrl,
-        trainings {
+  query userDailyTraining($userId: ID!) {
+    userDailyTraining(_id: $userId) {
+      _id,
+      date,
+      exerciseAproaches {
+        exercise {
           _id,
-          date,
-          exerciseAproaches {
-            exercise {
-              _id,
-              name,
-              avatarUrl
-            },
-            count
-          }
-        }
+          name,
+          avatarUrl
+        },
+        count
       }
     }
   }
 `;
+
+const addUserTrainingHistoryItem = gql`
+  mutation addUserTrainingHistoryItem($data: TrainingHistoryInput!){
+    addUserTrainingHistoryItem(data: $data) {
+      _id
+    }
+  }
+`;
+
+const normalizeMutationObject = ({ __typename, ...normalized = {} }) => normalized;
 
 class TrainingContainer extends Component {
   state = {
@@ -47,8 +51,33 @@ class TrainingContainer extends Component {
       variables: { userId: this.props.userId }
     })
       .then(({ data, loading }) => {
-        this.props.setTrainingData(data.user.trainingPlan.trainings[0]);
+        this.props.setTrainingData(data.userDailyTraining);
         this.setState({ isLoading: loading });
+      });
+  }
+
+  submitTraining = () => {
+    this.setState({ isLoading: true });
+
+    // Removing __typename field
+    const normalizedExerciseAproaches = this.props.trainingData.exerciseAproaches.map(exerciseAproache => ({
+      ...normalizeMutationObject(exerciseAproache),
+      exercise: exerciseAproache.exercise._id
+    }));
+
+    this.props.client.mutate({
+      mutation: addUserTrainingHistoryItem,
+      variables: { 
+        data: {
+          userId: this.props.userId,
+          exerciseAproaches: normalizedExerciseAproaches,
+          trainingIdInPlan: this.props.trainingData._id
+        }
+      }
+    })
+      .then(({ data, loading }) => {
+        this.setState({ isLoading: loading });
+        this.props.resetTraining();
       });
   }
 
@@ -57,8 +86,12 @@ class TrainingContainer extends Component {
       return <Spinner isLoading={this.state.isLoading}/>
     }
 
+    if (!this.props.trainingData) {
+      return <NoTraining />
+    }
+
     return (
-      <Training 
+      <Training
         exerciseAproaches={this.props.trainingData.exerciseAproaches}
         currentExerciseApproach={this.props.currentExerciseApproach}
         currentExerciseApproachIndex={this.props.currentExerciseApproachIndex}
@@ -66,7 +99,9 @@ class TrainingContainer extends Component {
         isApproachStopped={this.props.isApproachStopped}
         startApproach={this.props.startApproach}
         stopApproach={this.props.stopApproach}
+        isTrainingFinished={this.props.isTrainingFinished}
         finishApproach={this.props.finishApproach}
+        submitTraining={this.submitTraining}
       />
     )
   }
@@ -78,6 +113,7 @@ const mapStateToProps = state => ({
   currentExerciseApproach: state.training.trainingData && state.training.trainingData.exerciseAproaches[state.training.currentExerciseApproachIndex],
   isApproachStarted: state.training.isApproachStarted,
   isApproachStopped: state.training.isApproachStopped,
+  isTrainingFinished: state.training.isTrainingFinished,
   currentExerciseApproachIndex: state.training.currentExerciseApproachIndex
 });
 
@@ -86,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
   startApproach: () => dispatch(actions.startApproach()),
   stopApproach: () => dispatch(actions.stopApproach()),
   finishApproach: () => dispatch(actions.finishApproach()),
+  resetTraining: () => dispatch(actions.resetTraining())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withApollo(TrainingContainer));

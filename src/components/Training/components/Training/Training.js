@@ -9,13 +9,17 @@ import {
   Col,
   ListGroup,
   ListGroupItem,
+  Modal, 
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   Row
 } from 'reactstrap';
 
 import './Training.css';
 import CounterContainer from '../Counter/CounterContainer';
 
-const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, currentExerciseApproachIndex }) => (
+const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, isTrainingFinished = false, submitTraining, currentExerciseApproachIndex }) => (
   <div className="training">
     <Row>
       <Col xs="12" sm="12" md="8" lg="9" className="no-float">
@@ -113,6 +117,17 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
       }
 
     </Row>
+
+    <Modal isOpen={isTrainingFinished}>
+      <ModalHeader>Training finished</ModalHeader>
+      <ModalBody>
+        <h3>You rock! You finished your training and became stronger!</h3>
+        <p>Now it's better to rest</p>
+      </ModalBody>
+      <ModalFooter>
+        <Button color="success" onClick={submitTraining}>Got it</Button>
+      </ModalFooter>
+    </Modal>
   </div>
 );
 

@@ -1,0 +1,15 @@
+.no-training {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.no-training__message {
+  align-items: center;
+  display: flex;
+  font-size: 35px;
+  height: 200px;
+  justify-content: center;
+  width: 80%;
+}
