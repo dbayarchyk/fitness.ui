@@ -10,10 +10,9 @@ class CounterContainer extends Component {
   }
 
   setCount = () => {
-    
-
     if (this.state.count >= this.props.maxCount) {
       this.props.finishApproach();
+      this.resetTimer();
     } else {
       this.setState(prevState => ({ count: prevState.count + 1}));
     }
@@ -36,7 +35,9 @@ class CounterContainer extends Component {
       this.startTimer();
     } else if (props.isPaused){
       this.stopTimer();
-    } else {
+    }
+
+    if (!props.isStarted) {
       this.resetTimer();
     }
   }

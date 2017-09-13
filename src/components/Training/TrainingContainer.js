@@ -102,6 +102,7 @@ class TrainingContainer extends Component {
         isTrainingFinished={this.props.isTrainingFinished}
         finishApproach={this.props.finishApproach}
         submitTraining={this.submitTraining}
+        refCounter={counter => this.counter = counter}
       />
     )
   }

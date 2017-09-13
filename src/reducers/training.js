@@ -3,7 +3,6 @@ import * as actions from '../actions/training.js';
 const defaultState = {
   trainingData: null,
   currentExerciseApproach: null,
-  completedExercses: [],
   isApproachStarted: false,
   isApproachStopped: false,
   isTrainingFinished: false
@@ -40,12 +39,12 @@ const training = (state = defaultState, action) => {
         ...state,
         isApproachStarted: false,
         isApproachStopped: true,
-        currentExerciseApproach: isTrainingFinished ? state.currentExerciseApproachIndex + 1 : state.currentExerciseApproachIndex,
+        currentExerciseApproachIndex: isTrainingFinished ? state.currentExerciseApproachIndex : state.currentExerciseApproachIndex + 1,
         isTrainingFinished: isTrainingFinished
       };
     }
     case actions.RESET_TRAINING: 
-      return defaultState
+      return defaultState;
     default:
       return state;
   }

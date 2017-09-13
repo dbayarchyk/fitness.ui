@@ -19,7 +19,7 @@ import {
 import './Training.css';
 import CounterContainer from '../Counter/CounterContainer';
 
-const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, isTrainingFinished = false, submitTraining, currentExerciseApproachIndex }) => (
+const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, isTrainingFinished = false, submitTraining, currentExerciseApproachIndex, refCounter }) => (
   <div className="training">
     <Row>
       <Col xs="12" sm="12" md="8" lg="9" className="no-float">
@@ -42,7 +42,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
           <Row style={{ alignItems: 'center'}}>
             <Col xs="12" sm="12" md="4" lg="3" className="no-float">
               <CardBlock> 
-                <CounterContainer />
+                <CounterContainer ref={refCounter}/>
               </CardBlock>       
             </Col>
 
@@ -87,11 +87,11 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
                 <ListGroup className="training__exercises__list">
                   {
                     exerciseAproaches.map((exerciseAproache, index) => (
-                      <ListGroupItem 
-                        key={exerciseAproache.exercise._id} 
+                      <ListGroupItem
+                        key={index} 
                         className={`
                           training__exercises__list__item 
-                          ${currentExerciseApproachIndex < index ? 'training__exercises__list__item--completed' : ''}
+                          ${currentExerciseApproachIndex > index ? 'training__exercises__list__item--completed' : ''}
                           ${currentExerciseApproachIndex === index ? 'training__exercises__list__item--current' : ''  }
                         `}
                       >
