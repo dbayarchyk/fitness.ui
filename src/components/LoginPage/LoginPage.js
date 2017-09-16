@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
   Button,
   Form,
@@ -9,8 +8,10 @@ import {
   Col
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
+
+import { CURRENT_USER_QUERY } from '../../graphql/queries';
 
 import * as authActions from '../../actions/auth';
 import Spinner from '../common/Spinner/Spinner';
@@ -26,7 +27,7 @@ const login = gql`
 
 class LoginPage extends Component {
   static propTypes = {
-    login: PropTypes.func.isRequired,
+
   };
 
   state = {
@@ -44,12 +45,13 @@ class LoginPage extends Component {
       variables: {
         email: this.state.email,
         password: this.state.password
-      }
+      },
     })
-      .then(({ data }) => {
+      .then(({ data: { login } }) => {
+        localStorage.setItem('token', login.token);
+        this.props.data.refetch()
+          .then(() => this.props.history.push('/app'));
         this.setState({ isLoading: false });
-        this.props.login(data.login.token);
-        this.props.history.push('/app');
       })
       .catch(({ graphQLErrors }) => {
         alert(graphQLErrors[0].message);
@@ -99,10 +101,7 @@ class LoginPage extends Component {
   }
 }
 
-const LoginWithMutations = graphql(login)(LoginPage);
-
-const mapDispatchToProps = dispatch => ({
-  login: token => dispatch(authActions.login(token)),
-});
-
-export default connect(null, mapDispatchToProps)(LoginWithMutations);
+export default compose(
+  graphql(CURRENT_USER_QUERY),
+  graphql(login)
+)(LoginPage);

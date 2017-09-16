@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -14,6 +13,7 @@ import {
   ListGroupItem
 } from 'reactstrap';
 
+import { CURRENT_USER_QUERY } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/Spinner';
 import WeightChart from './components/WeightChart/WeightChart';
 import './ProgressTab.css';
@@ -46,11 +46,19 @@ const getUserData = gql`
 
 class ProgressTab extends Component {
   static propTypes = {
-    userID: PropTypes.string.isRequired,
+
   };
 
   render() {
-    return this.props.data.loading ? <Spinner isLoading={this.props.data.loading} /> : (
+    if (this.props.data.loading) {
+      return <Spinner isLoading={this.props.data.loading} />
+    }
+
+    if (!this.props.data.user || !this.props.data.trainingHistoryItems) {
+      return null;
+    }
+
+    return (
       <div>
         <Row>
           <Col xs="12" sm="12" md="6" className="progress__card__column">
@@ -101,51 +109,52 @@ class ProgressTab extends Component {
           </Col>
         </Row>
 
-        <Row>
-          <Col xs="12" sm="12" className="progress__card__column">
-            <Card block className="progress__card">
-              <CardTitle>Your last 5 trainings</CardTitle>
+        {
+          !!this.props.data.trainingHistoryItems.length && (
+            <Row>
+              <Col xs="12" sm="12" className="progress__card__column">
+                <Card block className="progress__card">
+                  <CardTitle>Your last 5 trainings</CardTitle>
 
-              <ListGroup>
-                {
-                  this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
-                    <ListGroupItem key={trainingHistoryItem._id}>
-                      <div>
-                        {trainingHistoryItem.date}
-                      </div>
+                  <ListGroup>
+                    {
+                      this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
+                        <ListGroupItem key={trainingHistoryItem._id}>
+                          <div>
+                            {trainingHistoryItem.date}
+                          </div>
 
-                      <div>
-                        {
-                          trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
-                            <span>
-                              {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
-                            </span>
-                          ))
-                        }
-                      </div>
-                    </ListGroupItem>
-                  ))
-                }
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+                          <div>
+                            {
+                              trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
+                                <span>
+                                  {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
+                                </span>
+                              ))
+                            }
+                          </div>
+                        </ListGroupItem>
+                      ))
+                    }
+                  </ListGroup>
+                </Card>
+              </Col>
+            </Row>
+          )
+        }
       </div>
     );
   }
 }
 
-const ProgressTabWithData = graphql(getUserData, {
-  options: ({ userID }) => ({
-    variables: {
-      id: userID
-    },
-    fetchPolicy: 'network-only'
+export default compose(
+  graphql(CURRENT_USER_QUERY),
+  graphql(getUserData, {
+    options: ({ data: { currentUser } }) => ({
+      variables: {
+        id: currentUser._id          
+      }
+    }),
+    skip: ({ data }) => !data.currentUser
   })
-})(ProgressTab);
-
-const mapStateToProps = state => ({
-  userID: state.auth.currentUser._id
-});
-
-export default connect(mapStateToProps)(ProgressTabWithData);
+)(ProgressTab);

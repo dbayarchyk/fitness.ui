@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 import {
   Row,
   Col
 } from 'reactstrap';
 
+import { CURRENT_USER_QUERY } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/Spinner';
 import EditableField from './components/EditableField/EditableField';
 import './AccountTab.css';
@@ -42,11 +42,21 @@ class AccountTab extends Component {
 
     this.props.mutate({
       variables: {
-        id: this.props.userID,
+        id: this.props.data.currentUser._id,
         data: data
-      }
+      },
+      update: (store, { data }) => {
+        store.writeQuery({
+          query: getUserData,
+          variables: {
+            id: this.props.data.currentUser._id
+          },
+          data: {
+            user: data.updateUser
+          }
+        });
+      },
     })
-      .then(() => this.props.data.refetch())
   }
 
   render() {
@@ -155,18 +165,15 @@ class AccountTab extends Component {
   }
 }
 
-const AccountTabWithData = graphql(getUserData, {
-  options: ({ userID }) => ({
-    variables: {
-      id: userID
-    }
-  })
-})(AccountTab);
-
-const AccountTabWithDataAndMutations = graphql(updateUser)(AccountTabWithData);
-
-const mapStateToProps = state => ({
-  userID: state.auth.currentUser._id
-});
-
-export default connect(mapStateToProps)(AccountTabWithDataAndMutations);
+export default compose(
+  graphql(CURRENT_USER_QUERY),
+  graphql(getUserData, {
+    options: ({ data: { currentUser } }) => ({
+      variables: {
+        id: currentUser._id          
+      }
+    }),
+    skip: ({ data }) => !data.currentUser
+  }),
+  graphql(updateUser)
+)(AccountTab);

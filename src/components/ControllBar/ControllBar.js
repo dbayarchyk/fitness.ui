@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Accordion from '../common/Accordion/Accordion';
 import NAV_MENU_ITEMS from './constants/navMenuItems';
 
-import * as authActions from '../../actions/auth';
+import { CURRENT_USER_QUERY } from '../../graphql/queries';
 
 import './ControllBar.css';
 
@@ -17,20 +17,25 @@ const MenuItemButton = (props) => (
 
 class ControllBar extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool,
-    logout: PropTypes.func.isRequired,
+
   };
   
   static defaultProps = {
-    isAuthenticated: false
+
+  }
+
+  logout = () => {
+    localStorage.removeItem('token');
+    this.props.data.refetch();
   }
 
   render() {
-    const { match, isAuthenticated, logout, close } = this.props;
+    const { match, close } = this.props;
+    const isAuthenticated = !!this.props.data.currentUser;
 
     const userLinks = (
       <Link to="/signin">
-        <MenuItemButton color="primary" onClick={() => {logout(); close()}} title="Logout"/>
+        <MenuItemButton color="primary" onClick={() => {this.logout(); close()}} title="Logout"/>
       </Link>
     );
     const guestLinks = (
@@ -77,12 +82,4 @@ class ControllBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-const maspDispatchToProps = dispatch => ({
-  logout: () => dispatch(authActions.logout()),
-});
-
-export default connect(mapStateToProps, maspDispatchToProps)(ControllBar);
+export default graphql(CURRENT_USER_QUERY)(ControllBar);

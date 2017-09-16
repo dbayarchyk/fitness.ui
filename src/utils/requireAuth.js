@@ -1,8 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-export default function (ComposedComponent) {
+import { CURRENT_USER_QUERY } from '../graphql/queries';
+
+const requireAuth = (ComposedComponent) => {
   class Authenticate extends React.Component {
     static propTypes = {
       isAuthenticated: PropTypes.bool.isRequired,
@@ -27,9 +29,11 @@ export default function (ComposedComponent) {
     }
   }
 
-  const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-  });
-
-  return connect(mapStateToProps)(Authenticate);
+  return graphql(CURRENT_USER_QUERY, {
+    props: ({ data: { currentUser }}) => ({
+      isAuthenticated: !!currentUser
+    })
+  })(Authenticate);
 }
+
+export default requireAuth;

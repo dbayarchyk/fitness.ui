@@ -54,10 +54,6 @@ const store = createStore(
   )
 );
 
-if (localStorage.token) {
-  store.dispatch(authActions.login(localStorage.token));
-}
-
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
     <Router children={routes} />
