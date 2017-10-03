@@ -24,11 +24,11 @@ const getUserData = gql`
       height,
       weight,
       age,
-      bodyMassIndex,
-      weightHistory {
-        date,
-        weight
-      }
+      bodyMassIndex
+    },
+    weightHistoryItems(query: { userId: $id }) {
+      date,
+      weight
     },
     trainingHistoryItems(query: { userId: $id }) {
       _id,
@@ -96,7 +96,7 @@ class ProgressTab extends Component {
           <Col xs="12" sm="12" md="6" className="progress__card__column">
             <Card block className="progress__card">
               <CardTitle>Your weight progress</CardTitle>
-              <WeightChart data={this.props.data.user.weightHistory}/>
+              <WeightChart data={this.props.data.weightHistoryItems}/>
             </Card>
           </Col>
         </Row>
