@@ -5,7 +5,8 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import { slide as SideBar } from 'react-burger-menu'
+import { slide as SideBar } from 'react-burger-menu';
+import ReduxToastr from 'react-redux-toastr';
 
 import requireAuth from './utils/requireAuth';
 import LoginPage from './components/LoginPage/LoginPage';
@@ -33,6 +34,14 @@ class App extends Component {
             <Route exact path="/signup" component={SignUpPage} />
           </Switch>
         </main>
+
+        <ReduxToastr
+          timeOut={3000}
+          newestOnTop={false}
+          position="top-right"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+        />
       </div>
     );
   }

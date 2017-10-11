@@ -14,6 +14,7 @@ import {
   CardFooter
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
+import { toastr } from 'react-redux-toastr';
 
 import Spinner from '../../common/Spinner/Spinner';
 import EditableField from './components/EditableField/EditableField';
@@ -102,7 +103,11 @@ class AccountTab extends Component {
     this.props.generateUserTrainingPlan({
       variables: { userId: this.props.userID}
     })
-      .then(() => this.props.data.refetch())
+      .then(() => {
+        toastr.success('Your training plan has been generated!');
+
+        this.props.data.refetch();
+      })
   }
 
   render() {

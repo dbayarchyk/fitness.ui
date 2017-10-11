@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
+import { toastr } from 'react-redux-toastr';
 
 import { Link } from 'react-router-dom';
 import Spinner from '../common/Spinner/Spinner';
@@ -79,15 +80,16 @@ class SignUpPage extends Component {
     })
       .then(({ data }) => {
         this.isLoading = false;
+        toastr.success('You signed up successfully!');
 
         this.props.history.push('/signin');
 
         this.setState({ isLoading: false });
       })
       .catch(({ graphQLErrors }) => {
-        alert(graphQLErrors[0].message);
-
         this.setState({ isLoading: false });
+        
+        graphQLErrors.forEach(error => toastr.error(error.message));
       });
   }
 

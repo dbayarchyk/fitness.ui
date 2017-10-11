@@ -9,14 +9,17 @@ import {
   createNetworkInterface,
 } from 'react-apollo';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 import * as authActions from './actions/auth';
 import config from './config';
 import reducers from './reducers';
 import routes from './Routes';
 import registerServiceWorker from './registerServiceWorker';
+
 import './index.css';
-import '../node_modules/font-awesome/css/font-awesome.min.css';
+
 
 const networkInterface = createNetworkInterface({
   uri: config.API_URI,

@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import { gql, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 
 import * as authActions from '../../actions/auth';
 import Spinner from '../common/Spinner/Spinner';
@@ -48,13 +49,14 @@ class LoginPage extends Component {
     })
       .then(({ data }) => {
         this.setState({ isLoading: false });
+        toastr.success('Welcome to the application!');
         this.props.login(data.login.token);
         this.props.history.push('/app');
       })
       .catch(({ graphQLErrors }) => {
-        alert(graphQLErrors[0].message);
-
         this.setState({ isLoading: false });
+
+        graphQLErrors.forEach(error => toastr.error(error.message));
       });
   }
 
