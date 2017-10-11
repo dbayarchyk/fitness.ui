@@ -82,10 +82,6 @@ const PUPROSES = [
     value: 'WEIGHT_LOSS',
   },
   {
-    title: 'Creating a body relief',
-    value: 'CREATING_A_BODY_RELIEF',
-  },
-  {
     title: 'Maintaining the form already achieved',
     value: 'MAINTAINING_THE_FORM_ALREADY_ACHIEVED',
   }
@@ -93,14 +89,10 @@ const PUPROSES = [
 
 class AccountTab extends Component {
   onFieldChange = field => {
-    let data = {};
-    Object.assign(data, this.props.data.user, { [field.name]: field.value });
-    delete data.__typename;
-
     this.props.updateUser({
       variables: {
         id: this.props.userID,
-        data: data
+        data: { [field.name]: field.value }
       }
     })
       .then(() => this.props.data.refetch())
