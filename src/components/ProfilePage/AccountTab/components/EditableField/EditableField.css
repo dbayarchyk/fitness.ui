@@ -4,3 +4,7 @@
   display: flex;
   align-items: center;
 }
+
+.editable-field .input-group .form-control {
+  flex-direction: initial;
+}
