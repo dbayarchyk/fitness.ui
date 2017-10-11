@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { Link } from 'react-router-dom'
+import { gql, graphql, compose } from 'react-apollo';
 import {
   Row,
+  Button,
   Col,
   Card,
   CardTitle,
+  CardImg,
   CardText,
+  CardHeader,
+  CardFooter
 } from 'reactstrap';
 
 import Spinner from '../../common/Spinner/Spinner';
@@ -22,7 +27,12 @@ const getUserData = gql`
       age,
       weight,
       height,
-      purpose
+      purpose,
+      trainingPlan {
+        _id,
+        name,
+        avatarUrl
+      }
     }
   }
 `;
@@ -34,9 +44,19 @@ const updateUser = gql`
       name,
       surname,
       age,
-      weight
+      weight,
+      height,
+      purpose
     }
   }
+`;
+
+const generateUserTrainingPlan = gql`
+  mutation generateUserTrainingPlan($userId: ID!) {
+    generateUserTrainingPlan(userId: $userId) {
+      _id
+    }
+  }  
 `;
 
 const PURPOSE_VALUES = {
@@ -76,11 +96,18 @@ class AccountTab extends Component {
     Object.assign(data, this.props.data.user, { [field.name]: field.value });
     delete data.__typename;
 
-    this.props.mutate({
+    this.props.updateUser({
       variables: {
         id: this.props.userID,
         data: data
       }
+    })
+      .then(() => this.props.data.refetch())
+  }
+
+  generateUserTrainingPlan = () => {
+    this.props.generateUserTrainingPlan({
+      variables: { userId: this.props.userID}
     })
       .then(() => this.props.data.refetch())
   }
@@ -226,11 +253,29 @@ class AccountTab extends Component {
             </Card>
           </Col>
 
-          {/* <Col xs="12" sm="12" md="6" className="no-float">
-            <Card block>
-              Training Plan
+          <Col xs="12" sm="12" md="6" className="no-float">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {
+                    !this.props.data.user.trainingPlan
+                      ? 'You have not training plan'
+                      : <Link to={`/app/training-plan/${this.props.data.user.trainingPlan._id}`}>{this.props.data.user.trainingPlan.name}</Link>
+                  }
+                </CardTitle>
+              </CardHeader>
+
+              <CardFooter className="training-plan__footer">
+                <Link to={`/app/training-plans`}>
+                  <Button>Select training plan</Button>
+                </Link>
+
+                <Button color="success" onClick={this.generateUserTrainingPlan}>
+                  Generate training plan
+                </Button>
+              </CardFooter>
             </Card>
-          </Col> */}
+          </Col>
         </Row>
       </div>
     )
@@ -245,7 +290,10 @@ const AccountTabWithData = graphql(getUserData, {
   })
 })(AccountTab);
 
-const AccountTabWithDataAndMutations = graphql(updateUser)(AccountTabWithData);
+const AccountTabWithDataAndMutations = compose(
+  graphql(updateUser, { name: 'updateUser' }),
+  graphql(generateUserTrainingPlan, { name: 'generateUserTrainingPlan' }),
+)(AccountTabWithData);
 
 const mapStateToProps = state => ({
   userID: state.auth.currentUser._id
