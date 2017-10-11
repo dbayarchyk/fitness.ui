@@ -13,7 +13,7 @@ import './TrainingPlanCard.css';
 const TrainingPlanCard = ({ trainingPlan, titleRightIcon, className }) => (
   <Card block className={`training-plan__card ${className}`}>
     <CardTitle className="training-plan__card__title">
-      <div className="training-plan__card__title__header">
+      <div className="training-plan__card__title__header" title={trainingPlan.name}>
         <Link to={`/app/training-plan/${trainingPlan._id}`}>{trainingPlan.name}</Link>
       </div>
       <div>

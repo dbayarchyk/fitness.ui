@@ -59,7 +59,8 @@ class TrainingPlans extends Component {
             {
               this.props.data.trainingPlans.map(trainingPlan => (
                 <Col xs="12" sm="12" md="3" lg="4" key={trainingPlan._id}>
-                  <TrainingPlanCard 
+                  <TrainingPlanCard
+                    className="full-height"
                     trainingPlan={trainingPlan}
                     titleRightIcon={
                       !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id 

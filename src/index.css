@@ -46,3 +46,7 @@ a:hover {
   border: 1px solid rgb(32, 166, 231);
   color: rgb(32, 166, 231);
 }
+
+.full-height {
+  height: 100%;
+}

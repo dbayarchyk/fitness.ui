@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardFooter
 } from 'reactstrap';
+import FontAwesome from 'react-fontawesome';
 
 import Spinner from '../../common/Spinner/Spinner';
 import EditableField from './components/EditableField/EditableField';
@@ -256,7 +257,7 @@ class AccountTab extends Component {
           <Col xs="12" sm="12" md="6" className="no-float">
             <Card>
               <CardHeader>
-                <CardTitle>
+                <CardTitle className="training-plan__card__title__header">
                   {
                     !this.props.data.user.trainingPlan
                       ? 'You have not training plan'
@@ -267,10 +268,10 @@ class AccountTab extends Component {
 
               <CardFooter className="training-plan__footer">
                 <Link to={`/app/training-plans`}>
-                  <Button>Select training plan</Button>
+                  <Button className="training-plan__action">Select training plan</Button>
                 </Link>
 
-                <Button color="success" onClick={this.generateUserTrainingPlan}>
+                <Button className="training-plan__action" color="success" onClick={this.generateUserTrainingPlan}>
                   Generate training plan
                 </Button>
               </CardFooter>

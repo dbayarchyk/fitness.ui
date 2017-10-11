@@ -13,6 +13,11 @@
 
 .training-plan__footer {
   display: flex;
+  flex-flow: wrap;
   align-items: center;
   justify-content: space-around;
+}
+
+.training-plan__action {
+  margin: 2px 3px;
 }

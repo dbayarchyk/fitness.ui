@@ -19,6 +19,13 @@
   align-content: center;
 }
 
+.training-plan__card__title__header {
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .training-plan__card__avatar-container {
   max-height: 250px;
   overflow: hidden;
