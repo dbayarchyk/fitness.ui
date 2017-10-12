@@ -1,0 +1,24 @@
+.editable-field {
+  min-height: 38px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.editable-field .input-group .form-control {
+  flex-direction: initial;
+}
+
+.editable-field__edit-button {
+  display: none;
+}
+
+.editable-field:hover .editable-field__edit-button {
+  display: inline-block;
+}
+
+@media all and (max-width: 1024px) {
+  .editable-field__edit-button {
+    display: inline-block;
+  }
+}

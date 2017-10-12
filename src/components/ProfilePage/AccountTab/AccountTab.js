@@ -13,7 +13,7 @@ import FontAwesome from 'react-fontawesome';
 import { toastr } from 'react-redux-toastr';
 
 import Spinner from '../../common/Spinner/Spinner';
-import EditableField from './components/EditableField/EditableField';
+import EditableField from '../../common/EditableField/EditableField';
 import FCard from '../../common/Card/Card';
 import './AccountTab.css';
 

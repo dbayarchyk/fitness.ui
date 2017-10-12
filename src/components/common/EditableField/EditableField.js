@@ -18,13 +18,8 @@ class EditableField extends Component {
 
   state = {
     isEditMode: false,
-    isEditIconVisible: false,
     inputValue: this.props.input.value
   }
-
-  switchIsEditIconVisible = isEditIconVisible => this.setState(prevState => ({
-    isEditIconVisible: typeof isEditIconVisible === 'undefined' ? !prevState.isEditIconVisible : isEditIconVisible
-  }));
 
   switchEditMode = isEditMode => this.setState(prevState => ({
     isEditMode: typeof isEditMode === 'undefined' ? !prevState.isEditMode : isEditMode
@@ -44,11 +39,7 @@ class EditableField extends Component {
 
   render() {
     return (
-      <div
-        className="editable-field"
-        onMouseOver={() => this.switchIsEditIconVisible(true)}
-        onMouseLeave={() => this.switchIsEditIconVisible(false)}
-      >
+      <div className="editable-field">
         {
           this.state.isEditMode
             ? (
@@ -70,9 +61,9 @@ class EditableField extends Component {
         }
 
         {
-          this.state.isEditIconVisible && !this.state.isEditMode
+          !this.state.isEditMode
             ? (
-              <Button color="link" onClick={() => this.switchEditMode()}>
+              <Button color="link" className="editable-field__edit-button" onClick={() => this.switchEditMode()}>
                 <FontAwesome name='pencil'/>
               </Button>
             )
