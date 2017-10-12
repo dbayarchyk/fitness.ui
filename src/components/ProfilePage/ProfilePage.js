@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import {
   TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col
+  TabPane
 } from 'reactstrap';
 import {
   Route,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom';
 
 import './ProfilePage.css';

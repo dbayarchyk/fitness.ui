@@ -4,7 +4,6 @@ import { gql, graphql, compose } from 'react-apollo';
 import {
   Row,
   Col,
-  Card,
   Button
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
@@ -152,7 +151,7 @@ class DailyFoodManage extends Component {
 
     const mealIndex = this.state.selectedMeal
       ? this.props.data.dailyUserFoodHistory
-          .findIndex(foodHistoryItem => foodHistoryItem._id == this.state.selectedMeal._id)
+          .findIndex(foodHistoryItem => foodHistoryItem._id === this.state.selectedMeal._id)
       : this.props.data.dailyUserFoodHistory.length;
 
     const mealPlan = this.props.data.user.foodPlan && this.props.data.user.foodPlan.meals[mealIndex];

@@ -14,8 +14,6 @@ import SignUpPage from './components/SignUpPage/SignUpPage';
 import HomePage from './components/HomePage/HomePage';
 import ControllBar from './components/ControllBar/ControllBar';
 
-const mql = window.matchMedia(`(min-width: 800px)`);
-
 class App extends Component {
   closeSideBar = () => this.sidebar.setState({ isOpen: false });
 

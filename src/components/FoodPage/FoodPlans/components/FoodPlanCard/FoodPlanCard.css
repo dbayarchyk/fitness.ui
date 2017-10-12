@@ -19,6 +19,10 @@
   overflow: hidden;
 }
 
+.f-card__img-container:not(:first-child) .f-card__img {
+  border-radius: 0;
+}
+
 .food-plan__card__avatar {
   height: 100%;
   width: 100%;

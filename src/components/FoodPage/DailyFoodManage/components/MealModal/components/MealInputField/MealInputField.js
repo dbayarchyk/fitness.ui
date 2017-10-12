@@ -5,8 +5,6 @@ import {
   InputGroup,
   InputGroupAddon,
   Input,
-  ListGroup,
-  ListGroupItem,
   InputGroupButton
 } from 'reactstrap';
 
@@ -16,7 +14,11 @@ import FoodAutoComplete from '../FoodAutoComplete/FoodAutoComplete';
 const MealInputField = ({ avatarUrl, foodAutoCompleteConfig, weightInputConfig, buttonConfig }) => (
   <InputGroup>
     <InputGroupAddon>
-      <img src={avatarUrl} className="meal-input-field__avatar"/>
+      <img 
+        src={avatarUrl} 
+        className="meal-input-field__avatar"
+        alt="Meal avatar"
+      />
     </InputGroupAddon>
     <FoodAutoComplete {...foodAutoCompleteConfig}/>
     <Input type="number" placeholder="Weight" {...weightInputConfig}/>

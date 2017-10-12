@@ -54,25 +54,28 @@ class TrainingPlans extends Component {
 
     return (
       <div>
-        <div>
-          <Row>
-            {
-              this.props.data.trainingPlans.map(trainingPlan => (
-                <Col xs="12" sm="12" md="3" lg="4" key={trainingPlan._id}>
-                  <TrainingPlanCard
-                    className="full-height"
-                    trainingPlan={trainingPlan}
-                    titleRightIcon={
-                      !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id 
-                        ? <FontAwesome name="minus-square" onClick={() => this.changeUserTrainingPlan(null)}/> 
-                        : <FontAwesome name="plus-square" onClick={() => this.changeUserTrainingPlan(trainingPlan._id)}/>
-                    }
-                  />
-                </Col>
-              ))
-            }
-          </Row>
-        </div>
+        <Row>
+          {
+            this.props.data.trainingPlans.map(trainingPlan => (
+              <Col xs="12" sm="12" md="3" lg="4" key={trainingPlan._id}>
+                <TrainingPlanCard
+                  trainingPlan={trainingPlan}
+                  headerRightButton={
+                    !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id
+                      ? {
+                        onClick: () => this.changeUserTrainingPlan(null),
+                        children: <FontAwesome name="minus"/>
+                      }
+                      : {
+                        onClick: () => this.changeUserTrainingPlan(trainingPlan._id),
+                        children: <FontAwesome name="plus"/>
+                      }
+                  }
+                />
+              </Col>
+            ))
+          }
+        </Row>
       </div>
     )
   }

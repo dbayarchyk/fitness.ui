@@ -6,18 +6,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  InputGroup,
-  InputGroupAddon,
-  Input,
   ListGroup,
-  ListGroupItem,
-  InputGroupButton
+  ListGroupItem
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
-import Typeahead from 'react-bootstrap-typeahead';
 
 import './MealModal.css';
-import FoodAutoComplete from './components/FoodAutoComplete/FoodAutoComplete';
 import MealInputField from './components/MealInputField/MealInputField';
 import MealPlan from './components/MealPlan/MealPlan';
 
@@ -90,7 +84,7 @@ class MealModal extends Component {
   removeMealItem = mealItemIndex => this.setState(oldState => ({
     meal: {
       ...oldState.meal,
-      ... {
+      ...{
         foods: [ ...oldState.meal.foods.slice(0, mealItemIndex), ...oldState.meal.foods.slice(mealItemIndex + 1) ]
       }
     }
@@ -102,7 +96,7 @@ class MealModal extends Component {
     return {
       meal: {
         ...oldState.meal,
-        ... {
+        ...{
           foods: [ ...oldState.meal.foods, oldState.newMealItem ],
         }
       },

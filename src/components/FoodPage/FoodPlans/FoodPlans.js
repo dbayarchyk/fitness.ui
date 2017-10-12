@@ -70,10 +70,16 @@ class FoodPlans extends Component {
                         ? 'food-plan__card--selected' : ''
                     }
                     foodPlan={foodPlan}
-                    titleRightIcon={
+                    headerRightButton={
                       !!this.props.data.user.foodPlan && this.props.data.user.foodPlan._id === foodPlan._id 
-                        ? <FontAwesome name="minus-square" onClick={() => this.changeUserFoodPlan(null)}/> 
-                        : <FontAwesome name="plus-square" onClick={() => this.changeUserFoodPlan(foodPlan._id)}/>
+                        ? {
+                          onClick: () => this.changeUserFoodPlan(null),
+                          children: <FontAwesome name="minus"/>
+                        }
+                        : {
+                          onClick: () => this.changeUserFoodPlan(foodPlan._id),
+                          children: <FontAwesome name="plus"/>
+                        }
                     }
                   />
                 </Col>

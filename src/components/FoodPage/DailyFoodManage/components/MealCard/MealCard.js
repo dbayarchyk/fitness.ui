@@ -35,7 +35,12 @@ const MealCard = ({ meal, onEditClick, onCloseClick }) => (
         {
           meal.foods.map((meal, mealIndex) => (
             <ListGroupItem key={mealIndex}>
-              <img className="meal-item__avatar" src={meal.product.avatarUrl}/> {meal.product.name}: {meal.weight}g
+              <img 
+                className="meal-item__avatar"
+                src={meal.product.avatarUrl}
+                alt="Meal avatar"
+              />
+                {meal.product.name}: {meal.weight}g
             </ListGroupItem>)
           )
         }

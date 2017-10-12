@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Badge,
   Button,
@@ -51,7 +50,11 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
                 <Row>
                   <Col xs="12" sm="12" md="6" lg="4" className="no-float">
                     <div className="training__current-exercise__info__avatar">
-                      <img src={currentExerciseApproach.exercise.avatarUrl} className="training__current-exercise__info__avatar__img" />
+                      <img 
+                        src={currentExerciseApproach.exercise.avatarUrl} 
+                        className="training__current-exercise__info__avatar__img"
+                        alt="Exercise avatar"
+                      />
                     </div>
                   </Col>
 
@@ -96,7 +99,11 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
                         `}
                       >
                         <div className="training__exercises__list__item__avatar-container">
-                          <img src={exerciseAproache.exercise.avatarUrl} className="training__exercises__list__item__avatar"/>
+                          <img
+                            src={exerciseAproache.exercise.avatarUrl}
+                            className="training__exercises__list__item__avatar"
+                            alt="Exercise avatar"
+                          />
                         </div>
 
                         <div className="training__exercises__list__item__name">

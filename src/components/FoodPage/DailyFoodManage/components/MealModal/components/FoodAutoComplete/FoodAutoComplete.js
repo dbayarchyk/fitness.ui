@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
-import { asyncContainer, Typeahead, Menu, MenuItem } from 'react-bootstrap-typeahead';
+import { asyncContainer, Typeahead } from 'react-bootstrap-typeahead';
 
 const foods = gql`
   query foods($query: FoodQueryParams) {

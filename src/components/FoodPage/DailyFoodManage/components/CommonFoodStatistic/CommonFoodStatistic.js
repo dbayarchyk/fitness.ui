@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { gql, graphql } from 'react-apollo';
 import {
   Card,
   CardBlock,
   CardTitle,
-  CardSubtitle,
-  Progress
+  CardSubtitle
 } from 'reactstrap';
 
 import MultiProgress from './components/MultiProgress/MultiProgress';

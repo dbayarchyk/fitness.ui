@@ -17,8 +17,7 @@ class Accordion extends Component {
   triggerCollapse = () => this.setState(oldState => ({ isOpen: !oldState.isOpen }));
 
   render() {
-    const { children, activeClassName } = this.props;
-    const triggerClassName = this.props.trigger.props.className || '';
+    const { children } = this.props;
     const trigger = React.cloneElement(this.props.trigger, {
       onClick: this.triggerCollapse,
       color: this.state.isOpen ? 'primary' : this.props.trigger.props.color

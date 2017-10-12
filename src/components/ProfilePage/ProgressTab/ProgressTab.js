@@ -4,9 +4,7 @@ import { gql, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 import {
   Card,
-  Button,
   CardTitle,
-  CardBlock,
   CardText,
   Row,
   Col,

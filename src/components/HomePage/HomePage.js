@@ -4,11 +4,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import {
-  Container,
-  Row,
-  Col
-} from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import './HomePage.css';
 import ProfilePage from '../ProfilePage/ProfilePage';

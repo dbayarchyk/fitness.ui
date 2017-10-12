@@ -82,7 +82,7 @@ class TrainingPlan extends Component {
         </div>
 
         <div className="training-plan__avatar-container">
-          <img src={trainingPlan.avatarUrl} className="training-plan__avatar"/>
+          <img src={trainingPlan.avatarUrl} className="training-plan__avatar" alt="Training plan avatar"/>
         </div>
 
         <div className="training-plan__trainings">
@@ -105,7 +105,11 @@ class TrainingPlan extends Component {
                           training.exerciseAproaches.map(exerciseAproache => (
                             <ListGroupItem key={exerciseAproache._id} className="training__exercise-aproaches__item">
                               <div className="training__exercise-aproaches__item__exercise-avatar-container">
-                                <img src={exerciseAproache.exercise.avatarUrl} className="training__exercise-aproaches__item__exercise-avatar"/>
+                                <img 
+                                  src={exerciseAproache.exercise.avatarUrl} 
+                                  className="training__exercise-aproaches__item__exercise-avatar"
+                                  alt="Exercise avatar"
+                                />
                               </div>
 
                               <div className="training__exercise-aproaches__item__exercise-name">

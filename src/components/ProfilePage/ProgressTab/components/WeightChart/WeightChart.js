@@ -5,8 +5,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend,
   ResponsiveContainer
 } from 'recharts';
 
@@ -42,7 +40,6 @@ const WeightChart = ({ data, height = 300, width = "100%",}) => (
         tickFormatter={YAxisTickFormatter}
         padding={{ bottom: 10, top: 10 }}
       />
-      <Tooltip />
       <CartesianGrid stroke="#f5f5f5" />
       <Line type="monotone" dataKey="weight" stroke="#42a5f5" />
     </LineChart>

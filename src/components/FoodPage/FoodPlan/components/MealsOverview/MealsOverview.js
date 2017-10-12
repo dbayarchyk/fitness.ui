@@ -25,7 +25,11 @@ const MealsOverview = ({ meals = [] }) => (
                   <Col xs="12" sm="6" md="4" lg="3" key={foodIndex}>
                     <ListGroupItem className="meal-item__food">
                       <div className="meal-item__food__avatar-container">
-                        <img src={food.product.avatarUrl} className="meal-item__food__avatar"/>
+                        <img
+                          src={food.product.avatarUrl}
+                          className="meal-item__food__avatar"
+                          alt="Meal avatar"
+                        />
                       </div>
 
                       <div className="meal-item__food__info">

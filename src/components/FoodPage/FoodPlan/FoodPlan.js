@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
-import {
-  Row,
-  Col
-} from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 
 import './FoodPlan.css';
@@ -90,7 +86,7 @@ class FoodPlan extends Component {
         </div>
 
         <div className="food-plan__avatar-container">
-          <img src={foodPlan.avatarUrl} className="food-plan__avatar"/>
+          <img src={foodPlan.avatarUrl} className="food-plan__avatar" alt="Food plan avatar"/>
         </div>
 
         <div className="food-plan__nutrition-rate">

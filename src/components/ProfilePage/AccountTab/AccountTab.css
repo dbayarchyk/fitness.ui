@@ -1,3 +1,7 @@
+.account .f-card {
+  margin: 5px 0;
+}
+
 .account__data__field {
   display: flex;
   align-items: center;

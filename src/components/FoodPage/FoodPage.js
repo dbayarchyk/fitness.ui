@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
 import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col
-} from 'reactstrap';
-import {
   Route,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom';
 
 import './FoodPage.css';

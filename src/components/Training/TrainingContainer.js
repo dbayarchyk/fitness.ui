@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { gql, graphql, withApollo } from 'react-apollo';
+import { gql, withApollo } from 'react-apollo';
 
 import Spinner from '../common/Spinner/Spinner';
 import Training from './components/Training/Training';

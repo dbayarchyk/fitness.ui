@@ -1,0 +1,30 @@
+.f-card {}
+
+.f-card__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.f-card__header__title {
+  margin-bottom: 0;
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.f-card__header__title:only-child {
+  margin-right: 0;
+}
+
+.f-card__img-container {
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.f-card__img {
+  height: 100%;
+  width: 100%;
+}
