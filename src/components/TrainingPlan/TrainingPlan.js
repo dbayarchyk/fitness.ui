@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 import {
-  Card,
+  CardBlock,
   Row,
   Col,
   ListGroup,
@@ -12,6 +12,7 @@ import FontAwesome from 'react-fontawesome';
 
 import './TrainingPlan.css';
 import Spinner from '../common/Spinner/Spinner';
+import FCard from '../common/Card/Card';
 
 const trainingPlanAndUser = gql`
   query getData($userId: ID!, $trainingPlanId: ID!) {
@@ -65,79 +66,76 @@ class TrainingPlan extends Component {
     const { trainingPlan } = this.props.data;
     
     return (
-      <div className="training-plan">
-
-        <div className="training-plan__title">
-          <div className="training-plan__title__name-container">
-            <h1 className="training-plan__title__name">{trainingPlan.name}</h1>
-          </div>
-          
-          <div className="training-plan__title__icon-container">
-            {
-              !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id 
-                ? <FontAwesome name="minus-square" onClick={() => this.changeUserTrainingPlan(null)}/> 
-                : <FontAwesome name="plus-square" onClick={() => this.changeUserTrainingPlan(trainingPlan._id)}/>
+      <FCard 
+        header={{
+          title: { children: trainingPlan.name },
+          rightButton: !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id
+            ? {
+              onClick: () => this.changeUserTrainingPlan(null),
+              children: <FontAwesome name="minus"/>
             }
-          </div>
-        </div>
+            : {
+              onClick: () => this.changeUserTrainingPlan(trainingPlan._id),
+              children: <FontAwesome name="plus"/>
+            }
+        }}
 
-        <div className="training-plan__avatar-container">
-          <img src={trainingPlan.avatarUrl} className="training-plan__avatar" alt="Training plan avatar"/>
-        </div>
+        img={{ src: trainingPlan.avatarUrl }}
 
-        <div className="training-plan__trainings">
-          <div className="training-plan__trainings__title">
-            <h4>Exercises plan</h4>
-          </div>
+        body={{
+          children: <CardBlock className="training-plan__trainings">
+            <div className="training-plan__trainings__title">
+              <h4>Exercises plan</h4>
+            </div>
 
-          <Row>
-            {
-              trainingPlan.trainings.map(training => (
-                <Col xs="12" sm="12" md="6" lg="4" key={training._id}>
-                  <Card block className="training">
-                    <div className="training__date">
-                      Date: {training.date}
-                    </div>
+            <Row>
+              {
+                trainingPlan.trainings.map(training => (
+                  <Col xs="12" sm="12" md="6" lg="4" key={training._id}>
+                    <FCard 
+                      header={{
+                        title: { children: `Date: ${training.date}` }
+                      }}
 
-                    <div className="training__exercise-aproaches">
-                      <ListGroup className="training__exercise-aproaches__list">
-                        {
-                          training.exerciseAproaches.map(exerciseAproache => (
-                            <ListGroupItem key={exerciseAproache._id} className="training__exercise-aproaches__item">
-                              <div className="training__exercise-aproaches__item__exercise-avatar-container">
-                                <img 
-                                  src={exerciseAproache.exercise.avatarUrl} 
-                                  className="training__exercise-aproaches__item__exercise-avatar"
-                                  alt="Exercise avatar"
-                                />
-                              </div>
-
-                              <div className="training__exercise-aproaches__item__exercise-name">
-                                {exerciseAproache.exercise.name}
-                              </div>
-
-                              <div className="training__exercise-aproaches__info">
-                                <div className="training__exercise-aproaches__info__count">
-                                  {exerciseAproache.count}
+                      body={{
+                        children: <ListGroup className="training__exercise-aproaches__list">
+                          {
+                            training.exerciseAproaches.map(exerciseAproache => (
+                              <ListGroupItem key={exerciseAproache._id} className="training__exercise-aproaches__item">
+                                <div className="training__exercise-aproaches__item__exercise-avatar-container">
+                                  <img
+                                    src={exerciseAproache.exercise.avatarUrl} 
+                                    className="training__exercise-aproaches__item__exercise-avatar"
+                                    alt="Exercise avatar"
+                                  />
                                 </div>
 
-                                <div className="training__exercise-aproaches__info__weight">
-                                  {exerciseAproache.weight}
+                                <div className="training__exercise-aproaches__item__exercise-name">
+                                  {exerciseAproache.exercise.name}
                                 </div>
-                              </div>
-                            </ListGroupItem>
-                          ))
-                        }
-                      </ListGroup>
-                    </div>
-                  </Card>
-                </Col>
-              ))
-            }
-          </Row>
-        </div>
 
-      </div>
+                                <div className="training__exercise-aproaches__info">
+                                  <div className="training__exercise-aproaches__info__count">
+                                    {exerciseAproache.count}
+                                  </div>
+
+                                  <div className="training__exercise-aproaches__info__weight">
+                                    {exerciseAproache.weight}
+                                  </div>
+                                </div>
+                              </ListGroupItem>
+                            ))
+                          }
+                        </ListGroup>
+                      }}
+                    />
+                  </Col>
+                ))
+              }
+            </Row>
+          </CardBlock>
+        }}
+      />
     )
   }
 }

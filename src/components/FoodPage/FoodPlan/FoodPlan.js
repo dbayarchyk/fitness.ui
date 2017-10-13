@@ -4,6 +4,12 @@ import { gql, graphql } from 'react-apollo';
 import FontAwesome from 'react-fontawesome';
 
 import './FoodPlan.css';
+import { 
+  CharacteristicField,
+  CharacteristicKey,
+  CharacteristicValue
+} from '../../common/CharacteristicField/CharacteristicField';
+import FCard from '../../common/Card/Card';
 import Spinner from '../../common/Spinner/Spinner';
 import MealsOverview from './components/MealsOverview/MealsOverview';
 
@@ -69,66 +75,52 @@ class FoodPlan extends Component {
     const { foodPlan } = this.props.data;
     
     return (
-      <div className="food-plan">
-        
-        <div className="food-plan__title">
-          <div className="food-plan__title__name-container">
-            <h1 className="food-plan__title__name">{foodPlan.name}</h1>
-          </div>
-          
-          <div className="food-plan__title__icon-container">
-            {
-              !!this.props.data.user.foodPlan && this.props.data.user.foodPlan._id === foodPlan._id 
-                ? <FontAwesome name="minus-square" onClick={() => this.changeUserFoodPlan(null)}/> 
-                : <FontAwesome name="plus-square" onClick={() => this.changeUserFoodPlan(foodPlan._id)}/>
+      <FCard
+        header={{
+          title: { children: foodPlan.name },
+          rightButton: !!this.props.data.user.foodPlan && this.props.data.user.foodPlan._id === foodPlan._id
+            ? {
+              onClick: () => this.changeUserFoodPlan(null),
+              children: <FontAwesome name="minus"/>
             }
-          </div>
-        </div>
+            : {
+              onClick: () => this.changeUserFoodPlan(foodPlan._id),
+              children: <FontAwesome name="plus"/>
+            }
+        }}
 
-        <div className="food-plan__avatar-container">
-          <img src={foodPlan.avatarUrl} className="food-plan__avatar" alt="Food plan avatar"/>
-        </div>
+        img={{ src: foodPlan.avatarUrl }}
 
-        <div className="food-plan__nutrition-rate">
-          <div className="food-plan__nutrition-rate__field">
-            <div className="food-plan__nutrition-rate__field__key">
-              Calorific value:
-            </div>
-            <div className="food-plan__nutrition-rate__field__value">
-              {foodPlan.calorificValue}kcal
-            </div>
-          </div>
-          <div className="food-plan__nutrition-rate__field">
-            <div className="food-plan__nutrition-rate__field__key">
-              Proteins:
-            </div>
-            <div className="food-plan__nutrition-rate__field__value">
-              {foodPlan.nutrients.proteins}g
-            </div>
-          </div>
-          <div className="food-plan__nutrition-rate__field">
-            <div className="food-plan__nutrition-rate__field__key">
-              Carbohydrates:
-            </div>
-            <div className="food-plan__nutrition-rate__field__value">
-              {foodPlan.nutrients.carbohydrates}g
-            </div>
-          </div>
-          <div className="food-plan__nutrition-rate__field">
-            <div className="food-plan__nutrition-rate__field__key">
-              Fats:
-            </div>
-            <div className="food-plan__nutrition-rate__field__value">
-              {foodPlan.nutrients.fats}g
-            </div>
-          </div>
-        </div>
+        body={{
+          children: [
+            <div className="food-plan__nutrition-rate">
+              <CharacteristicField>
+                <CharacteristicKey xs="8">Calorific value</CharacteristicKey>
+                <CharacteristicValue xs="4">{foodPlan.calorificValue}kcal</CharacteristicValue>
+              </CharacteristicField>
 
-        <div className="food-plan__meals">
-          <MealsOverview meals={foodPlan.meals}/>
-        </div>
+              <CharacteristicField>
+                <CharacteristicKey xs="8">Proteins</CharacteristicKey>
+                <CharacteristicValue xs="4">{foodPlan.nutrients.proteins}g</CharacteristicValue>
+              </CharacteristicField>
 
-      </div>
+              <CharacteristicField>
+                <CharacteristicKey xs="8">Carbohydrates</CharacteristicKey>
+                <CharacteristicValue xs="4">{foodPlan.nutrients.carbohydrates}g</CharacteristicValue>
+              </CharacteristicField>
+
+              <CharacteristicField>
+                <CharacteristicKey xs="8">Fats</CharacteristicKey>
+                <CharacteristicValue xs="4">{foodPlan.nutrients.fats}g</CharacteristicValue>
+              </CharacteristicField>
+            </div>,
+
+            <div className="food-plan__meals">
+              <MealsOverview meals={foodPlan.meals}/>
+            </div>
+          ]
+        }}
+      />
     )
   }
 }

@@ -17,13 +17,3 @@
 .food-plan__avatar {
   width: 100%;
 }
-
-.food-plan__nutrition-rate__field {
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-}
-
-.food-plan__nutrition-rate__field__key {
-  margin-right: 10px;
-}

@@ -1,29 +1,3 @@
-.training-plan__title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.training-plan__title__icon-container {
-  font-size: 30px;
-  cursor: pointer;
-}
-
-.training-plan__avatar-container{
-  max-height: 500px;
-  overflow: hidden;
-}
-
-.training-plan__avatar {
-  width: 100%;
-}
-
-.training-plan__trainings {
-  margin-top: 25px;
-}
-
-
-
 .training__exercise-aproaches__item:nth-child(2n) {
   background-color: rgba(0, 0, 0, .05);
 }

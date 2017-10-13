@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
+
 import FCard from '../../../common/Card/Card';
+import { 
+  CharacteristicField,
+  CharacteristicKey,
+  CharacteristicValue
+} from '../../../common/CharacteristicField/CharacteristicField';
 
 import './TrainingPlanCard.css';
 
@@ -16,14 +22,14 @@ const TrainingPlanCard = ({ trainingPlan, headerRightButton, className }) => (
 
     body={{
       children: [
-        <div className="characteristics__field">
-          <div className="characteristics__field__key">Complexity</div>
-          <div className="characteristics__field__value">{trainingPlan.complexity}</div>
-        </div>,
-        <div className="characteristics__field">
-          <div className="characteristics__field__key">Number of trainings per week</div>
-          <div className="characteristics__field__value">{trainingPlan.trainings.length}</div>
-        </div>
+        <CharacteristicField>
+          <CharacteristicKey xs="8" sm="6" md="12" lg="8">Complexity</CharacteristicKey>
+          <CharacteristicValue xs="4" sm="6" md="12" lg="4">{trainingPlan.complexity}</CharacteristicValue>
+        </CharacteristicField>,
+        <CharacteristicField>
+          <CharacteristicKey xs="8" sm="6" md="12" lg="8">Number of trainings per week</CharacteristicKey>
+          <CharacteristicValue xs="4" sm="6" md="12" lg="4">{trainingPlan.trainings.length}</CharacteristicValue>
+        </CharacteristicField>
       ]
     }}
   />

@@ -12,10 +12,17 @@ import {
 import FontAwesome from 'react-fontawesome';
 import { toastr } from 'react-redux-toastr';
 
+import { 
+  CharacteristicField,
+  CharacteristicKey,
+  CharacteristicValue
+} from '../../common/CharacteristicField/CharacteristicField';
 import Spinner from '../../common/Spinner/Spinner';
 import EditableField from '../../common/EditableField/EditableField';
 import FCard from '../../common/Card/Card';
 import './AccountTab.css';
+
+import getAccountData from './constants/accountData';
 
 const getUserData = gql`
   query user($id: ID!) {
@@ -72,33 +79,6 @@ const generateUserTrainingPlan = gql`
   }  
 `;
 
-const PURPOSE_VALUES = {
-  INCREASE_MUSCLE_MASS: 'Increase muscle mass',
-  INCREASE_MUSCLE_STRENGTH: 'Increase muscle strength',
-  WEIGHT_LOSS: 'Weight Loss',
-  CREATING_A_BODY_RELIEF: 'Creating a body relief',
-  MAINTAINING_THE_FORM_ALREADY_ACHIEVED: 'Maintaining the form already achieved',
-};
-
-const PUPROSES = [
-  {
-    title: 'Increase muscle mass',
-    value: 'INCREASE_MUSCLE_MASS',
-  },
-  {
-    title: 'Increase muscle strength',
-    value: 'INCREASE_MUSCLE_STRENGTH',
-  },
-  {
-    title: 'Weight Loss',
-    value: 'WEIGHT_LOSS',
-  },
-  {
-    title: 'Maintaining the form already achieved',
-    value: 'MAINTAINING_THE_FORM_ALREADY_ACHIEVED',
-  }
-];
-
 class AccountTab extends Component {
   onFieldChange = field => {
     this.props.updateUser({
@@ -129,140 +109,15 @@ class AccountTab extends Component {
         <Row>
           <Col>
             <FCard 
-              header={{
-                title: { children: 'Your personal data'}
-              }}
+              header={{ title: { children: 'Your personal data'} }}
 
               body={{
-                children: <CardBlock>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      E-mail
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "email",
-                          value: this.props.data.user.email,
-                          placeholder: "email",
-                          name: "email"
-                        }}
-                        onSubmit={this.onFieldChange.bind(this)}
-                      >
-                        {this.props.data.user.email}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Name
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "text",
-                          value: this.props.data.user.name,
-                          placeholder: "Name",
-                          name: "name"
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {this.props.data.user.name}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Surname
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "text",
-                          value: this.props.data.user.surname,
-                          placeholder: "Surname",
-                          name: "surname"
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {this.props.data.user.surname}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Age
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "number",
-                          value: this.props.data.user.age,
-                          placeholder: "Age",
-                          name: "age"
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {this.props.data.user.age}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Weight
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "number",
-                          value: this.props.data.user.weight,
-                          placeholder: "Weight",
-                          name: "weight"
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {this.props.data.user.weight}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Height
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "number",
-                          value: this.props.data.user.height,
-                          placeholder: "Height",
-                          name: "height"
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {this.props.data.user.height}
-                      </EditableField>
-                    </div>
-                  </div>
-                  <div className="account__data__field">
-                    <div className="account__data__field__key">
-                      Purpose
-                    </div>
-                    <div className="account__data__field__value">
-                      <EditableField
-                        input={{
-                          type: "select",
-                          value: this.props.data.user.purpose,
-                          placeholder: "Purpose",
-                          name: "purpose",
-                          children: PUPROSES.map((purpose, index) => <option value={purpose.value} key={index}>{purpose.title}</option>)
-                        }}
-                        onSubmit={this.onFieldChange}
-                      >
-                        {PURPOSE_VALUES[this.props.data.user.purpose]}
-                      </EditableField>
-                    </div>
-                  </div>
-                </CardBlock>
+                children: getAccountData(this.props.data.user, this.onFieldChange).map((item, index) => (
+                  <CharacteristicField key={index}>
+                    <CharacteristicKey>{item.key}</CharacteristicKey>
+                    <CharacteristicValue><EditableField {...item.editableField}/></CharacteristicValue>
+                  </CharacteristicField>
+                ))
               }}
             />
           </Col>

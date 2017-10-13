@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 import {
-  Card,
-  CardTitle,
-  CardText,
-  Row,
   Col,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
+  Row
 } from 'reactstrap';
 
+import { 
+  CharacteristicField,
+  CharacteristicKey,
+  CharacteristicValue
+} from '../../common/CharacteristicField/CharacteristicField';
+import FCard from '../../common/Card/Card';
 import Spinner from '../../common/Spinner/Spinner';
 import WeightChart from './components/WeightChart/WeightChart';
 import './ProgressTab.css';
@@ -52,80 +55,73 @@ class ProgressTab extends Component {
       <div>
         <Row>
           <Col xs="12" sm="12" md="6" className="progress__card__column">
-            <Card block className="progress__card characteristics">
-              <CardTitle className="characteristics__title">Your characteristics</CardTitle>
-              <CardText>
-                <div className="characteristics__field">
-                  <div className="characteristics__field__key">
-                    Age
-                  </div>
-                  <div className="characteristics__field__value">
-                    {this.props.data.user.age}
-                  </div>
-                </div>
-                <div className="characteristics__field">
-                  <div className="characteristics__field__key">
-                    Height
-                  </div>
-                  <div className="characteristics__field__value">
-                    {this.props.data.user.height} сm
-                  </div>
-                </div>
-                <div className="characteristics__field">
-                  <div className="characteristics__field__key">
-                    Weight
-                  </div>
-                  <div className="characteristics__field__value">
-                    {this.props.data.user.weight} kg
-                  </div>
-                </div>
-                <div className="characteristics__field">
-                  <div className="characteristics__field__key">
-                    Body mass index
-                  </div>
-                  <div className="characteristics__field__value">
-                    {this.props.data.user.bodyMassIndex}
-                  </div>
-                </div>
-              </CardText>
-            </Card>
+            <FCard 
+              header={{ title: { children: 'Your characteristics' } }}
+
+              body={{
+                children: [
+                  <CharacteristicField>
+                    <CharacteristicKey>Age</CharacteristicKey>
+                    <CharacteristicValue>{this.props.data.user.age}</CharacteristicValue>
+                  </CharacteristicField>,
+
+                  <CharacteristicField>
+                    <CharacteristicKey>Height</CharacteristicKey>
+                    <CharacteristicValue>{this.props.data.user.height} сm</CharacteristicValue>
+                  </CharacteristicField>,
+
+                  <CharacteristicField>
+                    <CharacteristicKey>Weight</CharacteristicKey>
+                    <CharacteristicValue>{this.props.data.user.weight} kg</CharacteristicValue>
+                  </CharacteristicField>,
+
+                  <CharacteristicField>
+                    <CharacteristicKey>Body mass index</CharacteristicKey>
+                    <CharacteristicValue>{this.props.data.user.bodyMassIndex}</CharacteristicValue>
+                  </CharacteristicField>
+                ]
+              }}
+            />
           </Col>
 
           <Col xs="12" sm="12" md="6" className="progress__card__column">
-            <Card block className="progress__card">
-              <CardTitle>Your weight progress</CardTitle>
-              <WeightChart data={this.props.data.weightHistoryItems}/>
-            </Card>
+            <FCard
+              header={{ title: { children: 'Your weight progress' }}}
+
+              body={{ children: <WeightChart data={this.props.data.weightHistoryItems}/> }}
+            />
           </Col>
         </Row>
 
         <Row>
           <Col xs="12" sm="12" className="progress__card__column">
-            <Card block className="progress__card">
-              <CardTitle>Your last 5 trainings</CardTitle>
+              <FCard 
+                header={{ title: { children: 'Your last 5 trainings' }}}
 
-              <ListGroup>
-                {
-                  this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
-                    <ListGroupItem key={trainingHistoryItem._id}>
-                      <div>
-                        {trainingHistoryItem.date}
-                      </div>
+                body={{
+                  children: <ListGroup>
+                    {
+                      this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
+                        <ListGroupItem key={trainingHistoryItem._id}>
+                          <div>
+                            {trainingHistoryItem.date}
+                          </div>
 
-                      <div>
-                        {
-                          trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
-                            <span>
-                              {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
-                            </span>
-                          ))
-                        }
-                      </div>
-                    </ListGroupItem>
-                  ))
-                }
-              </ListGroup>
-            </Card>
+                          <div>
+                            {
+                              trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
+                                <span>
+                                  {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
+                                </span>
+                              ))
+                            }
+                          </div>
+                        </ListGroupItem>
+                      ))
+                    }
+                  </ListGroup>
+                }}
+              />
           </Col>
         </Row>
       </div>
