@@ -46,9 +46,9 @@ export default (data, onFieldChange) => [
     editableField: {
       input: {
         type: "text",
-        value: data.surname,
-        placeholder: "Surname",
-        name: "surname"
+        value: data.name,
+        placeholder: "Name",
+        name: "name"
       },
       onSubmit: onFieldChange,
       children: data.name
@@ -59,12 +59,12 @@ export default (data, onFieldChange) => [
     editableField: {
       input: {
         type: "text",
-        value: data.name,
-        placeholder: "Name",
-        name: "name"
+        value: data.surname,
+        placeholder: "Surname",
+        name: "surname"
       },
       onSubmit: onFieldChange,
-      children: data.name
+      children: data.surname
     }
   },
   {
