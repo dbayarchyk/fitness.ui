@@ -12,7 +12,7 @@ import TrainingPlanCard from './components/TrainingPlanCard/TrainingPlanCard';
 
 const trainingPlansAndUser = gql`
   query trainingPlansAndUser($userId: ID!){
-    trainingPlans {
+    trainingPlans(query: { isPrivate: false }) {
       _id,
       name,
       avatarUrl,

@@ -8,6 +8,7 @@
     "font-awesome": "^4.7.0",
     "halogen": "^0.2.0",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.19.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-apollo": "^1.4.2",

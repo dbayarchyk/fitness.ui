@@ -9,6 +9,7 @@ import {
   ListGroupItem
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
+import moment from 'moment';
 
 import './TrainingPlan.css';
 import Spinner from '../common/Spinner/Spinner';
@@ -94,7 +95,7 @@ class TrainingPlan extends Component {
                   <Col xs="12" sm="12" md="6" lg="4" key={training._id}>
                     <FCard 
                       header={{
-                        title: { children: `Date: ${training.date}` }
+                        title: { children: moment(training.date).format('dddd') }
                       }}
 
                       body={{
