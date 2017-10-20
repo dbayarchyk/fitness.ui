@@ -27,7 +27,7 @@ class App extends Component {
         <main className="main">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/app"/>} />
-            <Route path="/app" component={requireAuth(HomePage)} />
+            <Route strict path="/app" component={requireAuth(HomePage)} />
             <Route exact path="/signin" component={LoginPage} />
             <Route exact path="/signup" component={SignUpPage} />
           </Switch>

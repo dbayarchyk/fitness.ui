@@ -22,7 +22,7 @@ export default function (ComposedComponent) {
 
     render() {
       return (
-        <ComposedComponent {...this.props} />
+        this.props.isAuthenticated && <ComposedComponent {...this.props} />
       );
     }
   }
