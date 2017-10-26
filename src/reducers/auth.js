@@ -1,4 +1,4 @@
-import * as actions from '../actions/auth.js';
+import * as actions from '../actions/auth';
 
 const defaultState = {
   isAuthenticated: false,
@@ -11,13 +11,13 @@ const auth = (state = defaultState, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: action.user
+        currentUser: action.user,
       };
     case actions.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        currentUser: null
+        currentUser: null,
       };
     default:
       return state;

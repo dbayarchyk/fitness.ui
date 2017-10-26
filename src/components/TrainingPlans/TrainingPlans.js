@@ -1,99 +1,49 @@
-import React, { Component } from 'react';
-import { gql, graphql } from 'react-apollo';
-import { connect } from 'react-redux';
+import React from 'react';
 import {
   Col,
-  Row
+  Row,
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 
 import Spinner from '../common/Spinner/Spinner';
-import TrainingPlanCard from './components/TrainingPlanCard/TrainingPlanCard';
+import TrainingPlanCard from '../TrainingPlanCard/TrainingPlanCard';
 
-const trainingPlansAndUser = gql`
-  query trainingPlansAndUser($userId: ID!){
-    trainingPlans(query: { isPrivate: false }) {
-      _id,
-      name,
-      avatarUrl,
-      complexity,
-      trainings {
-        _id,
-        date
-      }
-    },
-    user(_id: $userId) {
-      trainingPlan {
-        _id
-      }
-    }
+const TrainingPlans = ({
+    isLoading,
+    trainingPlans,
+    userTrainingPlanId,
+    changeUserTrainingPlan,
+}) => {
+  if (isLoading) {
+    return <Spinner isLoading={isLoading} />;
   }
-`;
 
-const updateUser = gql`
-  mutation updateUser($id: ID!, $data: UserInput!) {
-    updateUser(_id: $id, data: $data) {
-      _id
-    }
-  }
-`;
-
-class TrainingPlans extends Component {
-  changeUserTrainingPlan = trainingPlan => this.props.updateUser({
-    variables: {
-      id: this.props.userId,
-      data: { trainingPlan, }
-    }
-  })
-    .then(data => this.props.data.refetch());
-
-  render() {
-    if (this.props.data.loading) {
-      return <Spinner isLoading={this.props.data.loading} />
-    }
-
-    return (
-      <div>
-        <Row>
-          {
-            this.props.data.trainingPlans.map(trainingPlan => (
-              <Col xs="12" sm="12" md="3" lg="4" key={trainingPlan._id}>
-                <TrainingPlanCard
-                  trainingPlan={trainingPlan}
-                  headerRightButton={
-                    !!this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id === trainingPlan._id
-                      ? {
-                        onClick: () => this.changeUserTrainingPlan(null),
-                        children: <FontAwesome name="minus"/>
-                      }
-                      : {
-                        onClick: () => this.changeUserTrainingPlan(trainingPlan._id),
-                        children: <FontAwesome name="plus"/>
-                      }
-                  }
-                />
-              </Col>
-            ))
-          }
-        </Row>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Row>
+        {
+          trainingPlans.map(trainingPlan => (
+            <Col xs="12" sm="12" md="3" lg="4" key={trainingPlan._id}>
+              <TrainingPlanCard
+                trainingPlan={trainingPlan}
+                headerRightButton={
+                  userTrainingPlanId === trainingPlan._id
+                    ? {
+                      onClick: () => changeUserTrainingPlan(null),
+                      children: <FontAwesome name="minus" />
+                    }
+                    : {
+                      onClick: () => changeUserTrainingPlan(trainingPlan._id),
+                      children: <FontAwesome name="plus" />,
+                    }
+                }
+              />
+            </Col>
+          ))
+        }
+      </Row>
+    </div>
+  )
 }
 
-const TrainingPlansWithData = graphql(trainingPlansAndUser, {
-  options: ({ userId }) => ({
-    variables: {
-      userId,
-    },
-    fetchPolicy: 'network-only'
-  })
-})(TrainingPlans);
-
-const FoodPlansWithDataAndMutation = graphql(updateUser, { name: 'updateUser' })(TrainingPlansWithData);
-
-const mapStateToProps = state => ({
-  userId: state.auth.currentUser._id
-});
-
-export default connect(mapStateToProps)(FoodPlansWithDataAndMutation);
+export default TrainingPlans;

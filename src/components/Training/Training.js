@@ -15,8 +15,8 @@ import {
   Row
 } from 'reactstrap';
 
+import Counter from '../../containers/Counter';
 import './Training.css';
-import CounterContainer from '../Counter/CounterContainer';
 
 const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, isTrainingFinished = false, submitTraining, currentExerciseApproachIndex, refCounter }) => (
   <div className="training">
@@ -41,7 +41,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
           <Row style={{ alignItems: 'center'}}>
             <Col xs="12" sm="12" md="4" lg="3" className="no-float">
               <CardBlock> 
-                <CounterContainer ref={refCounter}/>
+                <Counter ref={refCounter}/>
               </CardBlock>       
             </Col>
 

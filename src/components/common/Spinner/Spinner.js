@@ -6,20 +6,18 @@ import './Spinner.css';
 
 const color = '#0275d8';
 
-const Spinner = ({ isLoading }) => {
-  return isLoading && (
-    <div className="spinner-wrapper">
-      <RingLoader color={color} />
-    </div>
-  )
-};
+const Spinner = ({ isLoading }) => isLoading && (
+  <div className="spinner-wrapper">
+    <RingLoader color={color} />
+  </div>
+);
 
 Spinner.propTypes = {
-  isLoading: PropTypes.bool
-}
+  isLoading: PropTypes.bool,
+};
 
 Spinner.defaultProps = {
-  isLoading: false
-}
+  isLoading: false,
+};
 
 export default Spinner;

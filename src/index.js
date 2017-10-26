@@ -28,7 +28,7 @@ const networkInterface = createNetworkInterface({
 networkInterface.use([{
   applyMiddleware(req, next) {
     if (!req.options.headers) {
-      req.options.headers = {};  // Create the header object if needed.
+      req.options.headers = {}; // Create the header object if needed.
     }
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem('token');
@@ -40,7 +40,7 @@ networkInterface.use([{
     }
 
     next();
-  }
+  },
 }]);
 
 const client = new ApolloClient({
@@ -63,7 +63,8 @@ if (localStorage.token) {
 
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
-    <Router children={routes} />
+    <Router>{routes}</Router>
   </ApolloProvider>,
-  document.getElementById('root'));
+  document.getElementById('root')
+);
 registerServiceWorker();

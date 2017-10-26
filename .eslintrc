@@ -1,0 +1,56 @@
+{
+  "extends": ["airbnb"],
+  "parser": "babel-eslint",
+  "rules": {
+    "consistent-return": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "no-mixed-operators": 0,
+    "react/prefer-stateless-function": 0,
+    "class-methods-use-this": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/iframe-has-title": 0,
+    "import/named": 2,
+    "import/no-unresolved": 2,
+    "no-console": 0,
+    "max-len": 2,
+    "import/prefer-default-export": 0,
+    "react/forbid-prop-types": [0, {"forbid": ["any", "array"]}],
+    "react/prop-types":[
+      2
+    ],
+    "react/no-unused-prop-types": [
+      2,
+      {
+        "skipShapeProps": true
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore"
+    }],
+    "react/require-extension": "off",
+    "no-return-assign": ["error", "except-parens"],
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true
+  }
+}

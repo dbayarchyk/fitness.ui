@@ -1,11 +1,11 @@
-import * as actions from '../actions/training.js';
+import * as actions from '../actions/training';
 
 const defaultState = {
   trainingData: null,
   currentExerciseApproach: null,
   isApproachStarted: false,
   isApproachStopped: false,
-  isTrainingFinished: false
+  isTrainingFinished: false,
 };
 
 const training = (state = defaultState, action) => {
@@ -14,36 +14,36 @@ const training = (state = defaultState, action) => {
       return {
         ...state,
         trainingData: action.trainingData,
-        currentExerciseApproachIndex: 0
+        currentExerciseApproachIndex: 0,
       };
     case actions.SET_CURRENT_EXERCISE_APPROACH_INDEX:
       return {
         ...state,
-        currentExerciseApproachIndex: action.currentExerciseApproachIndex
+        currentExerciseApproachIndex: action.currentExerciseApproachIndex,
       };
     case actions.START_APPROACH:
       return {
         ...state,
         isApproachStarted: true,
-        isApproachStopped: false
+        isApproachStopped: false,
       };
     case actions.STOP_APPROACH:
       return {
         ...state,
-        isApproachStopped: true
+        isApproachStopped: true,
       };
     case actions.FINISH_APPROACH: {
-      let isTrainingFinished = state.currentExerciseApproachIndex === state.trainingData.exerciseAproaches.length - 1;
+      const isTrainingFinished = state.currentExerciseApproachIndex === state.trainingData.exerciseAproaches.length - 1;
 
       return {
         ...state,
         isApproachStarted: false,
         isApproachStopped: true,
         currentExerciseApproachIndex: isTrainingFinished ? state.currentExerciseApproachIndex : state.currentExerciseApproachIndex + 1,
-        isTrainingFinished: isTrainingFinished
+        isTrainingFinished,
       };
     }
-    case actions.RESET_TRAINING: 
+    case actions.RESET_TRAINING:
       return defaultState;
     default:
       return state;

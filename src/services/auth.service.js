@@ -11,7 +11,7 @@ class AuthService {
 
     return instance;
   }
-  
+
   login = (token, userId) => {
     this.token = token;
     this.userId = userId;

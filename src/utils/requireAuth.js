@@ -6,6 +6,7 @@ export default function (ComposedComponent) {
   class Authenticate extends React.Component {
     static propTypes = {
       isAuthenticated: PropTypes.bool.isRequired,
+      history: PropTypes.object.isRequired,
     };
 
     componentWillMount() {

@@ -1,24 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import FCard from '../../../common/Card/Card';
-import { 
+import FCard from '../common/Card/Card';
+import {
   CharacteristicField,
   CharacteristicKey,
-  CharacteristicValue
-} from '../../../common/CharacteristicField/CharacteristicField';
+  CharacteristicValue,
+} from '../common/CharacteristicField/CharacteristicField';
 
 import './TrainingPlanCard.css';
 
 const TrainingPlanCard = ({ trainingPlan, headerRightButton, className }) => (
-  <FCard className={className}
+  <FCard
+    className={className}
     header={{
-      title: { children: <Link to={`/app/training-plan/${trainingPlan._id}`}>{trainingPlan.name}</Link>},
-      rightButton: headerRightButton
+      title: { children: <Link to={`/app/training-plan/${trainingPlan._id}`}>{trainingPlan.name}</Link> },
+      rightButton: headerRightButton,
     }}
 
-    img={{ src: trainingPlan.avatarUrl}}
+    img={{ src: trainingPlan.avatarUrl }}
 
     body={{
       children: [
@@ -38,7 +39,12 @@ const TrainingPlanCard = ({ trainingPlan, headerRightButton, className }) => (
 TrainingPlanCard.propTypes = {
   className: PropTypes.string,
   trainingPlan: PropTypes.object.isRequired,
-  headerRightButton: PropTypes.object
+  headerRightButton: PropTypes.object,
+};
+
+TrainingPlanCard.defaultProps = {
+  className: '',
+  headerRightButton: null,
 };
 
 export default TrainingPlanCard;
