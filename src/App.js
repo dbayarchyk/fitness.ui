@@ -27,9 +27,11 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+
         <SideBar burgerButtonClassName="side-bar-trigger-button" ref={(sidebar) => { this.sidebar = sidebar; }}>
-          <ControllBar match={this.props.match} close={this.closeSideBar} />
+          <ControllBar match={this.props.match} close={() => this.sidebar.setState({ isOpen: false })} />
         </SideBar>
+
         <main className="main">
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/app" />} />

@@ -12,11 +12,11 @@ import {
 import { 
   CharacteristicField,
   CharacteristicKey,
-  CharacteristicValue
+  CharacteristicValue,
 } from '../../common/CharacteristicField/CharacteristicField';
 import FCard from '../../common/Card/Card';
 import Spinner from '../../common/Spinner/Spinner';
-import WeightChart from './components/WeightChart/WeightChart';
+import WeightChart from '../../WeightChart/WeightChart';
 import './ProgressTab.css';
 
 const getUserData = gql`

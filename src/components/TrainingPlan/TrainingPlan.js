@@ -6,7 +6,7 @@ import {
   Row,
   Col,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';

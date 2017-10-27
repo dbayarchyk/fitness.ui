@@ -35,7 +35,7 @@ const updateUser = gql`
 
 class TrainingPlansContainer extends Component {
   static propTypes = {
-    userId: PropTypes._id.isRequired,
+    userId: PropTypes.string.isRequired,
 
     data: PropTypes.object.isRequired,
     updateUser: PropTypes.func.isRequired,

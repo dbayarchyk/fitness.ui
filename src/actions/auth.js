@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
 
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
-export const login = token => dispatch => {
-  const user = jwtDecode(token).user;
+export const login = token => (dispatch) => {
+  const { user } = jwtDecode(token);
 
   localStorage.setItem('token', token);
 
@@ -14,7 +14,7 @@ export const login = token => dispatch => {
   });
 };
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   localStorage.removeItem('token');
 
   dispatch({

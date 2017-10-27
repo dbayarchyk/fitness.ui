@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Route,
-  Switch
+  Switch,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './FoodPage.css';
-import DailyFoodManage from './DailyFoodManage/DailyFoodManage';
-import FoodPlans from './FoodPlans/FoodPlans';
-import FoodPlan from './FoodPlan/FoodPlan';
 
-class ProfilePage extends Component {
+import DailyFoodManage from '../../containers/DailyFoodManage';
+import FoodPlan from '../../containers/FoodPlan';
+import FoodPlans from '../../containers/FoodPlans';
 
-  render() {
-    return (
-      <div className="food">
-        <Switch>
-          <Route exact path={`${this.props.match.url}/controll/daily`} component={DailyFoodManage} />
-          <Route exact path={`${this.props.match.url}/food-plans`} component={FoodPlans} />
-          <Route exact path={`${this.props.match.url}/food-plan/:id`} component={FoodPlan} />
-        </Switch>
-      </div>
-    )
-  }
-}
+const ProfilePage = ({ match }) => (
+  <div className="food">
+    <Switch>
+      <Route exact path={`${match.url}/controll/daily`} component={DailyFoodManage} />
+      <Route exact path={`${match.url}/food-plans`} component={FoodPlans} />
+      <Route exact path={`${match.url}/food-plan/:id`} component={FoodPlan} />
+    </Switch>
+  </div>
+);
+
+ProfilePage.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
 export default ProfilePage;

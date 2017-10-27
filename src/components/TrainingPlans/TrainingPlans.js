@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Col,
   Row,
@@ -9,10 +10,10 @@ import Spinner from '../common/Spinner/Spinner';
 import TrainingPlanCard from '../TrainingPlanCard/TrainingPlanCard';
 
 const TrainingPlans = ({
-    isLoading,
-    trainingPlans,
-    userTrainingPlanId,
-    changeUserTrainingPlan,
+  isLoading,
+  trainingPlans,
+  userTrainingPlanId,
+  changeUserTrainingPlan,
 }) => {
   if (isLoading) {
     return <Spinner isLoading={isLoading} />;
@@ -30,7 +31,7 @@ const TrainingPlans = ({
                   userTrainingPlanId === trainingPlan._id
                     ? {
                       onClick: () => changeUserTrainingPlan(null),
-                      children: <FontAwesome name="minus" />
+                      children: <FontAwesome name="minus" />,
                     }
                     : {
                       onClick: () => changeUserTrainingPlan(trainingPlan._id),
@@ -43,7 +44,19 @@ const TrainingPlans = ({
         }
       </Row>
     </div>
-  )
-}
+  );
+};
+
+TrainingPlans.propTypes = {
+  isLoading: PropTypes.bool,
+  trainingPlans: PropTypes.array,
+  userTrainingPlanId: PropTypes.bool.isRequired,
+  changeUserTrainingPlan: PropTypes.func.isRequired,
+};
+
+TrainingPlans.defaultProps = {
+  isLoading: false,
+  trainingPlans: [],
+};
 
 export default TrainingPlans;

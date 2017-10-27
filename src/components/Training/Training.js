@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Badge,
   Button,
@@ -8,17 +9,29 @@ import {
   Col,
   ListGroup,
   ListGroupItem,
-  Modal, 
+  Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Row
+  Row,
 } from 'reactstrap';
 
 import Counter from '../../containers/Counter';
 import './Training.css';
 
-const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isApproachStarted = false, isApproachStopped = false, startApproach, stopApproach, finishApproach, isTrainingFinished = false, submitTraining, currentExerciseApproachIndex, refCounter }) => (
+const Training = ({
+  exerciseAproaches,
+  currentExerciseApproach,
+  isApproachStarted,
+  isApproachStopped,
+  startApproach,
+  stopApproach,
+  finishApproach,
+  isTrainingFinished = false,
+  submitTraining,
+  currentExerciseApproachIndex,
+  refCounter,
+}) => (
   <div className="training">
     <Row>
       <Col xs="12" sm="12" md="8" lg="9" className="no-float">
@@ -27,7 +40,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
             <div>
               Current Exercise: <Badge color="info">{currentExerciseApproach.exercise.name}</Badge>
             </div>
-            
+
             <div className="training__current-exercise__title__buttons">
               {
                 isApproachStarted && !isApproachStopped && <Button color="secondary" onClick={stopApproach}>Stop</Button>
@@ -51,7 +64,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
                   <Col xs="12" sm="12" md="6" lg="4" className="no-float">
                     <div className="training__current-exercise__info__avatar">
                       <img 
-                        src={currentExerciseApproach.exercise.avatarUrl} 
+                        src={currentExerciseApproach.exercise.avatarUrl}
                         className="training__current-exercise__info__avatar__img"
                         alt="Exercise avatar"
                       />
@@ -69,7 +82,8 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
           </Row>
 
           {
-            (!isApproachStarted || isApproachStopped) && <div className="training__start__button-container">
+            (!isApproachStarted || isApproachStopped) &&
+            <div className="training__start__button-container">
               <Button color="primary" onClick={startApproach}>
                 {`${isApproachStopped ? 'Continue' : 'Start'} approach`}
               </Button>
@@ -91,7 +105,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
                   {
                     exerciseAproaches.map((exerciseAproache, index) => (
                       <ListGroupItem
-                        key={index} 
+                        key={exerciseAproache._id}
                         className={`
                           training__exercises__list__item 
                           ${currentExerciseApproachIndex > index ? 'training__exercises__list__item--completed' : ''}
@@ -129,7 +143,7 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
       <ModalHeader>Training finished</ModalHeader>
       <ModalBody>
         <h3>You rock! You finished your training and became stronger!</h3>
-        <p>Now it's better to rest</p>
+        <p>{'Now it\'s better to rest'}</p>
       </ModalBody>
       <ModalFooter>
         <Button color="success" onClick={submitTraining}>Got it</Button>
@@ -138,10 +152,27 @@ const Training = ({ exerciseAproaches = [], currentExerciseApproach = {}, isAppr
   </div>
 );
 
-
-// TODO: add propTypes
 Training.propTypes = {
+  exerciseAproaches: PropTypes.array,
+  currentExerciseApproach: PropTypes.object,
+  isApproachStarted: PropTypes.bool,
+  isApproachStopped: PropTypes.bool,
+  startApproach: PropTypes.func.isRequired,
+  stopApproach: PropTypes.func.isRequired,
+  finishApproach: PropTypes.func.isRequired,
+  isTrainingFinished: PropTypes.bool,
+  submitTraining: PropTypes.func.isRequired,
+  currentExerciseApproachIndex: PropTypes.number,
+  refCounter: PropTypes.func.isRequired,
+};
 
-}
+Training.defaultProps = {
+  exerciseAproaches: [],
+  currentExerciseApproach: {},
+  isApproachStarted: false,
+  isApproachStopped: false,
+  isTrainingFinished: false,
+  currentExerciseApproachIndex: 0,
+};
 
 export default Training;

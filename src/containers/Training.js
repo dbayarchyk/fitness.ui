@@ -37,7 +37,7 @@ const normalizeMutationObject = ({ __typename, ...normalized = {} }) => normaliz
 
 class TrainingContainer extends Component {
   static propTypes = {
-    userId: PropTypes._id.isRequired,
+    userId: PropTypes.string.isRequired,
     client: PropTypes.object.isRequired,
     setTrainingData: PropTypes.func.isRequired,
     resetTraining: PropTypes.func.isRequired,
