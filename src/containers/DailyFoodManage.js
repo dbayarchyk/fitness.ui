@@ -158,7 +158,7 @@ class DailyFoodManageContainer extends Component {
         isFoodModalOpen={this.state.isFoodModalOpen}
         toggleMealModal={this.toggleMealModal}
         submitMealModal={this.submitMealModal}
-        userFoodPlan={this.data.user.foodPlan}
+        userFoodPlan={this.props.data.user.foodPlan}
         removeFoodHistoryItem={this.removeFoodHistoryItem}
         dailyCalorificValue={this.getDailyCalorificValue()}
         dailyNutrients={this.getDailyNutrients()}

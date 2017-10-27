@@ -50,7 +50,7 @@ const DailyFoodManage = ({
           ))
         }
         <Col xs="12" sm="12" md="6" lg="4" className="no-float">
-          <Button outline color="primary" className="add-new-meal-button" onClick={toggleMealModal}>
+          <Button outline color="primary" className="add-new-meal-button" onClick={() => toggleMealModal()}>
             <FontAwesome name="plus-square" />
           </Button>
         </Col>
@@ -61,7 +61,7 @@ const DailyFoodManage = ({
         meal={selectedMeal}
         mealPlan={mealPlan}
         onSubmit={submitMealModal}
-        toggle={toggleMealModal}
+        toggle={() => toggleMealModal()}
       />
     </div>
   );
@@ -75,7 +75,7 @@ DailyFoodManage.propTypes = {
   submitMealModal: PropTypes.func.isRequired,
   removeFoodHistoryItem: PropTypes.func.isRequired,
   userFoodPlan: PropTypes.object,
-  dailyCalorificValue: PropTypes.object.isRequired,
+  dailyCalorificValue: PropTypes.number.isRequired,
   dailyNutrients: PropTypes.object.isRequired,
 };
 

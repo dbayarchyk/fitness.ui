@@ -16,18 +16,18 @@ import MealInputField from '../MealInputField/MealInputField';
 import MealPlan from '../MealPlan/MealPlan';
 
 const emptyMealModel = {
-  foods: []
-}
+  foods: [],
+};
 
 const emptyProductModel = {
   _id: null,
   name: '',
-  avatarUrl: ''
+  avatarUrl: '',
 };
 
 const emptyNewMealModel = {
   product: emptyProductModel,
-  weight: 100
+  weight: 100,
 };
 
 class MealModal extends Component {
@@ -37,7 +37,7 @@ class MealModal extends Component {
     mealPlan: PropTypes.object,
     className: PropTypes.string,
     toggle: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
   };
 
   state = {
@@ -49,7 +49,7 @@ class MealModal extends Component {
     // To update state when new props are received.
     this.state = {
       meal: meal || emptyMealModel,
-      newMealItem: emptyNewMealModel
+      newMealItem: emptyNewMealModel,
     };
   }
 
@@ -60,11 +60,11 @@ class MealModal extends Component {
         ...oldState.meal.foods.slice(0, mealItemIndex),
         {
           ...oldState.meal.foods[mealItemIndex],
-          product: product || emptyProductModel
+          product: product || emptyProductModel,
         },
-        ...oldState.meal.foods.slice(mealItemIndex + 1)
-      ]
-    }
+        ...oldState.meal.foods.slice(mealItemIndex + 1),
+      ],
+    },
   }));
 
   updateMealItemWeight = (weight, mealItemIndex) => this.setState(oldState => ({
@@ -74,65 +74,62 @@ class MealModal extends Component {
         ...oldState.meal.foods.slice(0, mealItemIndex),
         {
           ...oldState.meal.foods[mealItemIndex],
-          weight: weight
+          weight,
         },
-        ...oldState.meal.foods.slice(mealItemIndex + 1)
-      ]
-    }
+        ...oldState.meal.foods.slice(mealItemIndex + 1),
+      ],
+    },
   }));
 
   removeMealItem = mealItemIndex => this.setState(oldState => ({
     meal: {
       ...oldState.meal,
       ...{
-        foods: [ ...oldState.meal.foods.slice(0, mealItemIndex), ...oldState.meal.foods.slice(mealItemIndex + 1) ]
-      }
-    }
+        foods: [...oldState.meal.foods.slice(0, mealItemIndex), ...oldState.meal.foods.slice(mealItemIndex + 1)],
+      },
+    },
   }));
 
-  addNewMealItem = () => this.setState(oldState => {
+  addNewMealItem = () => this.setState((oldState) => {
     this.foodAutoComplete.refs.wrappedInstance.clear();
 
     return {
       meal: {
         ...oldState.meal,
         ...{
-          foods: [ ...oldState.meal.foods, oldState.newMealItem ],
-        }
+          foods: [...oldState.meal.foods, oldState.newMealItem],
+        },
       },
-      newMealItem: emptyNewMealModel
+      newMealItem: emptyNewMealModel,
     };
   });
 
-  updateNewMealFood = (product) => this.setState(oldState => {
+  updateNewMealFood = product => this.setState((oldState) => {
     const newMealItem = {
       ...oldState.newMealItem,
-      product: product || emptyProductModel
+      product: product || emptyProductModel,
     };
 
-    return {
-      newMealItem,
-    }
+    return { newMealItem };
   });
 
   updateNewMealWeight = weight => this.setState(oldState => ({
     newMealItem: {
       ...oldState.newMealItem,
       weight,
-    }
+    },
   }));
 
   isSubmitButtonDisabled = () => {
     let isDisabled = !this.state.meal.foods.length;
 
-    this.state.meal.foods.forEach(meal => isDisabled = !meal.product._id || !meal.weight);
+    this.state.meal.foods.forEach((meal) => { isDisabled = !meal.product._id || !meal.weight; });
 
     return isDisabled;
   };
 
   excludeProductsDuplication = product =>
     !this.state.meal.foods.find(food => food.product._id === product._id);
-    
 
   render() {
     return (
@@ -147,7 +144,7 @@ class MealModal extends Component {
                   <h5>Foods by your food plan</h5>
                 </div>
                 <div>
-                  <MealPlan mealPlan={this.props.mealPlan} foods={this.state.meal.foods}/>
+                  <MealPlan mealPlan={this.props.mealPlan} foods={this.state.meal.foods} />
                 </div>
               </div>
             )
@@ -161,44 +158,44 @@ class MealModal extends Component {
               <ListGroup>
                 {
                   this.state.meal.foods.map((food, mealIndex) => (
-                    <ListGroupItem key={mealIndex}>
-                      <MealInputField 
+                    <ListGroupItem key={food._id}>
+                      <MealInputField
                         avatarUrl={food.product.avatarUrl}
                         foodAutoCompleteConfig={{
                           onChange: product => this.updateMealItemFood(product, mealIndex),
                           filterBy: this.excludeProductsDuplication,
-                          selected: [ food.product ]
+                          selected: [food.product],
                         }}
                         weightInputConfig={{
                           value: food.weight,
-                          onChange: event => this.updateMealItemWeight(parseFloat(event.target.value), mealIndex)
+                          onChange: event => this.updateMealItemWeight(parseFloat(event.target.value), mealIndex),
                         }}
                         buttonConfig={{
-                          color: "danger",
-                          children:  <FontAwesome name='close'/>,
-                          onClick: () => this.removeMealItem(mealIndex)
+                          color: 'danger',
+                          children:  <FontAwesome name="close" />,
+                          onClick: () => this.removeMealItem(mealIndex),
                         }}
                       />
                     </ListGroupItem>
                   ))
                 }
                 <ListGroupItem>
-                  <MealInputField 
+                  <MealInputField
                     avatarUrl={this.state.newMealItem.product.avatarUrl}
                     foodAutoCompleteConfig={{
                       onChange: this.updateNewMealFood,
                       filterBy: this.excludeProductsDuplication,
-                      ref: foodAutoComplete => this.foodAutoComplete = foodAutoComplete
+                      ref: (foodAutoComplete) => { this.foodAutoComplete = foodAutoComplete; },
                     }}
                     weightInputConfig={{
                       value: this.state.newMealItem.weight,
-                      onChange: event => this.updateNewMealWeight(parseFloat(event.target.value))
+                      onChange: event => this.updateNewMealWeight(parseFloat(event.target.value)),
                     }}
                     buttonConfig={{
-                      color: "success",
-                      children:  <FontAwesome name='plus'/>,
+                      color: 'success',
+                      children: <FontAwesome name="plus" />,
                       onClick: this.addNewMealItem,
-                      disabled: !this.state.newMealItem.product._id || !this.state.newMealItem.weight
+                      disabled: !this.state.newMealItem.product._id || !this.state.newMealItem.weight,
                     }}
                   />
                 </ListGroupItem>
@@ -208,18 +205,22 @@ class MealModal extends Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary"
-                  disabled={this.isSubmitButtonDisabled()}
-                  onClick={() => this.props.onSubmit(this.state.meal)}>
+          <Button
+            color="primary"
+            disabled={this.isSubmitButtonDisabled()}
+            onClick={() => this.props.onSubmit(this.state.meal)}
+          >
             {this.props.meal ? 'Edit' : 'Add'}
           </Button>{' '}
-          <Button color="secondary" 
-                  onClick={this.props.toggle}>
+          <Button
+            color="secondary"
+            onClick={this.props.toggle}
+          >
             Cancel
           </Button>
         </ModalFooter>
       </Modal>
-    )
+    );
   }
 }
 

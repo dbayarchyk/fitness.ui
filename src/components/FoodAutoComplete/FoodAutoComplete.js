@@ -23,10 +23,6 @@ class FoodAutoComplete extends Component {
     foods: [],
   };
 
-  clear() {
-    this.typeahead.getInstance().clear();
-  }
-
   render() {
     const {
       selected,
@@ -39,11 +35,11 @@ class FoodAutoComplete extends Component {
 
     return (
       <AsyncTypeahead
-        ref={(typehead) => { this.typehead = typehead; } }
+        ref={(typehead) => { this.typehead = typehead; }}
         labelKey="name"
         onSearch={onSearch}
         options={foods}
-        onChange={items => onChange(items[0])}
+        onChange={onChange}
         placeholder="Strat typing"
         selected={selected}
         filterBy={filterBy}

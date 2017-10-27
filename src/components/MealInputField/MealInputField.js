@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 
 import './MealInputField.css';
-import FoodAutoComplete from '../FoodAutoComplete/FoodAutoComplete';
+import FoodAutoComplete from '../../containers/FoodAutoComplete';
 
 const MealInputField = ({
   avatarUrl,

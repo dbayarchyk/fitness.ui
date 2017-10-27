@@ -30,7 +30,7 @@ class FoodAutoCompleteContainer extends Component {
   };
 
   clear() {
-    this.foodAutoComplete.getInstance().clear();
+    this.foodAutoComplete.typehead.getInstance().clear();
   }
 
   render() {
