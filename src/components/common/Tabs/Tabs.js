@@ -6,9 +6,9 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import './NavBar.css';
+import './Tabs.css';
 
-const NavBar = ({ tabs, onTabClick, activeTab }) => (
+const Tabs = ({ tabs, onTabClick, activeTab }) => (
   <Nav tabs>
     {
       tabs.map(tab => (
@@ -25,14 +25,15 @@ const NavBar = ({ tabs, onTabClick, activeTab }) => (
   </Nav>
 );
 
-NavBar.propTypes = {
-  tabs: PropTypes.array.isRequired,
-  onTabClick: PropTypes.func.isRequired
-}
+Tabs.propTypes = {
+  tabs: PropTypes.array,
+  onTabClick: PropTypes.func,
+  activeTab: PropTypes.any.isRequired,
+};
 
-NavBar.defaultProps = {
+Tabs.defaultProps = {
   tabs: [],
-  onTabClick: () => {}
-}
+  onTabClick: () => {},
+};
 
-export default NavBar;
+export default Tabs;

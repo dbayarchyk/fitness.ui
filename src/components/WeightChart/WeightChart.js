@@ -8,23 +8,9 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
+import moment from 'moment';
 
-const XAxisTickFormatter = (input) => {
-  const inputDate = new Date(input);
-  let date = inputDate.getDate();
-  let month = inputDate.getMonth() + 1;
-  const year = inputDate.getFullYear();
-
-  if (date < 10) {
-    date = `0${date}`;
-  }
-
-  if (month < 10) {
-    month = `0${month}`;
-  }
-
-  return `${date}.${month}.${year}`;
-};
+const XAxisTickFormatter = (input) => moment(input).format('DD.MM.YYYY')
 
 const YAxisTickFormatter = input => `${input} kg`;
 

@@ -1,0 +1,25 @@
+.exercise-aproache-list__item:nth-child(2n) {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.exercise-aproache-list__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exercise-aproache-list__item__exercise-avatar-container {
+  height: 50px;
+  flex: 30;
+}
+
+.exercise-aproache-list__item__exercise-avatar {
+  height: 100%;
+}
+
+.exercise-aproache-list__item__exercise-name {
+  flex: 50;
+}
+
+.exercise-aproache-list__info {
+  flex: 20;
+}

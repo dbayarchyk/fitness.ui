@@ -9,7 +9,7 @@ import {
   ListGroupItem,
   Button,
 } from 'reactstrap';
-import dateFormat from 'dateformat';
+import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
 
 import './MealCard.css';
@@ -18,7 +18,7 @@ const MealCard = ({ meal, onEditClick, onCloseClick }) => (
   <Card block>
     <CardTitle className="meal__card__title">
       <div className="meal__card__title__date">
-        {dateFormat(meal.date, 'mmmm dS yyyy h:MM TT')}
+        {moment(meal.date).format('h:mm a')}
       </div>
       {
         onCloseClick && (

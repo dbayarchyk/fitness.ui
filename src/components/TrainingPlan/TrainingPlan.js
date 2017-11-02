@@ -13,6 +13,7 @@ import moment from 'moment';
 import './TrainingPlan.css';
 
 import FCard from '../common/Card/Card';
+import ExerciseApproachList from '../ExerciseApproachList/ExerciseApproachList';
 
 const TrainingPlan = ({
   _id,
@@ -55,37 +56,7 @@ const TrainingPlan = ({
                     }}
 
                     body={{
-                      children: (
-                        <ListGroup className="training__exercise-aproaches__list">
-                          {
-                            training.exerciseAproaches.map(exerciseAproache => (
-                              <ListGroupItem key={exerciseAproache._id} className="training__exercise-aproaches__item">
-                                <div className="training__exercise-aproaches__item__exercise-avatar-container">
-                                  <img
-                                    src={exerciseAproache.exercise.avatarUrl}
-                                    className="training__exercise-aproaches__item__exercise-avatar"
-                                    alt="Exercise avatar"
-                                  />
-                                </div>
-
-                                <div className="training__exercise-aproaches__item__exercise-name">
-                                  {exerciseAproache.exercise.name}
-                                </div>
-
-                                <div className="training__exercise-aproaches__info">
-                                  <div className="training__exercise-aproaches__info__count">
-                                    {exerciseAproache.count}
-                                  </div>
-
-                                  <div className="training__exercise-aproaches__info__weight">
-                                    {exerciseAproache.weight}
-                                  </div>
-                                </div>
-                              </ListGroupItem>
-                            ))
-                          }
-                        </ListGroup>
-                      ),
+                      children: <ExerciseApproachList exerciseAproaches={training.exerciseAproaches} />,
                     }}
                   />
                 </Col>

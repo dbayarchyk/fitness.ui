@@ -14,6 +14,7 @@ import FoodPage from '../FoodPage/FoodPage';
 import Training from '../../containers/Training';
 import TrainingPlans from '../../containers/TrainingPlans';
 import TrainingPlan from '../../containers/TrainingPlan';
+import TrainingOverview from '../../containers/TrainingOverview';
 
 const HomePage = ({ match }) => (
   <div className="home">
@@ -25,6 +26,7 @@ const HomePage = ({ match }) => (
         <Route exact path={`${match.url}/training-plans`} component={TrainingPlans} />
         <Route path={`${match.url}/training-plan/:id`} component={TrainingPlan} />
         <Route exact path={`${match.url}/training`} component={Training} />
+        <Route exact path={`${match.url}/training/:id`} component={TrainingOverview} />
       </Switch>
     </Container>
   </div>

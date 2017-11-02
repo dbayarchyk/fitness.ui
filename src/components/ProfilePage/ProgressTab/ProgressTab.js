@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Col,
   ListGroup,
   ListGroupItem,
   Row
 } from 'reactstrap';
+import moment from 'moment';
 
 import { 
   CharacteristicField,
@@ -103,19 +105,9 @@ class ProgressTab extends Component {
                     {
                       this.props.data.trainingHistoryItems.map(trainingHistoryItem => (
                         <ListGroupItem key={trainingHistoryItem._id}>
-                          <div>
-                            {trainingHistoryItem.date}
-                          </div>
-
-                          <div>
-                            {
-                              trainingHistoryItem.exerciseAproaches.slice(0, 5).map(exerciseAproache => (
-                                <span>
-                                  {`${exerciseAproache.exercise.name}: ${exerciseAproache.count}`}
-                                </span>
-                              ))
-                            }
-                          </div>
+                          <Link to={`/app/training/${trainingHistoryItem._id}`}>
+                            {moment(trainingHistoryItem.date).format('Do MMMM YYYY h:mm a')}
+                          </Link>
                         </ListGroupItem>
                       ))
                     }

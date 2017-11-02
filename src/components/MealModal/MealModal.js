@@ -40,6 +40,12 @@ class MealModal extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    meal: null,
+    mealPlan: null,
+    className: '',
+  };
+
   state = {
     meal: emptyMealModel,
     newMealItem: emptyNewMealModel,
