@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardBlock,
@@ -40,5 +41,39 @@ const CommonFoodStatistic = ({ calorificValue, nutrients , userDailyNutritionRat
     </CardBlock>
   </Card>
 );
+
+CommonFoodStatistic.propTypes = {
+  calorificValue: PropTypes.number,
+  nutrients: PropTypes.shape({
+    proteins: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    fats: PropTypes.number,
+  }),
+  userDailyNutritionRate: PropTypes.shape({
+    calorificValue: PropTypes.number,
+    nutrients: PropTypes.shape({
+      proteins: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      fats: PropTypes.number,
+    }),
+  }),
+};
+
+CommonFoodStatistic.defaultProps = {
+  calorificValue: 1,
+  nutrients: {
+    proteins: 1,
+    carbohydrates: 1,
+    fats: 1,
+  },
+  userDailyNutritionRate: {
+    calorificValue: 1,
+    nutrients: {
+      proteins: 1,
+      carbohydrates: 1,
+      fats: 1,
+    },
+  },
+};
 
 export default CommonFoodStatistic;

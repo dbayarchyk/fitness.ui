@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 
+import withLoading from '../utils/withLoading';
 import Spinner from '../components/common/Spinner/Spinner';
 import TrainingPlan from '../components/TrainingPlan/TrainingPlan';
 
@@ -43,9 +44,16 @@ const updateUser = gql`
 
 class TrainingPlanContainer extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
     updateUser: PropTypes.func.isRequired,
+    trainingPlan: PropTypes.object,
+    userTrainingPlanId: PropTypes.string,
+    refetch: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    trainingPlan: {},
+    userTrainingPlanId: null,
   }
 
   changeUserTrainingPlan = trainingPlan => this.props.updateUser({
@@ -57,17 +65,10 @@ class TrainingPlanContainer extends Component {
     .then(() => this.props.data.refetch());
 
   render() {
-    if (this.props.data.loading) {
-      return <Spinner isLoading={this.props.data.loading} />;
-    }
-
-    const { trainingPlan, user } = this.props.data;
-    const userTrainingPlan = user.trainingPlan;
-
     return (
       <TrainingPlan
-        {...trainingPlan}
-        userTrainingPlanId={userTrainingPlan ? userTrainingPlan._id : null}
+        {...this.props.trainingPlan}
+        userTrainingPlanId={this.props.userTrainingPlan}
         changeUserTrainingPlan={this.changeUserTrainingPlan}
       />
     );
@@ -82,7 +83,13 @@ const TrainingPlanWithData = graphql(trainingPlanAndUser, {
     },
     fetchPolicy: 'network-only',
   }),
-})(TrainingPlanContainer);
+  props: ({ data: { loading, refetch, trainingPlan, user } }) => ({
+    isLoading: loading,
+    refetch,
+    trainingPlan,
+    userTrainingPlanId: user && user.trainingPlan && user.trainingPlan._id,
+  }),
+})(withLoading(TrainingPlanContainer));
 
 const TrainingPlanWithDataAndMutation = graphql(updateUser, { name: 'updateUser' })(TrainingPlanWithData);
 

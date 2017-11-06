@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
 
+import withLoading from '../utils/withLoading';
 import TrainingOverview from '../components/TrainingOverview/TrainingOverview';
 
 const trainingHistory = gql`
@@ -24,7 +25,8 @@ export default graphql(trainingHistory, {
   options: ({ match }) => ({
     variables: { id: match.params.id },
   }),
-  props: ({ data: { trainingHistoryItem } }) => ({
+  props: ({ data: { loading, trainingHistoryItem } }) => ({
+    isLoading: loading,
     ...trainingHistoryItem
   }),
-})(TrainingOverview);
+})(withLoading(TrainingOverview));

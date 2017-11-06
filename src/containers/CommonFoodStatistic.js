@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 
+import withLoading from '../utils/withLoading';
 import CommonFoodStatistic from '../components/CommonFoodStatistic/CommonFoodStatistic';
 
 const getUserDailyNutritionRate = gql`
@@ -17,30 +18,18 @@ const getUserDailyNutritionRate = gql`
   }
 `;
 
-const CommonFoodStatisticContainer = ({ calorificValue, nutrients , data }) => {
-  if (data.loading) {
-    return null;
-  }
-
-  const userDailyNutritionRate = data.userDailyNutritionRate;  
-
-  return (
-    <CommonFoodStatistic
-      calorificValue={calorificValue}
-      nutrients={nutrients}
-      userDailyNutritionRate={userDailyNutritionRate}
-    />
-  );
-};
-
 const CommonFoodStatisticWithData = graphql(getUserDailyNutritionRate, {
   options: ({ userId }) => ({
     variables: {
       id: userId
     },
     fetchPolicy: 'network-only'
-  })
-})(CommonFoodStatisticContainer);
+  }),
+  props: ({ data: { loading, userDailyNutritionRate } }) => ({
+    isLoading: loading,
+    userDailyNutritionRate,
+  }),
+})(withLoading(CommonFoodStatistic));
 
 const mapStateToProps = state => ({
   userId: state.auth.currentUser._id

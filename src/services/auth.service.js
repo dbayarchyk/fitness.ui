@@ -1,7 +1,7 @@
 let instance = null;
 
 class AuthService {
-  token = localStorage.getItem('token');
+  token = localStorage.getItem('f-token');
   userId = localStorage.getItem('userId');
 
   constructor() {
@@ -15,12 +15,12 @@ class AuthService {
   login = (token, userId) => {
     this.token = token;
     this.userId = userId;
-    localStorage.setItem('token', token);
+    localStorage.setItem('f-token', token);
     localStorage.setItem('userId', userId);
   }
 
   logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('f-token');
     this.userId = null;
   }
 }

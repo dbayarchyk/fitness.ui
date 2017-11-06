@@ -6,7 +6,7 @@ export const LOGOUT = 'LOGOUT';
 export const login = token => (dispatch) => {
   const { user } = jwtDecode(token);
 
-  localStorage.setItem('token', token);
+  localStorage.setItem('f-token', token);
 
   dispatch({
     type: LOGIN,
@@ -15,7 +15,7 @@ export const login = token => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem('token');
+  localStorage.removeItem('f-token');
 
   dispatch({
     type: LOGOUT,

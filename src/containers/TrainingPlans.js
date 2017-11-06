@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { gql, graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 
+import withLoading from '../utils/withLoading';
 import TrainingPlans from '../components/TrainingPlans/TrainingPlans';
 
 const trainingPlansAndUser = gql`
@@ -36,9 +37,15 @@ const updateUser = gql`
 class TrainingPlansContainer extends Component {
   static propTypes = {
     userId: PropTypes.string.isRequired,
-
-    data: PropTypes.object.isRequired,
+    trainingPlans: PropTypes.array,
+    userTrainingPlanId: PropTypes.string,
     updateUser: PropTypes.func.isRequired,
+    refetch: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    trainingPlans: [],
+    userTrainingPlanId: null,
   }
 
   changeUserTrainingPlan = trainingPlan => this.props.updateUser({
@@ -47,23 +54,20 @@ class TrainingPlansContainer extends Component {
       data: { trainingPlan },
     },
   })
-    .then(() => this.props.data.refetch());
+    .then(() => this.props.refetch());
 
   render() {
-    if (this.props.data.loading) {
-      return null;
-    }
-
     return (
       <TrainingPlans
-        isLoading={this.props.data.loading}
-        trainingPlans={this.props.data.trainingPlans}
-        userTrainingPlanId={this.props.data.user.trainingPlan && this.props.data.user.trainingPlan._id}
+        trainingPlans={this.props.trainingPlans}
+        userTrainingPlanId={this.props.userTrainingPlanId}
         changeUserTrainingPlan={this.changeUserTrainingPlan}
       />
     );
   }
 }
+
+        /* userTrainingPlanId={this.props.user.trainingPlan && this.props.data.user.trainingPlan._id} */
 
 const TrainingPlansWithData = graphql(trainingPlansAndUser, {
   options: ({ userId }) => ({
@@ -72,7 +76,13 @@ const TrainingPlansWithData = graphql(trainingPlansAndUser, {
     },
     fetchPolicy: 'network-only',
   }),
-})(TrainingPlansContainer);
+  props: ({ data: { loading, trainingPlans, user, refetch } }) => ({
+    isLoading: loading,
+    refetch,
+    trainingPlans,
+    userTrainingPlanId: user && user.trainingPlan && user.trainingPlan._id,
+  }),
+})(withLoading(TrainingPlansContainer));
 
 const TrainingPlansWithDataAndMutation = graphql(updateUser, { name: 'updateUser' })(TrainingPlansWithData);
 

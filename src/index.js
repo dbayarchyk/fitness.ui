@@ -31,7 +31,7 @@ networkInterface.use([{
       req.options.headers = {}; // Create the header object if needed.
     }
     // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('f-token');
 
     if (token) {
       req.options.headers.authorization = `Bearer ${token}`;
@@ -57,8 +57,8 @@ const store = createStore(
   )
 );
 
-if (localStorage.token) {
-  store.dispatch(authActions.login(localStorage.token));
+if (localStorage.getItem('f-token')) {
+  store.dispatch(authActions.login(localStorage.getItem('f-token')));
 }
 
 ReactDOM.render(
