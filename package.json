@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "4.0.0-beta",
     "dateformat": "^2.0.0",
     "font-awesome": "^4.7.0",
     "halogen": "^0.2.0",
@@ -21,7 +21,7 @@
     "react-redux-toastr": "^7.1.5",
     "react-router-dom": "^4.1.1",
     "react-transition-group": "^1.2.0",
-    "reactstrap": "^4.6.2",
+    "reactstrap": "next",
     "recharts": "^1.0.0-alpha.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"

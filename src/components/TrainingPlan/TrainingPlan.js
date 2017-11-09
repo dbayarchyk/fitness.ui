@@ -4,8 +4,6 @@ import {
   CardBlock,
   Row,
   Col,
-  ListGroup,
-  ListGroupItem,
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';

@@ -5,15 +5,23 @@ body {
   background: #e9e9e9;
 }
 
+html {
+  height: 100%;
+}
+
 html,
 body {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow: hidden;
 }
 
 #root,
 .App {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow: hidden;
 }
 
@@ -22,7 +30,9 @@ a:hover {
 }
 
 .main {
-  height: calc(100% - 54px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow: auto;
 }
 
@@ -49,4 +59,10 @@ a:hover {
 
 .full-height {
   height: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }

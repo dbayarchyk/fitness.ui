@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { gql, graphql } from 'react-apollo';
 
 import withLoading from '../utils/withLoading';
-import Spinner from '../components/common/Spinner/Spinner';
 import TrainingPlan from '../components/TrainingPlan/TrainingPlan';
 
 const trainingPlanAndUser = gql`
@@ -62,13 +61,13 @@ class TrainingPlanContainer extends Component {
       data: { trainingPlan },
     },
   })
-    .then(() => this.props.data.refetch());
+    .then(() => this.props.refetch());
 
   render() {
     return (
       <TrainingPlan
         {...this.props.trainingPlan}
-        userTrainingPlanId={this.props.userTrainingPlan}
+        userTrainingPlanId={this.props.userTrainingPlanId}
         changeUserTrainingPlan={this.changeUserTrainingPlan}
       />
     );

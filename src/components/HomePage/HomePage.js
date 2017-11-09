@@ -16,6 +16,8 @@ import TrainingPlans from '../../containers/TrainingPlans';
 import TrainingPlan from '../../containers/TrainingPlan';
 import TrainingOverview from '../../containers/TrainingOverview';
 
+import Manage from '../../containers/Manage';
+
 const HomePage = ({ match }) => (
   <div className="home">
     <Container className="home__container" fluid>
@@ -27,6 +29,8 @@ const HomePage = ({ match }) => (
         <Route path={`${match.url}/training-plan/:id`} component={TrainingPlan} />
         <Route exact path={`${match.url}/training`} component={Training} />
         <Route exact path={`${match.url}/training/:id`} component={TrainingOverview} />
+
+        <Route exact path={`${match.url}/manage/:type`} component={Manage} />
       </Switch>
     </Container>
   </div>
