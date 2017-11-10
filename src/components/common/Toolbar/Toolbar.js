@@ -38,7 +38,7 @@ class Toolbar extends Component {
       <div className="toolbar">
         <Navbar color="faded" light expand="md">
           <NavbarBrand className="toolbar-title">{this.props.title}</NavbarBrand>
-
+          
           <NavbarToggler onClick={this.toggle} />
 
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -51,6 +51,7 @@ class Toolbar extends Component {
                     key={actionIndex}
                     onClick={action.onClick}
                     disabled={action.disabled}
+                    title={action.title}
                   >
                     <span className="toolbar-action__icon">
                       {action.icon}

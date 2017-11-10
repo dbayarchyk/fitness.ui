@@ -101,6 +101,11 @@ class ManageContainer extends Component {
         onClick: this.delete,
         disabled: this.isDeleteDisabled(),
       },
+      {
+        icon: <FontAwesome name="plus-square" />,
+        title: 'Create',
+        disabled: true,
+      },
     ];
 
     return (
