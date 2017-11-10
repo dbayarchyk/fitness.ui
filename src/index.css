@@ -60,9 +60,3 @@ a:hover {
 .full-height {
   height: 100%;
 }
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}

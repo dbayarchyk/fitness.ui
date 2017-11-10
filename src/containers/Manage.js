@@ -41,7 +41,7 @@ class ManageContainer extends Component {
     activeType: null,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setDataByActiveType(this.props.match.params.type);
   }
 

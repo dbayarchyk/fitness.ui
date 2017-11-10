@@ -1,5 +1,5 @@
 import React from 'react';
-import { RingLoader } from 'halogen';
+import { PulseLoader } from 'react-spinners';
 import PropTypes from 'prop-types';
 
 import './Spinner.css';
@@ -8,7 +8,7 @@ const color = '#0275d8';
 
 const Spinner = ({ isLoading }) => isLoading && (
   <div className="spinner-wrapper">
-    <RingLoader color={color} />
+    <PulseLoader color={color} />
   </div>
 );
 

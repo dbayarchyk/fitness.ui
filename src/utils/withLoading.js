@@ -6,12 +6,10 @@ import Spinner from '../components/common/Spinner/Spinner';
 
 export default function (ComposedComponent) {
   const WithLoading = ({ isLoading, ...props }) => {
-    return (
-      <div className="loading-container">
-        <Spinner key="loading" isLoading={isLoading} />
-        <ComposedComponent key="component" {...props} />
-      </div>
-    );
+    return [
+      <Spinner key="loading" isLoading={isLoading} />,
+      <ComposedComponent key="component" {...props} />,
+    ];
   };
 
   WithLoading.propTypes = {
