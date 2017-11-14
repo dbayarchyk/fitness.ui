@@ -53,10 +53,10 @@ class MealModal extends Component {
 
   componentWillReceiveProps({ meal }) {
     // To update state when new props are received.
-    this.state = {
+    this.setState({
       meal: meal || emptyMealModel,
       newMealItem: emptyNewMealModel,
-    };
+    });
   }
 
   updateMealItemFood = (product, mealItemIndex) => this.setState(oldState => ({
@@ -170,7 +170,7 @@ class MealModal extends Component {
                         foodAutoCompleteConfig={{
                           onChange: product => this.updateMealItemFood(product, mealIndex),
                           filterBy: this.excludeProductsDuplication,
-                          selected: [food.product],
+                          selected: food.product,
                         }}
                         weightInputConfig={{
                           value: food.weight,

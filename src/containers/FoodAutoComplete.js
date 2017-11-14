@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { gql, graphql } from 'react-apollo';
 
-import FoodAutoComplete from '../components/FoodAutoComplete/FoodAutoComplete';
+import AutoComplete from '../components/common/AutoComplete/AutoComplete';
 
 const foods = gql`
   query foods($query: FoodQueryParams) {
@@ -30,19 +30,21 @@ class FoodAutoCompleteContainer extends Component {
   };
 
   clear() {
-    this.foodAutoComplete.typehead.getInstance().clear();
+    this.foodAutoComplete.clear();
   }
 
   render() {
     return (
-      <FoodAutoComplete
+      <AutoComplete 
         ref={(foodAutoComplete) => { this.foodAutoComplete = foodAutoComplete; }}
-        onSearch={name => this.props.data.refetch({ query: { name } })}
-        onChange={items => this.props.onChange(items[0])}
-        selected={this.props.selected}
+        value={this.props.selected && this.props.selected.name}
+        items={this.props.data.foods}
+        getItemValue={food => food.name}
+        onChange={name => this.props.data.refetch({ query: { name } })}
+        onSelect={item => this.props.onChange(item)}
         filterBy={this.props.filterBy}
+        noItemsMessage="No items"
         disabled={this.props.disabled}
-        foods={this.props.data.foods}
       />
     );
   }

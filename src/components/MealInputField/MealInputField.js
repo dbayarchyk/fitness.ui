@@ -17,12 +17,12 @@ const MealInputField = ({
   weightInputConfig,
   buttonConfig,
 }) => (
-  <InputGroup>
+  <InputGroup className="meal-input-field">
     <InputGroupAddon>
       <img
         src={avatarUrl}
         className="meal-input-field__avatar"
-        alt="Meal avatar"
+        alt=""
       />
     </InputGroupAddon>
     <FoodAutoComplete {...foodAutoCompleteConfig} />

@@ -18,7 +18,7 @@ const MealPlan = ({ mealPlan, foods }) => (
             <MealInputField
               avatarUrl={mealFood.product.avatarUrl}
               foodAutoCompleteConfig={{
-                selected: [mealFood.product],
+                selected: mealFood.product,
                 disabled: true,
               }}
               weightInputConfig={{
