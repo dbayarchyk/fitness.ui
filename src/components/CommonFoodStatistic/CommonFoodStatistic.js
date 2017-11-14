@@ -7,7 +7,7 @@ import {
   CardSubtitle
 } from 'reactstrap';
 
-import MultiProgress from '../MultiProgress/MultiProgress';
+import MultiProgress from '../common/MultiProgress/MultiProgress';
 
 const CommonFoodStatistic = ({ calorificValue, nutrients , userDailyNutritionRate }) => (
   <Card block>

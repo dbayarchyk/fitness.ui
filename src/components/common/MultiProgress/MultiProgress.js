@@ -39,7 +39,11 @@ const MultiProgress = ({ value, commonValue, units }) => {
 MultiProgress.propTypes = {
   value: PropTypes.number.isRequired,
   commonValue: PropTypes.number.isRequired,
-  units: PropTypes.string.isRequired,
+  units: PropTypes.string,
+};
+
+MultiProgress.defaultProps = {
+  units: null,
 };
 
 export default MultiProgress;
