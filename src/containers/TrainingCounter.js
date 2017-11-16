@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as actions from '../actions/training';
 import Counter from '../components/Counter/Counter';
 
-class CounterContainer extends Component {
+class TrainingCounter extends Component {
   static propTypes = {
     maxCount: PropTypes.number,
     finishApproach: PropTypes.func.isRequired,
@@ -64,12 +64,13 @@ class CounterContainer extends Component {
 const mapStateToProps = state => ({
   isStarted: state.training.isApproachStarted,
   isPaused: state.training.isApproachStopped,
-  maxCount: state.training.trainingData &&
-    state.training.trainingData.exerciseAproaches[state.training.currentExerciseApproachIndex].count,
+  maxCount: state.training.trainingData
+            && state.training.trainingData.exerciseAproaches[state.training.currentExerciseApproachIndex]
+            && state.training.trainingData.exerciseAproaches[state.training.currentExerciseApproachIndex].count,
 });
 
 const mapDispatchToProps = dispatch => ({
   finishApproach: () => dispatch(actions.finishApproach()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TrainingCounter);

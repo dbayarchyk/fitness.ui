@@ -57,8 +57,12 @@ class TrainingContainer extends Component {
     isLoading: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUserCurrentTraining();
+  }
+
+  componentWillUnmount() {
+    this.props.resetTraining();
   }
 
   getUserCurrentTraining() {

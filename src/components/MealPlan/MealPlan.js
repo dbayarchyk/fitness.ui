@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   ListGroup,
   ListGroupItem,
+  UncontrolledTooltip,
 } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
 
@@ -28,10 +29,21 @@ const MealPlan = ({ mealPlan, foods }) => (
               }}
               buttonConfig={{
                 className: 'meal-plan__food__marker',
+                id: `info-button-${mealFood._id}`,
                 color: foods.find(food => food.product._id === mealFood.product._id && food.weight === mealFood.weight) ? 'success' : 'warning',
                 children: foods.find(food => food.product._id === mealFood.product._id && food.weight === mealFood.weight)
-                  ? <FontAwesome name="check" />
-                  : <FontAwesome name="exclamation" />,
+                  ? [
+                    <FontAwesome key="icon" name="check" />,
+                    <UncontrolledTooltip key="tooltip" target={`info-button-${mealFood._id}`}>
+                      You fullfilled this meal
+                    </UncontrolledTooltip>,
+                  ]
+                  : [
+                    <FontAwesome key="icon" name="exclamation" />,
+                    <UncontrolledTooltip key="tooltip" target={`info-button-${mealFood._id}`}>
+                      You have to fullfill this meal
+                    </UncontrolledTooltip>,
+                  ]
               }}
             />
           </ListGroupItem>

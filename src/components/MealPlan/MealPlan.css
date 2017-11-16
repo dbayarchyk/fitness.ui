@@ -12,9 +12,6 @@
   cursor: default;
 }
 
-.meal-plan__food__marker {
-  width: 46.58px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.meal-plan__food__marker:focus {
+  box-shadow: none;
 }

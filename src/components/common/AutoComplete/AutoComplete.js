@@ -95,6 +95,7 @@ class AutoComplete extends Component {
  
   render() {
     const {
+      placeholder,
       getItemValue,
       noItemsMessage,
       disabled,
@@ -107,6 +108,7 @@ class AutoComplete extends Component {
         <Input
           className="autocomplete__input"
           value={this.state.value}
+          placeholder={placeholder}
           onChange={this.onInputChange}
           disabled={disabled}
         />
@@ -143,6 +145,7 @@ class AutoComplete extends Component {
 
 AutoComplete.propTypes = {
   value: PropTypes.string,
+  placeholder: PropTypes.string,
   items: PropTypes.array,
   getItemValue: PropTypes.func,
   onSelect: PropTypes.func,
@@ -153,6 +156,7 @@ AutoComplete.propTypes = {
 
 AutoComplete.defaultProps = {
   value: '',
+  placeholder: 'Start typing',
   items: [],
   getItemValue: item => item,
   onSelect: () => {},
