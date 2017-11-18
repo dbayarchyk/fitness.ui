@@ -38,6 +38,28 @@ const trainingPlansQuery = gql`
   }
 `;
 
+const musclesQuery = gql`
+  query muscles {
+    muscles {
+      _id,
+      name,
+      group,
+    },
+  }
+`;
+
+const exercisesQuery = gql`
+  query exercises {
+    exercises {
+      _id,
+      name,
+      muscules {
+        name,
+      },
+    },
+  }
+`;
+
 export const getItems = (query, type) => {
   switch(type) {
     case TYPE.USERS:
@@ -64,6 +86,22 @@ export const getItems = (query, type) => {
           .then(({ data }) => resolve({ data: data.trainingPlans }))
           .catch(err => reject(err))
       });
+    case TYPE.MUSCLES:
+      return new Promise((resolve, reject) => {
+        query({
+          query: musclesQuery,
+        })
+          .then(({ data }) => resolve({ data: data.muscles }))
+          .catch(err => reject(err))
+      });
+    case TYPE.EXERCISES:
+      return new Promise((resolve, reject) => {
+        query({
+          query: exercisesQuery,
+        })
+          .then(({ data }) => resolve({ data: data.exercises }))
+          .catch(err => reject(err))
+      });
   }
 };
 
@@ -86,6 +124,22 @@ const removeFoodPlanMutation = gql`
 const removeTrainingPlanMutation = gql`
   mutation removeTrainingPlan($id: ID!) {
     removeTrainingPlan(_id: $id) {
+      _id,
+    }
+  }
+`;
+
+const removeMuscleMutation = gql`
+  mutation removeMuscle($id: ID!) {
+    removeMuscle(_id: $id) {
+      _id,
+    }
+  }
+`;
+
+const removeExerciseMutation = gql`
+  mutation removeExercise($id: ID!) {
+    removeExercise(_id: $id) {
       _id,
     }
   }
@@ -119,6 +173,24 @@ export const removeItem = (mutate, type, id) => {
         })
           .then(({ data }) => resolve({ data: data.removeTraining }))
           .catch(err => reject(err))
-      })
+      });
+    case TYPE.MUSCLES:
+      return new Promise((resolve, reject) => {
+        mutate({
+          mutation: removeMuscleMutation,
+          variables: { id },
+        })
+          .then(({ data }) => resolve({ data: data.removeMuscle }))
+          .catch(err => reject(err))
+      });
+    case TYPE.EXERCISES:
+      return new Promise((resolve, reject) => {
+        mutate({
+          mutation: removeExerciseMutation,
+          variables: { id },
+        })
+          .then(({ data }) => resolve({ data: data.removeExercise }))
+          .catch(err => reject(err))
+      });
   }
 };

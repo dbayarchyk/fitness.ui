@@ -71,7 +71,11 @@ const Table = ({
                   key={column.name}
                   className={`table__column ${column.class}`}
                 >
-                  {item[column.name]}
+                  {
+                    column.renderItemValue
+                      ? column.renderItemValue(item[column.name], item)
+                      : item[column.name]
+                  }
                 </td>
               ))
             }
@@ -87,6 +91,7 @@ Table.propTypes = {
     name: PropTypes.string.isRequired,
     title: PropTypes.string,
     class: PropTypes.string,
+    renderItemValue: PropTypes.func,
   })),
   items: PropTypes.array,
   onRowClick: PropTypes.func,

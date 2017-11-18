@@ -13,4 +13,12 @@ export default [
     id: TYPE.TRAINING_PLANS,
     title: 'Training Plans',
   },
+  {
+    id: TYPE.EXERCISES,
+    title: 'Exercises',
+  },
+  {
+    id: TYPE.MUSCLES,
+    title: 'Muscles',
+  },
 ];

@@ -1,3 +1,5 @@
+import * as MANAGE_TYPE from '../../../constants/manageTypes';
+
 const NAV_MENU_ITEMS = [
   {
     title: 'Profile',
@@ -43,16 +45,24 @@ const NAV_MENU_ITEMS = [
     children: [
       {
         title: 'Users',
-        routeTo: 'app/manage/users',
+        routeTo: `app/manage/${MANAGE_TYPE.USERS}`,
       },
       {
         title: 'Food Plans',
-        routeTo: 'app/manage/food-plans',
+        routeTo: `app/manage/${MANAGE_TYPE.FOOD_PLANS}`,
       },
       {
         title: 'Training Plans',
-        routeTo: 'app/manage/training-plans',
-      }
+        routeTo: `app/manage/${MANAGE_TYPE.TRAINING_PLANS}`,
+      },
+      {
+        title: 'Exercises',
+        routeTo: `app/manage/${MANAGE_TYPE.EXERCISES}`,
+      },
+      {
+        title: 'Muscles',
+        routeTo: `app/manage/${MANAGE_TYPE.MUSCLES}`,
+      },
     ]
   }
 ];
