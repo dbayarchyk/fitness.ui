@@ -16,8 +16,8 @@ export default function (ComposedComponent) {
   };
 
   WithLoading.defaultProps = {
-    isLoading: true,
-  }
+    isLoading: false,
+  };
 
   return WithLoading;
 }

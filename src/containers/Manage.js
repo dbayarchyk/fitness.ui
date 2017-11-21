@@ -57,13 +57,21 @@ class ManageContainer extends Component {
     this.props.getItems(this.props.client.query);
   }
 
-  edit = () => { }
+  edit = () => {
+    this.props.history.push(`/app/muscle-builder/${this.props.selectedItemId}`);
+  }
 
   delete = () => {
     this.props.removeItem(this.props.client.mutate);
   }
 
-  isEditDisabled = () => true
+  create = () => {
+    this.props.history.push('/app/muscle-builder');
+  }
+
+  isEditDisabled = () => {
+    return !this.props.selectedItemId || this.props.activeType !== TYPE.MUSCLES;
+  }
 
   isDeleteDisabled = () => {
     if (this.props.activeType === TYPE.USERS && this.props.selectedItemId === this.props.currentUserId) {
@@ -71,6 +79,10 @@ class ManageContainer extends Component {
     }
 
     return !this.props.selectedItemId;
+  }
+
+  isCreateDisabled = () => {
+    return this.props.activeType !== TYPE.MUSCLES;
   }
 
   handleItemSelection = (selectedItemIndex) => {
@@ -104,7 +116,8 @@ class ManageContainer extends Component {
       {
         icon: <FontAwesome name="plus-square" />,
         title: 'Create',
-        disabled: true,
+        onClick: this.create,
+        disabled: this.isCreateDisabled(),
       },
     ];
 

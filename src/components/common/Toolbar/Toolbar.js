@@ -34,37 +34,41 @@ class Toolbar extends Component {
   toggle = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }))
 
   render() {
+    const actionsMenu = [
+      <NavbarToggler onClick={this.toggle} key="trigger" />,
+
+      <Collapse isOpen={this.state.isOpen} navbar key="menu">
+        <Nav className="ml-auto toolbar-actions" navbar>
+          {
+            this.props.actions.map((action, actionIndex) => (
+              <Button
+                color="link"
+                className="toolbar-action"
+                key={actionIndex}
+                onClick={action.onClick}
+                disabled={action.disabled}
+                title={action.title}
+              >
+                <span className="toolbar-action__icon">
+                  {action.icon}
+                </span>
+
+                <span className="toolbar-action__title">
+                  {action.title}
+                </span>
+              </Button>
+            ))
+          }
+        </Nav>
+      </Collapse>,
+    ];
+
     return (
       <div className="toolbar">
         <Navbar color="faded" light expand="md">
           <NavbarBrand className="toolbar-title">{this.props.title}</NavbarBrand>
-          
-          <NavbarToggler onClick={this.toggle} />
 
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto toolbar-actions" navbar>
-              {
-                this.props.actions.map((action, actionIndex) => (
-                  <Button
-                    color="link"
-                    className="toolbar-action"
-                    key={actionIndex}
-                    onClick={action.onClick}
-                    disabled={action.disabled}
-                    title={action.title}
-                  >
-                    <span className="toolbar-action__icon">
-                      {action.icon}
-                    </span>
-
-                    <span className="toolbar-action__title">
-                      {action.title}
-                    </span>
-                  </Button>
-                ))
-              }
-            </Nav>
-          </Collapse>
+          {!!this.props.actions.length && actionsMenu}
         </Navbar>
       </div>
     );

@@ -12,15 +12,32 @@ import './EditableField.css';
 
 class EditableField extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     onSubmit: PropTypes.func.isRequired,
 
-    input: PropTypes.object.isRequired,
+    input: PropTypes.shape({
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+    }).isRequired,
   };
 
-  state = {
-    isEditMode: false,
-    inputValue: this.props.input.value,
+  static defaultProps = {
+    children: null,
+
+    input: {
+      value: '',
+    },
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isEditMode: false,
+      inputValue: props.input.value,
+    };
   }
 
   onInputChange = e => this.setState({ inputValue: e.target.value });
