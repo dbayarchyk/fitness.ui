@@ -11,6 +11,7 @@ import withLoading from '../utils/withLoading';
 import TABS from '../constants/manageTabs';
 import COLUMNS from '../constants/manageColumns';
 import Manage from '../components/Manage/Manage';
+import ConfirmationDialog from '../components/common/ConfirmationDialog/ConfirmationDialog';
 
 class ManageContainer extends Component {
   static propTypes = {
@@ -41,6 +42,12 @@ class ManageContainer extends Component {
     activeType: null,
   }
 
+  state = {
+    confirmationModal: {
+      isOpen: false,
+    }
+  }
+
   componentDidMount() {
     this.setDataByActiveType(this.props.match.params.type);
   }
@@ -62,7 +69,30 @@ class ManageContainer extends Component {
   }
 
   delete = () => {
-    this.props.removeItem(this.props.client.mutate);
+    this.setState(prevState => ({
+      ...prevState,
+      confirmationModal: {
+        isOpen: true,
+        body: 'Do you really want do delete this item?',
+        submitButton: {
+          color: 'danger', 
+          children: 'Yes, delete',
+        },
+        onAnswer: (answer) => {
+          if (answer) {
+            this.props.removeItem(this.props.client.mutate);
+          }
+
+          this.setState(prevState => ({
+            ...prevState,
+            confirmationModal: {
+              ...prevState.confirmationModal,
+              isOpen: false,
+            },
+          }));
+        }
+      }
+    }))
   }
 
   create = () => {
@@ -121,8 +151,9 @@ class ManageContainer extends Component {
       },
     ];
 
-    return (
+    return [
       <Manage
+        key="manage"
         tabs={TABS}
         columns={COLUMNS[this.props.activeType]}
         items={this.props.items}
@@ -132,8 +163,13 @@ class ManageContainer extends Component {
         toolbarActions={toolbarActions}
         onItemClick={this.onItemClick}
         onItemDblClick={this.onItemDblClick}
-      />
-    );
+      />,
+
+      <ConfirmationDialog
+        key="confirmation"
+        {...this.state.confirmationModal}
+      />,
+    ];
   }
 }
 

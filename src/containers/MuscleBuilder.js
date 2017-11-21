@@ -6,8 +6,7 @@ import { toastr } from 'react-redux-toastr';
 
 import withLoading from '../utils/withLoading';
 import MuscleBuilder from '../components/MuscleBuilder/MuscleBuilder';
-import { loadavg } from 'os';
-import { Progress } from 'reactstrap';
+
 const MuscleBuilderWithLoading = withLoading(MuscleBuilder);
 
 const muscleQuery = gql`
