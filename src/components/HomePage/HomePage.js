@@ -18,6 +18,7 @@ import TrainingOverview from '../../containers/TrainingOverview';
 
 import Manage from '../../containers/Manage';
 import MuscleBuilder from '../../containers/MuscleBuilder';
+import ExerciseBuilder from '../../containers/ExerciseBuilder';
 
 const HomePage = ({ match }) => (
   <div className="home">
@@ -34,6 +35,8 @@ const HomePage = ({ match }) => (
         <Route exact path={`${match.url}/manage/:type`} component={Manage} />
         <Route exact path={`${match.url}/muscle-builder/:id`} component={MuscleBuilder} />
         <Route exact path={`${match.url}/muscle-builder`} component={MuscleBuilder} />
+        <Route exact path={`${match.url}/exercise-builder/:id`} component={ExerciseBuilder} />
+        <Route exact path={`${match.url}/exercise-builder`} component={ExerciseBuilder} />
       </Switch>
     </Container>
   </div>

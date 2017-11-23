@@ -4,16 +4,16 @@ import { gql, graphql } from 'react-apollo';
 
 import AutoComplete from '../components/common/AutoComplete/AutoComplete';
 
-const foods = gql`
-  query foods($query: FoodQueryParams) {
-    foods(query: $query) {
+const muscles = gql`
+  query muscles($query: MuscleQueryParams) {
+    muscles(query: $query) {
       _id,
       name,
-      avatarUrl
+      group,
   }
 }`;
 
-class FoodAutoCompleteContainer extends Component {
+class MuscleAutoCompleteContainer extends Component {
   static propTypes = {
     onChange: PropTypes.func,
     selected: PropTypes.object,
@@ -30,16 +30,16 @@ class FoodAutoCompleteContainer extends Component {
   };
 
   clear() {
-    this.foodAutoComplete.clear();
+    this.muscleAutoComplete.clear();
   }
 
   render() {
     return (
       <AutoComplete 
-        ref={(foodAutoComplete) => { this.foodAutoComplete = foodAutoComplete; }}
+        ref={(muscleAutoComplete) => { this.muscleAutoComplete = muscleAutoComplete; }}
         value={this.props.selected && this.props.selected.name}
-        items={this.props.data.foods}
-        getItemValue={food => food.name}
+        items={this.props.data.muscles}
+        getItemValue={muscle => muscle.name}
         onChange={name => this.props.data.refetch({ query: { name } })}
         onSelect={item => this.props.onChange(item)}
         filterBy={this.props.filterBy}
@@ -50,13 +50,13 @@ class FoodAutoCompleteContainer extends Component {
   }
 }
 
-const FoodAutoCompleteWithData = graphql(foods, {
+const MuscleAutoCompleteWithData = graphql(muscles, {
   options: () => ({
     variables: {
       query: {},
     },
   }),
   withRef: true,
-})(FoodAutoCompleteContainer);
+})(MuscleAutoCompleteContainer);
 
-export default FoodAutoCompleteWithData;
+export default MuscleAutoCompleteWithData;

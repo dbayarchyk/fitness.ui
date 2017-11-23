@@ -1,0 +1,24 @@
+.exercise-builder {
+  background-color: #fff;
+}
+
+.exercise-builder__muscle {
+  font-size: 14px;
+  font-weight: normal;
+  padding: 0.0em 0.4em;
+  margin: 0 3px;
+}
+
+.exercise-builder__muscle:first-child {
+  margin-left: 0;
+}
+
+.exercise-builder__remove-muscle-button {
+  color: inherit;
+}
+
+.exercise__data__avatar {
+  border-radius: 10%;
+  height: 150px;
+  width: 200px;
+}

@@ -65,7 +65,14 @@ class ManageContainer extends Component {
   }
 
   edit = () => {
-    this.props.history.push(`/app/muscle-builder/${this.props.selectedItemId}`);
+    switch (this.props.activeType) {
+      case TYPE.MUSCLES:
+        this.props.history.push(`/app/muscle-builder/${this.props.selectedItemId}`);
+        break;
+      case TYPE.EXERCISES:
+        this.props.history.push(`/app/exercise-builder/${this.props.selectedItemId}`);
+        break;
+    }
   }
 
   delete = () => {
@@ -96,11 +103,27 @@ class ManageContainer extends Component {
   }
 
   create = () => {
-    this.props.history.push('/app/muscle-builder');
+    switch (this.props.activeType) {
+      case TYPE.MUSCLES:
+        this.props.history.push('/app/muscle-builder');
+        break;
+      case TYPE.EXERCISES:
+        this.props.history.push('/app/exercise-builder');
+        break;
+    }
   }
 
   isEditDisabled = () => {
-    return !this.props.selectedItemId || this.props.activeType !== TYPE.MUSCLES;
+    let isAvalable = false;
+
+    switch (this.props.activeType) {
+      case TYPE.MUSCLES:
+      case TYPE.EXERCISES:
+        isAvalable = true;
+        break;
+    }
+
+    return !this.props.selectedItemId || !isAvalable;
   }
 
   isDeleteDisabled = () => {
@@ -112,7 +135,16 @@ class ManageContainer extends Component {
   }
 
   isCreateDisabled = () => {
-    return this.props.activeType !== TYPE.MUSCLES;
+    let isAvalable = false;
+    
+    switch (this.props.activeType) {
+      case TYPE.MUSCLES:
+      case TYPE.EXERCISES:
+        isAvalable = true;
+        break;
+    }
+
+    return !isAvalable;
   }
 
   handleItemSelection = (selectedItemIndex) => {

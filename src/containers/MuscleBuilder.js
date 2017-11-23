@@ -7,6 +7,8 @@ import { toastr } from 'react-redux-toastr';
 import withLoading from '../utils/withLoading';
 import MuscleBuilder from '../components/MuscleBuilder/MuscleBuilder';
 
+import * as MUSCLE_GROUP from '../constants/muscleGroups';
+
 const MuscleBuilderWithLoading = withLoading(MuscleBuilder);
 
 const muscleQuery = gql`
@@ -56,7 +58,7 @@ class MuscleBuilderContainer extends Component {
     muscle: {
       _id: null,
       name: '',
-      group: '',
+      group: MUSCLE_GROUP.BACK.type,
     },
   }
 
@@ -76,7 +78,8 @@ class MuscleBuilderContainer extends Component {
       .then(({ data: { muscle }, loading }) => this.setState({
         isLoading: loading,
         muscle,
-      }));
+      }))
+      .catch(err => this.setState({ isLoading: false }));
   }
 
   onFieldChange = ({ name, value }) => {
@@ -148,6 +151,8 @@ class MuscleBuilderContainer extends Component {
         {...this.state.muscle}
         toolbarActions={toolbarActions}
         onFieldChange={this.onFieldChange}
+        onRemoveMuscle={this.onRemoveMuscle}
+        onAddNewMuscle={this.onAddNewMuscle}
       />
     );
   }
