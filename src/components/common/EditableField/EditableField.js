@@ -40,6 +40,12 @@ class EditableField extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inputValue: nextProps.input.value,
+    });
+  }
+
   onInputChange = e => this.setState({ inputValue: e.target.value });
 
   onSubmit = () => {
