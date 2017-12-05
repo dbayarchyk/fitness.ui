@@ -1,6 +1,5 @@
 .manage {
   background-color: white;
-  display: flex;
   flex-direction: column;
   flex: 1;
 }

@@ -13,23 +13,25 @@ import FCard from '../common/Card/Card';
 import ExerciseApproachList from '../ExerciseApproachList/ExerciseApproachList';
 
 const TrainingOverview = ({ date, exerciseAproaches }) => (
-  <FCard
-    header={{ 
-      title: { children: moment(date).format('Do MMMM YYYY h:mm a') }
-    }}
+  <div>
+    <FCard
+      header={{ 
+        title: { children: moment(date).format('Do MMMM YYYY h:mm a') }
+      }}
 
-    body={{
-      children: (
-        <CardBlock className="training-overview">
-          <Row>
-            <Col xs="12" sm="12" md="12" lg="12" className="no-float">
-              <ExerciseApproachList exerciseAproaches={exerciseAproaches} />
-            </Col>
-          </Row>
-        </CardBlock>
-      ),
-    }}
-  />
+      body={{
+        children: (
+          <CardBlock className="training-overview">
+            <Row>
+              <Col xs="12" sm="12" md="12" lg="12" className="no-float">
+                <ExerciseApproachList exerciseAproaches={exerciseAproaches} />
+              </Col>
+            </Row>
+          </CardBlock>
+        ),
+      }}
+    />
+  </div>
 );
 
 ExerciseApproachList.propTypes = {

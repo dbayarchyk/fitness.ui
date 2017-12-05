@@ -75,6 +75,10 @@ class TrainingContainer extends Component {
       .then(({ data, loading }) => {
         this.props.setTrainingData(data.userDailyTraining);
         this.setState({ isLoading: loading });
+      })
+      .catch(() => {
+        this.props.setTrainingData(null);
+        this.setState({ isLoading: false });
       });
   }
 

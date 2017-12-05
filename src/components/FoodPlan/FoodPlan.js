@@ -21,52 +21,54 @@ const FoodPlan = ({
   changeUserFoodPlan,
   userFoodPlanId,
 }) => (
-  <FCard
-    header={{
-      title: { children: name },
-      rightButton: userFoodPlanId === _id
-        ? {
-          onClick: () => changeUserFoodPlan(null),
-          children: <FontAwesome name="minus" />,
-        }
-        : {
-          onClick: () => changeUserFoodPlan(_id),
-          children: <FontAwesome name="plus" />,
-        },
-    }}
+  <div>
+    <FCard
+      header={{
+        title: { children: name },
+        rightButton: userFoodPlanId === _id
+          ? {
+            onClick: () => changeUserFoodPlan(null),
+            children: <FontAwesome name="minus" />,
+          }
+          : {
+            onClick: () => changeUserFoodPlan(_id),
+            children: <FontAwesome name="plus" />,
+          },
+      }}
 
-    img={{ src: avatarUrl }}
+      img={{ src: avatarUrl }}
 
-    body={{
-      children: [
-        <div className="food-plan__nutrition-rate">
-          <CharacteristicField>
-            <CharacteristicKey xs="8">Calorific value</CharacteristicKey>
-            <CharacteristicValue xs="4">{calorificValue}kcal</CharacteristicValue>
-          </CharacteristicField>
+      body={{
+        children: [
+          <div className="food-plan__nutrition-rate">
+            <CharacteristicField>
+              <CharacteristicKey xs="8">Calorific value</CharacteristicKey>
+              <CharacteristicValue xs="4">{calorificValue}kcal</CharacteristicValue>
+            </CharacteristicField>
 
-          <CharacteristicField>
-            <CharacteristicKey xs="8">Proteins</CharacteristicKey>
-            <CharacteristicValue xs="4">{nutrients.proteins}g</CharacteristicValue>
-          </CharacteristicField>
+            <CharacteristicField>
+              <CharacteristicKey xs="8">Proteins</CharacteristicKey>
+              <CharacteristicValue xs="4">{nutrients.proteins}g</CharacteristicValue>
+            </CharacteristicField>
 
-          <CharacteristicField>
-            <CharacteristicKey xs="8">Carbohydrates</CharacteristicKey>
-            <CharacteristicValue xs="4">{nutrients.carbohydrates}g</CharacteristicValue>
-          </CharacteristicField>
+            <CharacteristicField>
+              <CharacteristicKey xs="8">Carbohydrates</CharacteristicKey>
+              <CharacteristicValue xs="4">{nutrients.carbohydrates}g</CharacteristicValue>
+            </CharacteristicField>
 
-          <CharacteristicField>
-            <CharacteristicKey xs="8">Fats</CharacteristicKey>
-            <CharacteristicValue xs="4">{nutrients.fats}g</CharacteristicValue>
-          </CharacteristicField>
-        </div>,
+            <CharacteristicField>
+              <CharacteristicKey xs="8">Fats</CharacteristicKey>
+              <CharacteristicValue xs="4">{nutrients.fats}g</CharacteristicValue>
+            </CharacteristicField>
+          </div>,
 
-        <div className="food-plan__meals">
-          <MealsOverview meals={meals} />
-        </div>,
-      ],
-    }}
-  />
+          <div className="food-plan__meals">
+            <MealsOverview meals={meals} />
+          </div>,
+        ],
+      }}
+    />
+  </div>
 );
 
 FoodPlan.propTypes = {
